@@ -9,6 +9,10 @@
 *.dll
 *.dylib
 
+# SQLite databases
+*.db
+*.db3
+
 # Qt-es
 object_script.*.Release
 object_script.*.Debug
@@ -28,6 +32,8 @@ ui_*.h
 *.jsc
 Makefile*
 *build-*
+*.qm
+.directory
 
 # Qt unit tests
 target_wrapper.*
