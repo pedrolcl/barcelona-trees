@@ -84,31 +84,13 @@ Page {
                     height: 5
                     color: "green"
                     MouseArea {
-                        function wikipediaLink()
-                        {
-                            var s = "";
-                            if (model.scientificName.indexOf(" x ") > -1) {
-                                s = model.scientificName.replace(" x ", "_x_");
-                            } else {
-                                s = model.scientificName.replace(" ", "_");
-                            }
-                            var idx = s.indexOf(" ");
-                            if ( idx > -1) {
-                                s = s.substring(0, idx);
-                            }
-                            return "<a href='https://es.wikipedia.org/wiki/%1'><i>%2</i></a>".arg(s).arg(model.scientificName);
-                        }
-                        function streetViewLink()
-                        {
-                            var pos = "viewpoint=%1,%2".arg(model.latitude).arg(model.longitude);
-                            return "<a href='https://www.google.com/maps/@?api=1&map_action=pano&%1'>%2</a>".arg(pos).arg(model.plantAddress);
-                        }
                         anchors.fill: parent
                         hoverEnabled: true
                         onClicked: {
-                            specimenDialog.specieScientificName = wikipediaLink()
+                            specimenDialog.specieScientificName = plantModel.wikiLink(index)
                             specimenDialog.specieCommonNames = model.commonName1 + '\n' + model.commonName2
-                            specimenDialog.specimenLocation = streetViewLink()
+                            specimenDialog.specimenLocation = plantModel.streetLink(index)
+                            specimenDialog.specimenDistance = plantModel.formattedDistance(index)
                             specimenDialog.open()
                         }
                         onEntered: {
@@ -121,8 +103,7 @@ Page {
                     ToolTip {
                         id: tip
                         parent: mark
-                        text: model.scientificName
-                        font.italic: true
+                        text: plantModel.formattedScientificName(index)
                     }
                 }
             }

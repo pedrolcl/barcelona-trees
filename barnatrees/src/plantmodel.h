@@ -23,7 +23,12 @@ public:
     Q_INVOKABLE void setGender(QString gen);
     Q_INVOKABLE void setStreet(QString street);
 	Q_INVOKABLE QGeoCoordinate nearestPlant();
-	QGeoCoordinate plantCoordinate(int row);
+	Q_INVOKABLE QGeoCoordinate plantCoordinate(int row);
+	Q_INVOKABLE qreal plantDistance(int row);
+	Q_INVOKABLE QString formattedDistance(int row);
+	Q_INVOKABLE QString formattedScientificName(int row);
+	Q_INVOKABLE QString wikiLink(int row);
+	Q_INVOKABLE QString streetLink(int row);
 
 	int limit() const;
 	void setLimit(int limit);

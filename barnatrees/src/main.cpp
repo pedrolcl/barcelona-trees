@@ -103,6 +103,7 @@ int main(int argc, char **argv)
 	} else {
 		qWarning() << "Failure loading program translations for" << configuredLanguage;
 	}
+	QLocale::setDefault(locale);
 
     QGeoCoordinate locationBarna = QGeoCoordinate( 41.403216, 2.186674 );
 

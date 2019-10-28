@@ -2,6 +2,7 @@
 #include <QGeoCoordinate>
 #include <QSqlError>
 #include <QSqlRecord>
+#include <QLocale>
 #include <cmath>
 #include "plantmodel.h"
 
@@ -101,6 +102,67 @@ QGeoCoordinate PlantModel::plantCoordinate(int row)
 	return QGeoCoordinate(lat_ix.data().toReal(), lon_ix.data().toReal());
 }
 
+qreal PlantModel::plantDistance(int row)
+{
+	return plantCoordinate(row).distanceTo(m_center);
+}
+
+QString PlantModel::formattedDistance(int row)
+{
+	QLocale locale;
+	auto distance = plantDistance(row);
+	if (distance < 1000.0)
+		return locale.toString(distance, 'f', 0) + " m";
+	auto km = distance/1000.0;
+	if (km < 10.0)
+		return locale.toString(km, 'f', 1) + " km";
+	return locale.toString(km, 'f', 0) + " km";
+}
+
+QString PlantModel::formattedScientificName(int row)
+{
+	QModelIndex sn_ix = this->index(row, record().indexOf("scientificName"));
+	QString scientificName = sn_ix.data().toString();
+	int p = -1;
+	if ((p = scientificName.indexOf(" x ")) > -1) {
+		p = scientificName.indexOf(" ", p+3);
+	} else if ((p = scientificName.indexOf(" ")) > -1) {
+		p = scientificName.indexOf(" ", p+1);
+	}
+	if (p > -1) {
+		return QString("<i>%1</i> %2").arg(scientificName.left(p)).arg(scientificName.mid(p+1));
+	} else {
+		return QString("<i>%1</i>").arg(scientificName);
+	}
+}
+
+QString PlantModel::wikiLink(int row)
+{
+	QString n = formattedScientificName(row);
+	QModelIndex sn_ix = this->index(row, record().indexOf("scientificName"));
+	QString s = sn_ix.data().toString();
+	int p = -1;
+	if ((p = s.indexOf(" x ")) > -1) {
+		s = s.replace(p, 3, "_x_");
+	} else if ((p = s.indexOf(" ")) > -1) {
+		s = s.replace(p, 1, "_");
+	}
+	p = s.indexOf(" ");
+	if ( p > -1) {
+		s = s.left(p);
+	}
+	return QString("<a href='https://es.wikipedia.org/wiki/%1'>%2</a>").arg(s).arg(n);
+}
+
+QString PlantModel::streetLink(int row)
+{
+	QModelIndex lat_ix = this->index(row, record().indexOf("latitude"));
+	QModelIndex lon_ix = this->index(row, record().indexOf("longitude"));
+	QModelIndex addr_ix = this->index(row, record().indexOf("plantAddress"));
+	auto pos = QString("viewpoint=%1,%2").arg(lat_ix.data().toReal()).arg(lon_ix.data().toReal());
+	return QString("<a href='https://www.google.com/maps/@?api=1&map_action=pano&%1'>%2</a>").arg(pos).arg(addr_ix.data().toString());
+}
+
 QGeoCoordinate PlantModel::nearestPlant()
 {
 	QGeoCoordinate nearest;
@@ -127,8 +189,8 @@ QGeoCoordinate PlantModel::nearestPlant()
 void PlantModel::setCenter(QGeoCoordinate center)
 {
     m_center = center;
-	double radius = 353.55; // square of ½km side
-    m_p1 = CoordinateToCoordinate(center, radius, 0);
+	double radius = 353.553390593; // square of ½km side
+	m_p1 = CoordinateToCoordinate(center, radius, 0);
     m_p2 = CoordinateToCoordinate(center, radius, 90);
     m_p3 = CoordinateToCoordinate(center, radius, 180);
     m_p4 = CoordinateToCoordinate(center, radius, 270);

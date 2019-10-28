@@ -27,14 +27,12 @@ Dialog {
         spacing: 20
         Label {
             Layout.fillWidth: true
-            font.pixelSize: 12
             wrapMode: Label.Wrap
             text: qsTr("Select a Scientific Name:")
         }
         ComboBox {
             id: speciesCombo
             Layout.fillWidth: true
-            font.pixelSize: 12
             font.italic: true
             model: speciesModel
             textRole: "scientificName"
@@ -47,7 +45,6 @@ Dialog {
         Label {
             id: specieSummary
             Layout.fillWidth: true
-            font.pixelSize: 12
             text: ""
         }
     }

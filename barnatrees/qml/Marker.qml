@@ -62,7 +62,6 @@ Rectangle {
             width: parent.width
             color: "white"
             font.bold: true
-            font.pixelSize: 14
             horizontalAlignment: Text.AlignHCenter
             text: markText
         }

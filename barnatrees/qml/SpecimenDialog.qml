@@ -15,6 +15,7 @@ Dialog {
     property string specieScientificName: null
     property string specieCommonNames: null
     property string specimenLocation: null
+    property string specimenDistance: null
 
     ColumnLayout {
         anchors.fill: parent
@@ -23,8 +24,6 @@ Dialog {
         Label {
             text: specieScientificName
             Layout.fillWidth: true
-            font.pointSize: 18
-            font.italic: true
             wrapMode: Label.Wrap
             onLinkActivated: Qt.openUrlExternally(link)
         }
@@ -32,16 +31,20 @@ Dialog {
         Label {
             text: specieCommonNames
             Layout.fillWidth: true
-            font.pointSize: 16
             wrapMode: Label.Wrap
         }
 
         Label {
             text: specimenLocation
             Layout.fillWidth: true
-            font.pointSize: 16
             wrapMode: Label.Wrap
             onLinkActivated: Qt.openUrlExternally(link)
+        }
+
+        Label {
+            text: specimenDistance
+            Layout.fillWidth: true
+            wrapMode: Label.Wrap
         }
     }
 }

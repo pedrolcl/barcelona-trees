@@ -22,17 +22,18 @@ Page {
                     padding: 5
                     topPadding: (parent.height - contentHeight) / 2
                     font.bold: true
-                    font.pixelSize: 14
                     text: index + 1
                 }
                 Column {
                     Text {
-                        text: scientificName
+                        text: plantModel.formattedScientificName(index)
                         font.bold: true
-                        font.italic: true
                     }
                     Text {
                         text: plantAddress
+                    }
+                    Text {
+                        text: plantModel.formattedDistance(index)
                     }
                 }
             }

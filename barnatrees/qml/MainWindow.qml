@@ -33,7 +33,7 @@ ApplicationWindow {
 
             Label {
                 text: stackView.currentItem.title
-                font.pixelSize: 20
+                font.pixelSize: Qt.application.font.pixelSize * 1.6
                 horizontalAlignment: Qt.AlignHCenter
                 verticalAlignment: Qt.AlignVCenter
                 Layout.fillWidth: true
@@ -147,5 +147,4 @@ ApplicationWindow {
             homePage.changeMapCenter(plantModel.nearestPlant())
         }
     }
-
 }

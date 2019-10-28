@@ -28,7 +28,6 @@ Dialog {
                          + "under the terms of the license "
                          + "<a href='https://www.gnu.org/licenses/gpl-3.0.html'>GPLv3</a>" )
                 wrapMode: Label.Wrap
-                font.pixelSize: 12
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
@@ -49,7 +48,6 @@ Dialog {
                     + "under the therms of the <a href='https://creativecommons.org/licenses/by/4.0/'>"
                     + "Creative Commons Attribution 4.0 International (CC BY 4.0)</a> license.")
                 wrapMode: Label.Wrap
-                font.pixelSize: 12
                 onLinkActivated: Qt.openUrlExternally(link)
             }
         }
