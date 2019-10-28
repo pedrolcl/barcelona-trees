@@ -74,7 +74,7 @@ int main(int argc, char **argv)
 	QGuiApplication::setOrganizationName("BarcelonaTrees");
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc,argv);
-	app.setWindowIcon(QIcon(":/barnatrees_icon64.png"));
+	app.setWindowIcon(QIcon("qrc:/barnatrees_icon64.png"));
 
 	//qDebug()<<"SSL version use for build: "<<QSslSocket::sslLibraryBuildVersionString();
 	//qDebug()<<"SSL version use for run-time: "<<QSslSocket::sslLibraryVersionString();
@@ -91,15 +91,18 @@ int main(int argc, char **argv)
 	QString configuredLanguage = settings.value("language", defLang).toString();
 	QTranslator trq;
 	QTranslator trp;
-	qDebug() << "language=" << configuredLanguage;
-	if (!trq.load( ":/translations/qt_" + configuredLanguage) ) {
+	QLocale locale(configuredLanguage);
+	qDebug() << "locale:" << locale;
+	if (trq.load(locale, QLatin1String("qt"), QLatin1String("_"), QLatin1String(":/"))) {
+		QCoreApplication::installTranslator(&trq);
+	} else {
 		qWarning() << "Failure loading Qt5 translations for" << configuredLanguage;
 	}
-	if (!trp.load( ":/translations/barnatrees_" + configuredLanguage) ) {
+	if (trp.load(locale, QLatin1String("barnatrees"), QLatin1String("_"), QLatin1String(":/"))) {
+		QCoreApplication::installTranslator(&trp);
+	} else {
 		qWarning() << "Failure loading program translations for" << configuredLanguage;
 	}
-	QCoreApplication::installTranslator(&trq);
-	QCoreApplication::installTranslator(&trp);
 
     QGeoCoordinate locationBarna = QGeoCoordinate( 41.403216, 2.186674 );
 
@@ -122,17 +125,17 @@ int main(int argc, char **argv)
     }
 
 	SpeciesModel speciesModel;
-	//qDebug() << "species.columns:" << speciesModel.columnCount();
+	qDebug() << "species.columns:" << speciesModel.columnCount();
 
 	PlantModel plantModel;
 	plantModel.setCenter(locationBarna);
-	//qDebug() << "plants.columns:" << plantModel.columnCount();
+	qDebug() << "plants.columns:" << plantModel.columnCount();
 
 	QQmlApplicationEngine engine;
 	engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
 	engine.rootContext()->setContextProperty("speciesModel", &speciesModel);
 	engine.rootContext()->setContextProperty("plantModel", &plantModel);
-	engine.load(QUrl(QStringLiteral("qrc:/barnatrees.qml")));
+	engine.load(QUrl(QStringLiteral("qrc:/MainWindow.qml")));
 	if (engine.rootObjects().isEmpty())
 		return -1;
     return app.exec();

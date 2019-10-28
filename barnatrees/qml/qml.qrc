@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>MainWindow.qml</file>
+        <file>HomePage.qml</file>
+        <file>ResultsPage.qml</file>
+        <file>DetailsPage.qml</file>
+        <file>Marker.qml</file>
+        <file>AboutDialog.qml</file>
+        <file>SettingsDialog.qml</file>
+        <file>SpecieSearchDialog.qml</file>
+        <file>SpecimenDialog.qml</file>
+        <file>GenderSearchDialog.qml</file>
+        <file>StreetSearchDialog.qml</file>
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>marker.png</file>
+        <file>barnatrees_icon32.png</file>
+        <file>barnatrees_icon64.png</file>
+    </qresource>
+</RCC>

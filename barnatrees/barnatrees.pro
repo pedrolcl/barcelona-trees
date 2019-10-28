@@ -1,21 +1,39 @@
 TEMPLATE = app
-
 QT += sql quick quickcontrols2 qml network positioning location
-
-SOURCES = main.cpp \
-    basemodel.cpp \
-    plantmodel.cpp  \
-    speciesmodel.cpp
-	
-RESOURCES += \
-    barnatrees.qrc
+CONFIG += c++11
+DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
-    basemodel.h \
-    plantmodel.h \
-    speciesmodel.h
+    src/basemodel.h \
+    src/plantmodel.h \
+    src/speciesmodel.h
+
+SOURCES = \
+    src/basemodel.cpp \
+    src/main.cpp \
+    src/plantmodel.cpp  \
+    src/speciesmodel.cpp
+	
+RESOURCES += \
+    qml/qml.qrc \
+    images/images.qrc \
+    translations/translations.qrc
 
 DISTFILES += \
+    qml/MainWindow.qml \
+    qml/AboutDialog.qml \
+    qml/GenderSearchDialog.qml \
+    qml/HomePage.qml \
+    qml/Marker.qml \
+    qml/ResultsPage.qml \
+    qml/DetailsPage.qml \
+    qml/SettingsDialog.qml \
+    qml/SpecieSearchDialog.qml \
+    qml/SpecimenDialog.qml \
+    qml/StreetSearchDialog.qml \
+    qml/qtquickcontrols2.conf \
+    images/barnatrees_icon32.png \
+    images/barnatrees_icon64.png \
     android/AndroidManifest.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.jar \
@@ -23,9 +41,7 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/libs.xml \
-    barnatrees.db \
-    barnatrees.qml \
-    qtquickcontrols2.conf
+    barnatrees.db
 
 TRANSLATIONS = \
     translations/barnatrees_ca.ts \
@@ -34,8 +50,8 @@ TRANSLATIONS = \
 
 include(openssl.pri)
 
-win32:RC_ICONS = barnatrees.ico
-macx:ICON = barnatrees.icns
+win32:RC_ICONS = images/barnatrees.ico
+macx:ICON = images/barnatrees.icns
 
 datafiles.files = $$PWD/barnatrees.db
 android {
