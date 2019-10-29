@@ -1,6 +1,10 @@
 TEMPLATE = app
 QT += sql quick quickcontrols2 qml network positioning location
 CONFIG += c++11
+win32:VERSION = 0.0.1.0
+else:VERSION = 0.0.1
+DEFINES += APPVER=$$VERSION
+DEFINES += GITVER=$$system(git describe --always)
 DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \

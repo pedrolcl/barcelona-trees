@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
 
 Dialog {
     parent: Overlay.overlay
@@ -22,17 +21,19 @@ Dialog {
         }
     }
 
-    ColumnLayout {
+    Column {
         anchors.fill: parent
         spacing: 20
+
         Label {
-            Layout.fillWidth: true
             wrapMode: Label.Wrap
             text: qsTr("Select a Scientific Name:")
+            width: parent.width
         }
+
         ComboBox {
             id: speciesCombo
-            Layout.fillWidth: true
+            width: parent.width
             font.italic: true
             model: speciesModel
             textRole: "scientificName"
@@ -42,9 +43,10 @@ Dialog {
                 specieSummary.text = qsTr("Number of specimens: %L1").arg(num);
             }
         }
+
         Label {
             id: specieSummary
-            Layout.fillWidth: true
+            width: parent.width
             text: ""
         }
     }

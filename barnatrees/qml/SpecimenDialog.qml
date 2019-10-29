@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
 
 Dialog {
     parent: Overlay.overlay
@@ -17,33 +16,33 @@ Dialog {
     property string specimenLocation: null
     property string specimenDistance: null
 
-    ColumnLayout {
+    Column {
         anchors.fill: parent
         spacing: 20
 
         Label {
             text: specieScientificName
-            Layout.fillWidth: true
+            width: parent.width
             wrapMode: Label.Wrap
             onLinkActivated: Qt.openUrlExternally(link)
         }
 
         Label {
             text: specieCommonNames
-            Layout.fillWidth: true
+            width: parent.width
             wrapMode: Label.Wrap
         }
 
         Label {
             text: specimenLocation
-            Layout.fillWidth: true
+            width: parent.width
             wrapMode: Label.Wrap
             onLinkActivated: Qt.openUrlExternally(link)
         }
 
         Label {
             text: specimenDistance
-            Layout.fillWidth: true
+            width: parent.width
             wrapMode: Label.Wrap
         }
     }

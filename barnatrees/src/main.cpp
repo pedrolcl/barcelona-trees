@@ -19,15 +19,20 @@
 #include "plantmodel.h"
 #include "speciesmodel.h"
 
+#define _STR(x) #x
+#define STRINGIFY(x) _STR(x)
+
 int main(int argc, char **argv)
 {
     QGuiApplication::setApplicationName("BarcelonaTrees");
     QGuiApplication::setOrganizationName("BarcelonaTrees");
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication::setApplicationVersion(STRINGIFY(APPVER));
     QGuiApplication app(argc,argv);
     app.setWindowIcon(QIcon("qrc:/barnatrees_icon64.png"));
     QIcon::setThemeName("example");
 
+    qDebug()<<"version:" << STRINGIFY(APPVER) << STRINGIFY(GITVER);
     //qDebug()<<"SSL version use for build: "<<QSslSocket::sslLibraryBuildVersionString();
     //qDebug()<<"SSL version use for run-time: "<<QSslSocket::sslLibraryVersionString();
     //qDebug()<<QCoreApplication::libraryPaths();
@@ -83,6 +88,7 @@ int main(int argc, char **argv)
     qDebug() << "plants.columns:" << plantModel.columnCount();
 
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("gitversion", STRINGIFY(GITVER));
     engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
     engine.rootContext()->setContextProperty("speciesModel", &speciesModel);
     engine.rootContext()->setContextProperty("plantModel", &plantModel);

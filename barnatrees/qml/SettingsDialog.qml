@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
 
 Dialog {
     x: Math.round((window.width - width) / 2)
@@ -9,8 +8,8 @@ Dialog {
     modal: true
     focus: true
     title: qsTr("Settings")
-
     standardButtons: Dialog.Ok | Dialog.Cancel
+
     onAccepted: {
         settings.language = langBox.model.get(langBox.currentIndex).value
         settings.links = linkBox.displayText
@@ -23,17 +22,20 @@ Dialog {
         close()
     }
 
-    contentItem: ColumnLayout {
-        id: settingsColumn
+    Column {
+        anchors.fill: parent
         spacing: 20
 
-        RowLayout {
+        Row {
             spacing: 10
+            width: parent.width
             Label {
                 text: qsTr("Style:")
+                anchors.verticalCenter: parent.verticalCenter
             }
             ComboBox {
                 id: styleBox
+                anchors.verticalCenter: parent.verticalCenter
                 property int styleIndex: -1
                 model: availableStyles
                 Component.onCompleted: {
@@ -41,17 +43,19 @@ Dialog {
                     if (styleIndex !== -1)
                         currentIndex = styleIndex
                 }
-                Layout.fillWidth: true
             }
         }
 
-        RowLayout {
+        Row {
             spacing: 10
+            width: parent.width
             Label {
                 text: qsTr("Language:")
+                anchors.verticalCenter: parent.verticalCenter
             }
             ComboBox {
                 id: langBox
+                anchors.verticalCenter: parent.verticalCenter
                 textRole: "key"
                 property int langIndex: -1
                 model:  ListModel {
@@ -69,18 +73,20 @@ Dialog {
                     if (langIndex !== -1)
                         currentIndex = langIndex
                 }
-                Layout.fillWidth: true
             }
         }
 
-        RowLayout {
+        Row {
             spacing: 10
+            width: parent.width
             Label {
                 text: qsTr("Wiki:")
+                anchors.verticalCenter: parent.verticalCenter
             }
             ComboBox {
                 id: linkBox
                 property int linkIndex: -1
+                anchors.verticalCenter: parent.verticalCenter
                 model:  ListModel {
                     ListElement { text: qsTr("Wikipedia") }
                     ListElement { text: qsTr("WikiSpecies") }
@@ -91,7 +97,6 @@ Dialog {
                     if (linkIndex !== -1)
                         currentIndex = linkIndex
                 }
-                Layout.fillWidth: true
             }
         }
 
@@ -103,8 +108,7 @@ Dialog {
                        linkBox.currentIndex != linkBox.linkIndex ) ? 1.0 : 0.0
             horizontalAlignment: Label.AlignHCenter
             verticalAlignment: Label.AlignVCenter
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+            width: parent.width
         }
     }
 }

@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
 
 Dialog {
     parent: Overlay.overlay
@@ -20,22 +19,22 @@ Dialog {
         if (plantModel.rowCount() > 0) {
             resultsFound();
         }
-        //map.center = plantModel.nearestPlant();
-        //map.zoomLevel = 18
     }
 
-    ColumnLayout {
-        spacing: 20
+    Column {
         anchors.fill: parent
+        spacing: 20
+
         Label {
-            elide: Label.ElideRight
             text: qsTr("Type the street (or partial) name:")
-            Layout.fillWidth: true
+            wrapMode: Label.Wrap
+            width: parent.width
         }
+
         TextField {
             id: streetText
             focus: true
-            Layout.fillWidth: true
+            width: parent.width
         }
     }
 }

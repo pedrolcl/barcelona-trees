@@ -9,30 +9,28 @@ Dialog {
     x: Math.round((window.width - width) / 2)
     y: Math.round((window.height - height) / 2)
     width: Math.round(Math.min(window.width, window.height) / 5 * 4)
-    contentHeight: aboutColumn.height
     standardButtons: Dialog.Close
 
     ScrollView {
-            anchors.fill: parent
+        anchors.fill: parent
 
         Column {
-            id: aboutColumn
             spacing: 20
 
             Label {
                 width: aboutDialog.availableWidth
                 text: qsTr("<h1>Barcelona Trees</h1>A guide of the trees of Barcelona. "
-                         + "Copyright © 2019 Pedro López-Cabanillas.<br/>"
+                         + "v%1 git:%2. Copyright © 2019 Pedro López-Cabanillas.<br/>"
                          + "This program comes with ABSOLUTELY NO WARRANTY. "
                          + "This is free software, and you are welcome to redistribute it "
                          + "under the terms of the license "
-                         + "<a href='https://www.gnu.org/licenses/gpl-3.0.html'>GPLv3</a>" )
+                         + "<a href='https://www.gnu.org/licenses/gpl-3.0.html'>GPLv3</a>")
+                         .arg(Qt.application.version).arg(gitversion)
                 wrapMode: Label.Wrap
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Image {
-                id: logo
                 width: aboutDialog.availableWidth
                 horizontalAlignment: Image.AlignHCenter
                 fillMode: Image.PreserveAspectFit
