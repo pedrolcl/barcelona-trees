@@ -9,12 +9,16 @@
         <translation>Sobre</translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="24"/>
-        <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
-        <translation>&lt;h1&gt;Arbres de Barcelona&lt;/h1&gt;Una guia d&apos;arbres de Barcelona. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;Aquest programa ve amb ABSOLUTAMENT CAP GARANTIA. Això és programari lliure, i ets benvingut de redistribuir-lo sota els termes de la llicència &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</translation>
+        <location filename="../qml/AboutDialog.qml" line="22"/>
+        <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. v%1 git:%2. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
+        <translation>&lt;h1&gt;Arbres de Barcelona&lt;/h1&gt;Una guia d&apos;arbres de Barcelona.v%1 git:%2. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;Aquest programa ve amb ABSOLUTAMENT CAP GARANTIA. Això és programari lliure, i ets benvingut de redistribuir-lo sota els termes de la llicència &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="45"/>
+        <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
+        <translation type="vanished">&lt;h1&gt;Arbres de Barcelona&lt;/h1&gt;Una guia d&apos;arbres de Barcelona. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;Aquest programa ve amb ABSOLUTAMENT CAP GARANTIA. Això és programari lliure, i ets benvingut de redistribuir-lo sota els termes de la llicència &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutDialog.qml" line="42"/>
         <source>This application contains data provided by the Barcelona&apos;s city council: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/en/&apos;&gt;Open Data BCN&lt;/a&gt; using the datasets &lt;b&gt;Zone trees of the city of Barcelona&lt;/b&gt; and &lt;b&gt;Street trees of the city of Barcelona&lt;/b&gt;, under the therms of the &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/&apos;&gt;Creative Commons Attribution 4.0 International (CC BY 4.0)&lt;/a&gt; license.</source>
         <translation>Aquesta aplicació conté dades proporcionades per l&apos;Ajuntament de Barcelona: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/ca/&apos;&gt;Open Data BCN&lt;/a&gt;&lt;br/&gt; usant els datasets &lt;b&gt;Arbrat de zona de la ciutat de Barcelona&lt;/b&gt; i &lt;b&gt;Arbrat viari de la ciutat de Barcelona&lt;/b&gt;, sota els termes de la llicència &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/deed.ca&apos;&gt;Creative Commons Reconeixement 4.0 Internacional (CC BY 4.0)&lt;/a&gt;.</translation>
     </message>
@@ -30,12 +34,12 @@
 <context>
     <name>GenderSearchDialog</name>
     <message>
-        <location filename="../qml/GenderSearchDialog.qml" line="9"/>
+        <location filename="../qml/GenderSearchDialog.qml" line="8"/>
         <source>Gender Name Search</source>
         <translation>Buscar per nom de gènere</translation>
     </message>
     <message>
-        <location filename="../qml/GenderSearchDialog.qml" line="32"/>
+        <location filename="../qml/GenderSearchDialog.qml" line="28"/>
         <source>Type a gender (or partial) name:</source>
         <translation>Escriure el nom (parcial) de gènere:</translation>
     </message>
@@ -51,42 +55,42 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../qml/MainWindow.qml" line="12"/>
+        <location filename="../qml/MainWindow.qml" line="14"/>
         <source>Barcelona Trees</source>
         <translation>Arbres de Barcelona</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="65"/>
+        <location filename="../qml/MainWindow.qml" line="91"/>
         <source>Update Position</source>
         <translation>Actualitzar ubicació</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="72"/>
+        <location filename="../qml/MainWindow.qml" line="98"/>
         <source>Search by Street</source>
         <translation>Buscar per carrer</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="77"/>
+        <location filename="../qml/MainWindow.qml" line="103"/>
         <source>Search by Gender/Name</source>
         <translation>Buscar per gènere/nom</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="82"/>
+        <location filename="../qml/MainWindow.qml" line="108"/>
         <source>Search Species</source>
         <translation>Buscar espècies</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="87"/>
+        <location filename="../qml/MainWindow.qml" line="113"/>
         <source>View Results List</source>
         <translation>Veure llista de resultats</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="92"/>
+        <location filename="../qml/MainWindow.qml" line="118"/>
         <source>Settings</source>
         <translation>Opcions</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="97"/>
+        <location filename="../qml/MainWindow.qml" line="123"/>
         <source>About</source>
         <translation>Sobre</translation>
     </message>
@@ -105,7 +109,7 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="11"/>
+        <location filename="../qml/SettingsDialog.qml" line="10"/>
         <source>Settings</source>
         <translation>Opcions</translation>
     </message>
@@ -115,27 +119,47 @@
         <translation>Estil:</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="52"/>
+        <location filename="../qml/SettingsDialog.qml" line="53"/>
         <source>Language:</source>
         <translation>Idioma:</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="59"/>
+        <location filename="../qml/SettingsDialog.qml" line="62"/>
         <source>English</source>
         <translation>Anglès</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="60"/>
+        <location filename="../qml/SettingsDialog.qml" line="63"/>
         <source>Catalan</source>
         <translation>Català</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="61"/>
+        <location filename="../qml/SettingsDialog.qml" line="64"/>
         <source>Spanish</source>
         <translation>Espanyol</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="100"/>
+        <location filename="../qml/SettingsDialog.qml" line="83"/>
+        <source>Wiki:</source>
+        <translation>Wiki:</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsDialog.qml" line="91"/>
+        <source>Wikipedia</source>
+        <translation>Wikipedia</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsDialog.qml" line="92"/>
+        <source>WikiSpecies</source>
+        <translation>WikiSpecies</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsDialog.qml" line="93"/>
+        <source>WikiCommons</source>
+        <translation>WikiCommons</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsDialog.qml" line="104"/>
         <source>Restart required</source>
         <translation>Reprendre requerit</translation>
     </message>
@@ -143,17 +167,17 @@
 <context>
     <name>SpecieSearchDialog</name>
     <message>
-        <location filename="../qml/SpecieSearchDialog.qml" line="9"/>
+        <location filename="../qml/SpecieSearchDialog.qml" line="8"/>
         <source>Species Search</source>
         <translation>Buscar espècie</translation>
     </message>
     <message>
-        <location filename="../qml/SpecieSearchDialog.qml" line="32"/>
+        <location filename="../qml/SpecieSearchDialog.qml" line="30"/>
         <source>Select a Scientific Name:</source>
         <translation>Seleccionar un nom científic:</translation>
     </message>
     <message>
-        <location filename="../qml/SpecieSearchDialog.qml" line="44"/>
+        <location filename="../qml/SpecieSearchDialog.qml" line="43"/>
         <source>Number of specimens: %L1</source>
         <translation>Nombre d&apos;espècimens: %L1</translation>
     </message>
@@ -161,7 +185,7 @@
 <context>
     <name>SpecimenDialog</name>
     <message>
-        <location filename="../qml/SpecimenDialog.qml" line="9"/>
+        <location filename="../qml/SpecimenDialog.qml" line="8"/>
         <source>&lt;h1&gt;Specimen&lt;/h1&gt;</source>
         <translation>&lt;h1&gt;Espècimen&lt;/h1&gt;</translation>
     </message>
@@ -169,12 +193,12 @@
 <context>
     <name>StreetSearchDialog</name>
     <message>
-        <location filename="../qml/StreetSearchDialog.qml" line="9"/>
+        <location filename="../qml/StreetSearchDialog.qml" line="8"/>
         <source>Street Search</source>
         <translation>Buscar per carrer</translation>
     </message>
     <message>
-        <location filename="../qml/StreetSearchDialog.qml" line="32"/>
+        <location filename="../qml/StreetSearchDialog.qml" line="29"/>
         <source>Type the street (or partial) name:</source>
         <translation>Escriure el nom (parcial) del carrer:</translation>
     </message>
