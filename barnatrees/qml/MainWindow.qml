@@ -15,8 +15,9 @@ ApplicationWindow {
 
     Settings {
         id: settings
-        property string style: "Material"
         property string language: "en"
+        property string links: "Wikipedia"
+        property string style: "Material"
     }
 
     Shortcut {

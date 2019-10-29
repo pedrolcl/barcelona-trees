@@ -3,6 +3,7 @@
 #include <QSqlError>
 #include <QSqlRecord>
 #include <QLocale>
+#include <QSettings>
 #include <cmath>
 #include "plantmodel.h"
 
@@ -138,7 +139,8 @@ QString PlantModel::formattedScientificName(int row)
 
 QString PlantModel::wikiLink(int row)
 {
-	QString n = formattedScientificName(row);
+    QSettings settings;
+    QString txt = formattedScientificName(row);
 	QModelIndex sn_ix = this->index(row, record().indexOf("scientificName"));
 	QString s = sn_ix.data().toString();
 	int p = -1;
@@ -151,7 +153,15 @@ QString PlantModel::wikiLink(int row)
 	if ( p > -1) {
 		s = s.left(p);
 	}
-	return QString("<a href='https://es.wikipedia.org/wiki/%1'>%2</a>").arg(s).arg(n);
+    QString linktype = settings.value("links", "Wikipedia").toString();
+    QString lang = settings.value("language", QLocale().name().left(2)).toString();
+    if (linktype == "Wikipedia") {
+        return QString("<a href='https://%1.wikipedia.org/wiki/%2'>%3</a>").arg(lang).arg(s).arg(txt);
+    } else if (linktype == "WikiSpecies") {
+        return QString("<a href='https://species.wikimedia.org/wiki/%1'>%2</a>").arg(s).arg(txt);
+    } else {
+        return QString("<a href='https://commons.wikimedia.org/wiki/%1'>%2</a>").arg(s).arg(txt);
+    }
 }
 
 QString PlantModel::streetLink(int row)

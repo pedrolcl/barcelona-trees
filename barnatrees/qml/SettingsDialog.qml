@@ -12,8 +12,9 @@ Dialog {
 
     standardButtons: Dialog.Ok | Dialog.Cancel
     onAccepted: {
-        settings.style = styleBox.displayText
         settings.language = langBox.model.get(langBox.currentIndex).value
+        settings.links = linkBox.displayText
+        settings.style = styleBox.displayText
         close()
     }
     onRejected: {
@@ -28,11 +29,9 @@ Dialog {
 
         RowLayout {
             spacing: 10
-
             Label {
                 text: qsTr("Style:")
             }
-
             ComboBox {
                 id: styleBox
                 property int styleIndex: -1
@@ -74,32 +73,34 @@ Dialog {
             }
         }
 
-//            RowLayout {
-//                spacing: 10
-//                Label {
-//                    text: "Maps:"
-//                }
-//                ComboBox {
-//                    id: mapBox
-//                    property int mapIndex: -1
-//                    model: ListModel {
-//                        ListElement { text: "esri" }
-//                        ListElement { text: "mapboxgl" }
-//                        ListElement { text: "osm" }
-//                    }
-//                    Component.onCompleted: {
-//                        mapIndex = find(settings.plugin, Qt.MatchFixedString)
-//                        if (mapIndex !== -1)
-//                            currentIndex = mapIndex
-//                    }
-//                    Layout.fillWidth: true
-//                }
-//            }
+        RowLayout {
+            spacing: 10
+            Label {
+                text: qsTr("Wiki:")
+            }
+            ComboBox {
+                id: linkBox
+                property int linkIndex: -1
+                model:  ListModel {
+                    ListElement { text: qsTr("Wikipedia") }
+                    ListElement { text: qsTr("WikiSpecies") }
+                    ListElement { text: qsTr("WikiCommons") }
+                }
+                Component.onCompleted: {
+                    linkIndex = find(settings.links, Qt.MatchFixedString)
+                    if (linkIndex !== -1)
+                        currentIndex = linkIndex
+                }
+                Layout.fillWidth: true
+            }
+        }
 
         Label {
             text: qsTr("Restart required")
             color: "#e41e25"
-            opacity: styleBox.currentIndex !== styleBox.styleIndex || langBox.currentIndex !== langBox.langIndex ? 1.0 : 0.0
+            opacity: ( styleBox.currentIndex !== styleBox.styleIndex ||
+                       langBox.currentIndex !== langBox.langIndex ||
+                       linkBox.currentIndex != linkBox.linkIndex ) ? 1.0 : 0.0
             horizontalAlignment: Label.AlignHCenter
             verticalAlignment: Label.AlignVCenter
             Layout.fillWidth: true

@@ -7,9 +7,9 @@ Page {
     title: qsTr("Barcelona Trees")
 
     property variant locationBarna: QtPositioning.coordinate( 41.403216, 2.186674 )
+    property double defaultZoom: map.maximumZoomLevel - 2
 
     function togglePositioning(checked) {
-        locationCircle.visible = checked
         if (checked) {
             positionSource.update()
         }
@@ -18,7 +18,13 @@ Page {
     function changeMapCenter(newcenter) {
         map.center = newcenter
         map.zoomLevel = map.maximumZoomLevel
-        //map.zoomLevel = 18
+    }
+
+    function changeGlobalCenter(coordinate) {
+        map.zoomLevel = defaultZoom
+        map.center = coordinate
+        locationCircle.coordinate = coordinate
+        plantModel.setCenter(coordinate)
     }
 
     PositionSource {
@@ -33,10 +39,7 @@ Page {
             //console.log("Position: " + currentPosition + " distance: " + distance1 + " enabled: " + positionEnabled.checked)
             if (positionEnabled.checked && distance1 > 500 && distance2 < 8000) { // 500m from last and 8km from centre
                 lastSearchPosition = currentPosition
-                map.center = currentPosition
-                locationCircle.center = currentPosition
-                locationCircle.visible = true
-                plantModel.setCenter(currentPosition)
+                changeGlobalCenter(currentPosition)
             }
         }
     }
@@ -49,7 +52,7 @@ Page {
             //PluginParameter {...}
         }
         center: locationBarna
-        zoomLevel: 17 //maximumZoomLevel
+        zoomLevel: defaultZoom
         onCopyrightLinkActivated: Qt.openUrlExternally(link)
 
         MapQuickItem {
@@ -63,7 +66,6 @@ Page {
                 smooth: true;
                 radius: 7
             }
-            visible: true
             coordinate: locationBarna
             opacity:1.0
             anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
@@ -114,8 +116,7 @@ Page {
             propagateComposedEvents: true
             onPressAndHold: {
                 var coordinate = map.toCoordinate(Qt.point(mouse.x, mouse.y))
-                map.center = coordinate
-                plantModel.setCenter(coordinate)
+                changeGlobalCenter(coordinate)
             }
         }
     }
