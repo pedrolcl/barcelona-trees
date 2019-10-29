@@ -34,6 +34,19 @@ DISTFILES += \
     qml/qtquickcontrols2.conf \
     images/barnatrees_icon32.png \
     images/barnatrees_icon64.png \
+    images/icons/example/index.theme \
+    images/icons/example/20x20/back.png \
+    images/icons/example/20x20/drawer.png \
+    images/icons/example/20x20/menu.png \
+    images/icons/example/20x20@2/back.png \
+    images/icons/example/20x20@2/drawer.png \
+    images/icons/example/20x20@2/menu.png \
+    images/icons/example/20x20@3/back.png \
+    images/icons/example/20x20@3/drawer.png \
+    images/icons/example/20x20@3/menu.png \
+    images/icons/example/20x20@4/back.png \
+    images/icons/example/20x20@4/drawer.png \
+    images/icons/example/20x20@4/menu.png \
     android/AndroidManifest.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.jar \

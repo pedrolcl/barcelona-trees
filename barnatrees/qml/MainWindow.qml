@@ -1,6 +1,8 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
+import QtQuick.Controls.Material 2.12
+import QtQuick.Controls.Universal 2.12
 import QtPositioning 5.12
 import Qt.labs.settings 1.1
 
@@ -17,8 +19,22 @@ ApplicationWindow {
         property string language: "en"
     }
 
+    Shortcut {
+        sequences: ["Esc", "Back"]
+        enabled: stackView.depth > 1
+        onActivated: {
+            stackView.pop()
+        }
+    }
+
+    Shortcut {
+        sequence: "Menu"
+        onActivated: optionsMenu.open()
+    }
+
     header: ToolBar {
         id: windowHeader
+        Material.foreground: "white"
         contentHeight: toolButton.implicitHeight
 
         RowLayout {
@@ -33,7 +49,8 @@ ApplicationWindow {
 
             Label {
                 text: stackView.currentItem.title
-                font.pixelSize: Qt.application.font.pixelSize * 1.6
+                font.pixelSize: 20
+                elide: Label.ElideRight
                 horizontalAlignment: Qt.AlignHCenter
                 verticalAlignment: Qt.AlignVCenter
                 Layout.fillWidth: true
@@ -41,9 +58,7 @@ ApplicationWindow {
 
             ToolButton {
                 id: toolButton
-                text: stackView.depth > 1 ? "\u25C0" : "\u2630"
-                font.bold: true
-                font.pixelSize: Qt.application.font.pixelSize * 1.6
+                icon.name: stackView.depth > 1 ? "back" : "drawer"
                 onClicked: {
                     if (stackView.depth > 1) {
                         stackView.pop()

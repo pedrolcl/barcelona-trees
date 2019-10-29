@@ -3,5 +3,18 @@
         <file>marker.png</file>
         <file>barnatrees_icon32.png</file>
         <file>barnatrees_icon64.png</file>
+        <file>icons/example/20x20/back.png</file>
+        <file>icons/example/20x20/drawer.png</file>
+        <file>icons/example/20x20/menu.png</file>
+        <file>icons/example/20x20@2/back.png</file>
+        <file>icons/example/20x20@2/drawer.png</file>
+        <file>icons/example/20x20@2/menu.png</file>
+        <file>icons/example/20x20@3/back.png</file>
+        <file>icons/example/20x20@3/drawer.png</file>
+        <file>icons/example/20x20@3/menu.png</file>
+        <file>icons/example/20x20@4/back.png</file>
+        <file>icons/example/20x20@4/drawer.png</file>
+        <file>icons/example/20x20@4/menu.png</file>
+        <file>icons/example/index.theme</file>
     </qresource>
 </RCC>
