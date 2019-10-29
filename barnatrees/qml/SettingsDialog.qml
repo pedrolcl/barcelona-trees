@@ -104,8 +104,7 @@ Dialog {
             text: qsTr("Restart required")
             color: "#e41e25"
             opacity: ( styleBox.currentIndex !== styleBox.styleIndex ||
-                       langBox.currentIndex !== langBox.langIndex ||
-                       linkBox.currentIndex != linkBox.linkIndex ) ? 1.0 : 0.0
+                       langBox.currentIndex !== langBox.langIndex ) ? 1.0 : 0.0
             horizontalAlignment: Label.AlignHCenter
             verticalAlignment: Label.AlignVCenter
             width: parent.width
