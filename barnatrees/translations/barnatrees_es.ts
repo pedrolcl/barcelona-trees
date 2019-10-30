@@ -109,7 +109,7 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="10"/>
+        <location filename="../qml/SettingsDialog.qml" line="11"/>
         <source>Settings</source>
         <translation>Opciones</translation>
     </message>
@@ -119,47 +119,44 @@
         <translation>Estilo:</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="53"/>
+        <location filename="../qml/SettingsDialog.qml" line="47"/>
         <source>Language:</source>
         <translation>Idioma:</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="62"/>
+        <location filename="../qml/SettingsDialog.qml" line="54"/>
         <source>English</source>
         <translation>inglés</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="63"/>
+        <location filename="../qml/SettingsDialog.qml" line="55"/>
         <source>Catalan</source>
         <translation>catalán</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="64"/>
+        <location filename="../qml/SettingsDialog.qml" line="56"/>
         <source>Spanish</source>
         <translation>español</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="83"/>
+        <location filename="../qml/SettingsDialog.qml" line="71"/>
         <source>Wiki:</source>
         <translation>Wiki:</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="91"/>
         <source>Wikipedia</source>
-        <translation>Wikipedia</translation>
+        <translation type="vanished">Wikipedia</translation>
+    </message>
+    <message>
+        <source>WikiSpecies</source>
+        <translation type="vanished">WikiSpecies</translation>
+    </message>
+    <message>
+        <source>WikiCommons</source>
+        <translation type="vanished">WikiCommons</translation>
     </message>
     <message>
         <location filename="../qml/SettingsDialog.qml" line="92"/>
-        <source>WikiSpecies</source>
-        <translation>WikiSpecies</translation>
-    </message>
-    <message>
-        <location filename="../qml/SettingsDialog.qml" line="93"/>
-        <source>WikiCommons</source>
-        <translation>WikiCommons</translation>
-    </message>
-    <message>
-        <location filename="../qml/SettingsDialog.qml" line="104"/>
         <source>Restart required</source>
         <translation>Reinicio requerido</translation>
     </message>

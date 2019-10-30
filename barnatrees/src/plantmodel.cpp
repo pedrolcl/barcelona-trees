@@ -157,7 +157,7 @@ QString PlantModel::wikiLink(int row)
     QString lang = settings.value("language", QLocale().name().left(2)).toString();
     if (linktype == "Wikipedia") {
         return QString("<a href='https://%1.wikipedia.org/wiki/%2'>%3</a>").arg(lang).arg(s).arg(txt);
-    } else if (linktype == "WikiSpecies") {
+    } else if (linktype == "Species") {
         return QString("<a href='https://species.wikimedia.org/wiki/%1'>%2</a>").arg(s).arg(txt);
     } else {
         return QString("<a href='https://commons.wikimedia.org/wiki/%1'>%2</a>").arg(s).arg(txt);
