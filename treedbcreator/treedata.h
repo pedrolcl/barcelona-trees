@@ -6,7 +6,7 @@
 class TreeData
 {
 public:
-	TreeData();
+    TreeData();
 
     QString codi() const;
     void setCodi(const QString &codi);
@@ -35,8 +35,8 @@ public:
     QString alcada() const;
     void setAlcada(const QString &alcada);
 
-	int catEspecieId() const;
-	void setCatEspecieId(const int catEspecieId);
+    int catEspecieId() const;
+    void setCatEspecieId(const int catEspecieId);
 
     QString nomCientific() const;
     void setNomCientific(const QString &nomCientific);
@@ -77,7 +77,7 @@ public:
     QString voraEscocell() const;
     void setVoraEscocell(const QString &voraEscocell);
 
-	void clear();
+    void clear();
 
 private:
     QString m_codi;
@@ -89,7 +89,7 @@ private:
     QString m_espaiVerd;
     QString m_adreca;
     QString m_alcada;
-	int m_catEspecieId;
+    int m_catEspecieId;
     QString m_nomCientific;
     QString m_nomEsp;
     QString m_nomCat;

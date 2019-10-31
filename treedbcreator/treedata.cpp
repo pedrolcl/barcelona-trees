@@ -2,7 +2,7 @@
 
 TreeData::TreeData()
 {
-	clear();
+    clear();
 }
 
 QString TreeData::codi() const
@@ -232,32 +232,32 @@ QString TreeData::voraEscocell() const
 
 void TreeData::setVoraEscocell(const QString &voraEscocell)
 {
-	m_voraEscocell = voraEscocell;
+    m_voraEscocell = voraEscocell;
 }
 
 void TreeData::clear()
 {
-	m_codi.clear();
-	m_posicioX_ETRS89 = 0;
-	m_posicioY_ETRS89 = 0;
-	m_latitud_WGS84 = 0;
-	m_longitud_WGS84 = 0;
-	m_tipusElement.clear();
-	m_espaiVerd.clear();
-	m_adreca.clear();
-	m_alcada.clear();
-	m_catEspecieId = 0;
-	m_nomCientific.clear();
-	m_nomEsp.clear();
-	m_nomCat.clear();
-	m_categoriaArbrat.clear();
-	m_ampladaVorera.clear();
-	m_plantacioDT.clear();
-	m_tipAigua.clear();
-	m_tipReg.clear();
-	m_tipSuperf.clear();
-	m_tipSuport.clear();
-	m_cobertaEscocell.clear();
-	m_midaEscocell.clear();
-	m_voraEscocell.clear();
+    m_codi.clear();
+    m_posicioX_ETRS89 = 0;
+    m_posicioY_ETRS89 = 0;
+    m_latitud_WGS84 = 0;
+    m_longitud_WGS84 = 0;
+    m_tipusElement.clear();
+    m_espaiVerd.clear();
+    m_adreca.clear();
+    m_alcada.clear();
+    m_catEspecieId = 0;
+    m_nomCientific.clear();
+    m_nomEsp.clear();
+    m_nomCat.clear();
+    m_categoriaArbrat.clear();
+    m_ampladaVorera.clear();
+    m_plantacioDT.clear();
+    m_tipAigua.clear();
+    m_tipReg.clear();
+    m_tipSuperf.clear();
+    m_tipSuport.clear();
+    m_cobertaEscocell.clear();
+    m_midaEscocell.clear();
+    m_voraEscocell.clear();
 }

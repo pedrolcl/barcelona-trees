@@ -5,33 +5,39 @@
 #include <QByteArray>
 #include <QSqlDatabase>
 #include "treedata.h"
+#include "downloadmanager.h"
 
 class XmlParser: public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit XmlParser(QObject *parent = nullptr);
-	void initDB();
+    explicit XmlParser(QObject *parent = nullptr);
+    void initDB();
 
 public slots:
-	void execute();
-	void addFilename(QString name);
+    void execute();
+    void addDataset(OpenDataset ds);
 
 signals:
-	void done();
+    void done();
 
 private:
-	void parseXml();
-	void readFile(const QString& name);
-	void parse(const QString& name);
-	void process(const TreeData& data);
-	void updateDB();
+    void parseXml();
+    void parse(OpenDataset& ds);
+    void process(const TreeData& data);
+    void update(OpenDataset& ds);
+    void updateDB();
 
-	QStringList m_pendingFiles;
-	QByteArray m_xmlData;
-	QSqlDatabase m_db;
-	int m_plants;
+    QList<OpenDataset> m_pendingDatasets;
+    QByteArray m_xmlData;
+    QSqlDatabase m_db;
+
+    QSet<QString> m_plantsDB;
+    QSet<int> m_speciesDB;
+
+    QSet<QString> m_plantsDataset;
+    QSet<int> m_speciesDataset;
 };
 
 #endif // XMLPARSER_H

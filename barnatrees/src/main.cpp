@@ -24,7 +24,7 @@
 
 int main(int argc, char **argv)
 {
-    QGuiApplication::setApplicationName("BarcelonaTrees");
+    QGuiApplication::setApplicationName("barnatrees");
     QGuiApplication::setOrganizationName("BarcelonaTrees");
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setApplicationVersion(STRINGIFY(APPVER));
