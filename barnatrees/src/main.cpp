@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setConnectOptions(QLatin1String("QSQLITE_OPEN_READONLY"));
-#ifdef Q_OS_ANDROID
+#if defined(Q_OS_ANDROID)
     QFileInfo orig("assets:/barnatrees.db");
     QDir destDir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     QFileInfo destFile(destDir, "barnatrees.db");
@@ -73,6 +73,8 @@ int main(int argc, char **argv)
         QFile::copy(orig.filePath(), destFile.absoluteFilePath());
     }
     db.setDatabaseName(destFile.absoluteFilePath());
+#elif defined(Q_OS_MAC)
+    db.setDatabaseName("../Resources/barnatrees.db");
 #else
     db.setDatabaseName("barnatrees.db");
 #endif

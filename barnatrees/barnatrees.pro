@@ -78,7 +78,12 @@ android {
         ANDROID_PACKAGE_SOURCE_DIR = \
             $$PWD/android
     }
-} else {
+}
+macx {
+    datafiles.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += datafiles
+}
+win32|linux* {
     CONFIG += file_copies
     datafiles.path = $$OUT_PWD
     COPIES += datafiles
