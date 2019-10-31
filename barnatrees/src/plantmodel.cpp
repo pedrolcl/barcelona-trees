@@ -205,9 +205,9 @@ void PlantModel::setCenter(QGeoCoordinate center)
     m_p3 = CoordinateToCoordinate(center, radius, 180);
     m_p4 = CoordinateToCoordinate(center, radius, 270);
 
-	//QString filter = QString("(latitude between %1 and %2) and (longitude between %3 and %4)").arg(m_p3.latitude()).arg(m_p1.latitude()).arg(m_p4.longitude()).arg(m_p2.longitude());
-	QString filter = QString("latitude > %1 and latitude < %2 and longitude > %3 and longitude < %4").arg(m_p3.latitude()).arg(m_p1.latitude()).arg(m_p4.longitude()).arg(m_p2.longitude());
-	//qDebug() << "filter:" << filter;
+    QString filter = QString("(latitude between %1 and %2) and (longitude between %3 and %4)").arg(m_p3.latitude()).arg(m_p1.latitude()).arg(m_p4.longitude()).arg(m_p2.longitude());
+    //QString filter = QString("latitude > %1 and latitude < %2 and longitude > %3 and longitude < %4").arg(m_p3.latitude()).arg(m_p1.latitude()).arg(m_p4.longitude()).arg(m_p2.longitude());
+    //qDebug() << "filter:" << filter;
     setFilter(filter);
 }
 

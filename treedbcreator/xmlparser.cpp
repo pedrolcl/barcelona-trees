@@ -293,12 +293,12 @@ void XmlParser::initDB()
 void XmlParser::updateDB()
 {
     QSqlQuery q;
-    if (!q.exec(QLatin1String("CREATE INDEX latidx ON plants ( latitude ASC )")))
+    if (!q.exec(QLatin1String("CREATE INDEX coord1 ON plants ( longitude, latitude )")))
     {
         qWarning() << q.lastError();
     }
 
-    if (!q.exec(QLatin1String("CREATE INDEX longidx ON plants ( longitude ASC )")))
+    if (!q.exec(QLatin1String("CREATE INDEX coord2 ON plants ( latitude, longitude )")))
     {
         qWarning() << q.lastError();
     }
