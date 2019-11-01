@@ -1,3 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = treedbcreator \
-    barnatrees
+SUBDIRS = barnatrees
+!android {
+    SUBDIRS += treedbcreator
+}

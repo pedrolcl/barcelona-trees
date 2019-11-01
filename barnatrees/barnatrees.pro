@@ -1,6 +1,8 @@
 TEMPLATE = app
 QT += sql quick quickcontrols2 qml network positioning location
-CONFIG += c++11
+CONFIG += c++11 lrelease embed_translations
+LRELEASE_DIR='.'
+QM_FILES_RESOURCE_PREFIX='/'
 win32:VERSION = 0.0.1.0
 else:VERSION = 0.0.1
 DEFINES += APPVER=$$VERSION
@@ -20,8 +22,7 @@ SOURCES = \
 	
 RESOURCES += \
     qml/qml.qrc \
-    images/images.qrc \
-    translations/translations.qrc
+    images/images.qrc
 
 DISTFILES += \
     qml/MainWindow.qml \
@@ -65,12 +66,12 @@ TRANSLATIONS = \
     translations/barnatrees_en.ts \
     translations/barnatrees_es.ts
 
-include(openssl.pri)
+include(../openssl.pri)
 
 win32:RC_ICONS = images/barnatrees.ico
 macx:ICON = images/barnatrees.icns
 
-datafiles.files = $$PWD/barnatrees.db
+datafiles.files = $$PWD/../barnatrees.db
 android {
     datafiles.path = /assets
     INSTALLS += datafiles
@@ -88,3 +89,6 @@ win32|linux* {
     datafiles.path = $$OUT_PWD
     COPIES += datafiles
 }
+
+LCONVERT_LANGS=ca es
+include(../lconvert.pri)
