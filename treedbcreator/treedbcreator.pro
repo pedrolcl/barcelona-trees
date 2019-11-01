@@ -1,6 +1,5 @@
 QT = core sql network
-CONFIG += c++11 console
-CONFIG -= app_bundle
+CONFIG += c++11 cmdline
 win32:VERSION = 0.0.1.0
 else:VERSION = 0.0.1
 DEFINES += APPVER=$$VERSION
@@ -18,7 +17,7 @@ HEADERS += \
     treedata.h \
     xmlparser.h
 
-include(openssl.pri)
+include(../openssl.pri)
 
 DISTFILES += \
     readme.md
