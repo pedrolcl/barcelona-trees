@@ -18,6 +18,7 @@
 #include <QIcon>
 #include "plantmodel.h"
 #include "speciesmodel.h"
+#include "summarymodel.h"
 
 #define _STR(x) #x
 #define STRINGIFY(x) _STR(x)
@@ -88,12 +89,14 @@ int main(int argc, char **argv)
     PlantModel plantModel;
     plantModel.setCenter(locationBarna);
     qDebug() << "plants.columns:" << plantModel.columnCount();
+    SummaryModel summaryModel;
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("gitversion", STRINGIFY(GITVER));
     engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
     engine.rootContext()->setContextProperty("speciesModel", &speciesModel);
     engine.rootContext()->setContextProperty("plantModel", &plantModel);
+    engine.rootContext()->setContextProperty("summaryModel", &summaryModel);
     engine.load(QUrl(QStringLiteral("qrc:/MainWindow.qml")));
     if (engine.rootObjects().isEmpty()) {
         return -1;

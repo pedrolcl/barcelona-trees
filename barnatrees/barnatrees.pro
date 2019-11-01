@@ -12,13 +12,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     src/basemodel.h \
     src/plantmodel.h \
-    src/speciesmodel.h
+    src/speciesmodel.h \
+    src/summarymodel.h
 
 SOURCES = \
     src/basemodel.cpp \
     src/main.cpp \
     src/plantmodel.cpp  \
-    src/speciesmodel.cpp
+    src/speciesmodel.cpp \
+    src/summarymodel.cpp
 	
 RESOURCES += \
     qml/qml.qrc \

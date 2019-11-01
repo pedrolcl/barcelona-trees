@@ -9,13 +9,21 @@ Dialog {
     x: Math.round((window.width - width) / 2)
     y: Math.round((window.height - height) / 2)
     width: Math.round(Math.min(window.width, window.height) / 5 * 4)
+    height: Math.round(window.height / 10 * 8)
     standardButtons: Dialog.Close
 
-    ScrollView {
+    Flickable {
         anchors.fill: parent
+        contentHeight: col.height
+        contentWidth: col.width
+        boundsBehavior: Flickable.StopAtBounds
+        clip: true
+        ScrollIndicator.vertical: ScrollIndicator {}
+        ScrollIndicator.horizontal: ScrollIndicator {}
 
         Column {
-            spacing: 20
+            id: col
+            spacing: 10
 
             Label {
                 width: aboutDialog.availableWidth
@@ -47,6 +55,32 @@ Dialog {
                     + "Creative Commons Attribution 4.0 International (CC BY 4.0)</a> license.")
                 wrapMode: Label.Wrap
                 onLinkActivated: Qt.openUrlExternally(link)
+            }
+
+            Repeater {
+                model: summaryModel
+                width: aboutDialog.availableWidth
+                delegate: Column {
+                    width: parent.width
+                    spacing: 4
+                    Label {
+                        width: parent.width
+                        font.bold: true
+                        text: name
+                    }
+                    Label {
+                        width: parent.width
+                        text: qsTr("Processed: %1").arg(description)
+                    }
+                    Label {
+                        width: parent.width
+                        text: qsTr("Trees: %1").arg(specimens)
+                    }
+                    Label {
+                        width: parent.width
+                        text: qsTr("Species: %1").arg(species)
+                    }
+                }
             }
         }
     }
