@@ -27,6 +27,7 @@ RESOURCES += \
     images/images.qrc
 
 DISTFILES += \
+    qml/BalloonTip.qml \
     qml/MainWindow.qml \
     qml/AboutDialog.qml \
     qml/GenderSearchDialog.qml \

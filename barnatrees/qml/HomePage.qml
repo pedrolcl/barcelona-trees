@@ -25,6 +25,7 @@ Page {
         map.center = coordinate
         locationCircle.coordinate = coordinate
         plantModel.setCenter(coordinate)
+        locationTip.show(qsTr("Current Location"), 15000)
     }
 
     PositionSource {
@@ -37,7 +38,7 @@ Page {
             var distance1 = currentPosition.distanceTo(lastSearchPosition)
             var distance2 = currentPosition.distanceTo(locationBarna)
             //console.log("Position: " + currentPosition + " distance: " + distance1 + " enabled: " + positionEnabled.checked)
-            if (positionEnabled.checked && distance1 > 500 && distance2 < 8000) { // 500m from last and 8km from centre
+            if (positionEnabled.checked && distance1 > 500 && distance2 < 8000) { // 500m from last and 8km from last location
                 lastSearchPosition = currentPosition
                 changeGlobalCenter(currentPosition)
             }
@@ -57,33 +58,49 @@ Page {
 
         MapQuickItem {
             id: locationCircle
+            coordinate: locationBarna
+            opacity:1.0
+            anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
+
             sourceItem: Rectangle {
-                width: 14;
-                height: 14;
+                width: 14
+                height: 14
                 color: 'deepskyblue'
                 border.width: 3.0
                 border.color: 'paleturquoise'
                 smooth: true;
                 radius: 7
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onEntered: locationTip.visible = true
+                    onExited: locationTip.visible = false
+                }
+                BalloonTip {
+                    id: locationTip
+                    text: qsTr("Current Location")
+                }
             }
-            coordinate: locationBarna
-            opacity:1.0
-            anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
         }
 
         MapItemView {
+            id: itemView
             model: plantModel
+            function showTip(itemIndex) {
+                model.currentIndex = itemIndex
+            }
             delegate: MapQuickItem {
                 id: item
-                zoomLevel: 17
-                anchorPoint.x: mark.width * 0.5
-                anchorPoint.y: mark.height * 0.5
+                zoomLevel: map.maximumZoomLevel
+                anchorPoint.x: mark.width / 2
+                anchorPoint.y: mark.height / 2
                 coordinate: QtPositioning.coordinate(model.latitude, model.longitude)
                 sourceItem: Rectangle {
                     id: mark
-                    radius: 2
-                    width: 5
-                    height: 5
+                    radius: 5
+                    smooth: true
+                    width: 10
+                    height: 10
                     color: "green"
                     MouseArea {
                         anchors.fill: parent
@@ -95,17 +112,14 @@ Page {
                             specimenDialog.specimenDistance = plantModel.formattedDistance(index)
                             specimenDialog.open()
                         }
-                        onEntered: {
-                            tip.visible = true
-                        }
-                        onExited: {
-                            tip.visible = false
-                        }
+                        onEntered: tip.visible = true && (map.zoomLevel === map.maximumZoomLevel)
+                        onExited: tip.visible = false
                     }
-                    ToolTip {
+                    BalloonTip {
                         id: tip
                         parent: mark
                         text: plantModel.formattedScientificName(index)
+                        visible: index === model.currentIndex
                     }
                 }
             }
@@ -114,10 +128,7 @@ Page {
         MouseArea {
             anchors.fill: parent
             propagateComposedEvents: true
-            onPressAndHold: {
-                var coordinate = map.toCoordinate(Qt.point(mouse.x, mouse.y))
-                changeGlobalCenter(coordinate)
-            }
+            onPressAndHold: changeGlobalCenter(map.toCoordinate(Qt.point(mouse.x, mouse.y)))
         }
     }
 }

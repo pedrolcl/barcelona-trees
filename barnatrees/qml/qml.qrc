@@ -12,5 +12,6 @@
         <file>GenderSearchDialog.qml</file>
         <file>StreetSearchDialog.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>BalloonTip.qml</file>
     </qresource>
 </RCC>
