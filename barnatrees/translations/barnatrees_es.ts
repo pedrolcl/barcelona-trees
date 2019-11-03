@@ -9,16 +9,31 @@
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="22"/>
+        <location filename="../qml/AboutDialog.qml" line="30"/>
         <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. v%1 git:%2. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
         <translation>&lt;h1&gt;Árboles de Barcelona&lt;/h1&gt;Una guía de árboles de Barcelona.v%1 git:%2.Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;Este programa viene sin ABSOLUTAMENTE NINGUNA GARANTÍA. Esto es software libre, y eres bienvenido de redistribuirlo bajo los términos de la licencia &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutDialog.qml" line="73"/>
+        <source>Processed: %1</source>
+        <translation>Procesado: %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutDialog.qml" line="77"/>
+        <source>Trees: %1</source>
+        <translation>Árboles: %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutDialog.qml" line="81"/>
+        <source>Species: %1</source>
+        <translation>Especies: %1</translation>
     </message>
     <message>
         <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
         <translation type="vanished">&lt;h1&gt;Árboles de Barcelona&lt;/h1&gt;Una guía de árboles de Barcelona.&lt;br/&gt;Copyright © 2019 Pedro López-Cabanillas. Este programa viene sin ABSOLUTAMENTE NINGUNA GARANTÍA. Esto es software libre, y eres bienvenido de redistribuirlo bajo los términos de la licencia &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="42"/>
+        <location filename="../qml/AboutDialog.qml" line="50"/>
         <source>This application contains data provided by the Barcelona&apos;s city council: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/en/&apos;&gt;Open Data BCN&lt;/a&gt; using the datasets &lt;b&gt;Zone trees of the city of Barcelona&lt;/b&gt; and &lt;b&gt;Street trees of the city of Barcelona&lt;/b&gt;, under the therms of the &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/&apos;&gt;Creative Commons Attribution 4.0 International (CC BY 4.0)&lt;/a&gt; license.</source>
         <translation>Esta aplicación contiene datos proporcionados por el Ayuntamiento de Barcelona: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/es/&apos;&gt;Open Data BCN&lt;/a&gt;&lt;br/&gt;usando los datasets: &lt;b&gt;Arbolado de zona de la ciudad de Barcelona&lt;/b&gt; y &lt;b&gt;Arbolado viario de la ciudad de Barcelona&lt;/b&gt;, bajo los términos de la licencia &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/deed.es&apos;&gt;Creative Commons Atribución 4.0 Internacional (CC BY 4.0)&lt;/a&gt;.</translation>
     </message>
@@ -50,6 +65,12 @@
         <location filename="../qml/HomePage.qml" line="7"/>
         <source>Barcelona Trees</source>
         <translation>Árboles de Barcelona</translation>
+    </message>
+    <message>
+        <location filename="../qml/HomePage.qml" line="28"/>
+        <location filename="../qml/HomePage.qml" line="81"/>
+        <source>Current Location</source>
+        <translation>Ubicación actual</translation>
     </message>
 </context>
 <context>
