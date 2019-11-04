@@ -3,18 +3,15 @@ import QtQuick.Controls 2.12
 
 ToolTip {
     id: control
-    x: clcx
+    x: parent ? (parent.width - implicitWidth) / 2 : 0
     y: -implicitHeight - 8
-
-    property double clcx: parent ? (parent.width - implicitWidth) / 2 : 0
 
     background: Rectangle {
         color: control.palette.toolTipBase
         border.color: control.palette.toolTipBase
         radius: 6
         Rectangle {
-            id: arrow
-            x: (clcx === control.x) ? (control.width / 2) - 5 : -control.x
+            x: -control.x
             z: -1
             width: 10
             height: 10

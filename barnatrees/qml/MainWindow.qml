@@ -9,8 +9,8 @@ import Qt.labs.settings 1.1
 ApplicationWindow {
     id: window
     visible: true
-    width: 360
-    height: 640
+    width: 1000
+    height: 800
     title: qsTr("Barcelona Trees")
 
     Settings {
@@ -18,6 +18,10 @@ ApplicationWindow {
         property string language: "en"
         property string links: "Wikipedia"
         property string style: "Material"
+        property alias window_x: window.x
+        property alias window_y: window.y
+        property alias window_width: window.width
+        property alias window_height: window.height
     }
 
     Shortcut {
@@ -130,6 +134,7 @@ ApplicationWindow {
         onRowSelected: {
             homePage.changeMapCenter(QtPositioning.coordinate(lat, lon))
             stackView.pop();
+            homePage.showBalloonTip(idx)
         }
     }
 
@@ -148,7 +153,15 @@ ApplicationWindow {
     GenderSearchDialog {
         id: genderSearchDialog
         onResultsFound: {
-            homePage.changeMapCenter(plantModel.nearestPlant())
+            homePage.changeMapCenter(plantModel.nearestPlantCoordinate())
+            gsTimer.running = true
+        }
+        Timer {
+          id: gsTimer
+          running: false
+          repeat: false
+          interval: 1000
+          onTriggered: homePage.showBalloonTip(plantModel.nearestRow())
         }
     }
 
@@ -159,7 +172,15 @@ ApplicationWindow {
     SpecieSearchDialog {
         id: specieSearchDialog
         onResultsFound: {
-            homePage.changeMapCenter(plantModel.nearestPlant())
+            homePage.changeMapCenter(plantModel.nearestPlantCoordinate())
+            spTimer.running = true
+        }
+        Timer {
+          id: spTimer
+          running: false
+          repeat: false
+          interval: 1000
+          onTriggered: homePage.showBalloonTip(plantModel.nearestRow())
         }
     }
 
@@ -170,7 +191,22 @@ ApplicationWindow {
     StreetSearchDialog {
         id: streetSearchDialog
         onResultsFound: {
-            homePage.changeMapCenter(plantModel.nearestPlant())
+            homePage.changeMapCenter(plantModel.nearestPlantCoordinate())
+            stTimer.running = true
         }
+        Timer {
+          id: stTimer
+          running: false
+          repeat: false
+          interval: 1000
+          onTriggered: homePage.showBalloonTip(plantModel.nearestRow())
+        }
+    }
+
+    Timer {
+      running: true
+      repeat: false
+      interval: 500
+      onTriggered: homePage.showCurrentLocation()
     }
 }

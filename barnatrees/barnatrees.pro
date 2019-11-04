@@ -74,25 +74,25 @@ include(../openssl.pri)
 win32:RC_ICONS = images/barnatrees.ico
 macx:ICON = images/barnatrees.icns
 
-exists($$PWD/../barnatrees.db) {
-    datafiles.files = $$PWD/../barnatrees.db
+exists(barnatrees.db) {
+    datafiles.files = barnatrees.db
     android {
         datafiles.path = /assets
         INSTALLS += datafiles
-        contains(ANDROID_TARGET_ARCH,arm64-v8a) {
-            ANDROID_PACKAGE_SOURCE_DIR = \
-                $$PWD/android
+    } else {
+        macx {
+            datafiles.path = Contents/Resources
+            QMAKE_BUNDLE_DATA += datafiles
+        } else {
+            win32|linux* {
+                CONFIG += file_copies
+                datafiles.path = $$OUT_PWD
+                COPIES += datafiles
+            }
         }
     }
-    macx {
-        datafiles.path = Contents/Resources
-        QMAKE_BUNDLE_DATA += datafiles
-    }
-    win32|linux* {
-        CONFIG += file_copies
-        datafiles.path = $$OUT_PWD
-        COPIES += datafiles
-    }
+} else {
+    error("barnatrees.db missing")
 }
 
 LCONVERT_LANGS=ca es

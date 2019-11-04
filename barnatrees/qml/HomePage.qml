@@ -25,7 +25,23 @@ Page {
         map.center = coordinate
         locationCircle.coordinate = coordinate
         plantModel.setCenter(coordinate)
-        locationTip.show(qsTr("Current Location"), 15000)
+        locationTip.open()
+    }
+
+    function showCurrentLocation() {
+        locationTip.open()
+    }
+
+    function showBalloonTip(ix) {
+        //console.log("showBalloonTip:", ix, "map.mapItems.length:", map.mapItems.length);
+        for(var j=0; j<map.mapItems.length; ++j) {
+            var item = map.mapItems[j]
+            //console.log("item.modelIndex:", item.modelIndex)
+            if (item && item.modelIndex === ix) {
+                item.showTip()
+                return;
+            }
+        }
     }
 
     PositionSource {
@@ -54,6 +70,7 @@ Page {
         }
         center: locationBarna
         zoomLevel: defaultZoom
+
         onCopyrightLinkActivated: Qt.openUrlExternally(link)
 
         MapQuickItem {
@@ -61,7 +78,9 @@ Page {
             coordinate: locationBarna
             opacity:1.0
             anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
-
+            function showTip() {
+                locationTip.open()
+            }
             sourceItem: Rectangle {
                 width: 14
                 height: 14
@@ -79,6 +98,7 @@ Page {
                 BalloonTip {
                     id: locationTip
                     text: qsTr("Current Location")
+                    timeout: 15000
                 }
             }
         }
@@ -86,15 +106,17 @@ Page {
         MapItemView {
             id: itemView
             model: plantModel
-            function showTip(itemIndex) {
-                model.currentIndex = itemIndex
-            }
+
             delegate: MapQuickItem {
                 id: item
                 zoomLevel: map.maximumZoomLevel
                 anchorPoint.x: mark.width / 2
                 anchorPoint.y: mark.height / 2
                 coordinate: QtPositioning.coordinate(model.latitude, model.longitude)
+                function showTip() {
+                    tip.open()
+                }
+                property int modelIndex: model.index
                 sourceItem: Rectangle {
                     id: mark
                     radius: 5
@@ -119,7 +141,6 @@ Page {
                         id: tip
                         parent: mark
                         text: plantModel.formattedScientificName(index)
-                        visible: index === model.currentIndex
                     }
                 }
             }

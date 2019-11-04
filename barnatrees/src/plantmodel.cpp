@@ -7,12 +7,14 @@
 #include <cmath>
 #include "plantmodel.h"
 
-PlantModel::PlantModel(QObject *parent, QSqlDatabase db): QSqlRelationalTableModel(parent, db)
+PlantModel::PlantModel(QObject *parent, QSqlDatabase db):
+    QSqlRelationalTableModel(parent, db),
+    m_nearestRow(-1),
+    m_limit(10000)
 {
     setEditStrategy(QSqlTableModel::OnManualSubmit);
 	setTable("plants");
 	setRelation(fieldIndex("idSpecies"), QSqlRelation("species", "idSpecies", "scientificName, commonName1, commonName2"));
-	m_limit = 10000;
 	//qDebug() << selectStatement();
     if (select()) {
 		generateRoleNames(record());
@@ -51,7 +53,7 @@ int PlantModel::limit() const
 
 void PlantModel::setLimit(int limit)
 {
-	m_limit = limit;
+    m_limit = limit;
 }
 
 
@@ -80,6 +82,7 @@ void PlantModel::setGender(QString gen)
     QString filter = "scientificName like '" + gen +  "%'";
 	//qDebug() << "filter:" << filter;
     setFilter(filter);
+    calcNearestPlant();
 }
 
 void PlantModel::setStreet(QString street)
@@ -87,6 +90,7 @@ void PlantModel::setStreet(QString street)
     QString filter = "plantAddress like '%" + street + "%'";
 	//qDebug() << "filter:" << filter;
 	setFilter(filter);
+    calcNearestPlant();
 }
 
 void PlantModel::setSpecies(int idSpecies)
@@ -94,6 +98,7 @@ void PlantModel::setSpecies(int idSpecies)
 	QString filter = QString("plants.idSpecies = %1").arg(idSpecies);
 	//qDebug() << "filter:" << filter;
     setFilter(filter);
+    calcNearestPlant();
 }
 
 QGeoCoordinate PlantModel::plantCoordinate(int row)
@@ -173,27 +178,39 @@ QString PlantModel::streetLink(int row)
 	return QString("<a href='https://www.google.com/maps/@?api=1&map_action=pano&%1'>%2</a>").arg(pos).arg(addr_ix.data().toString());
 }
 
-QGeoCoordinate PlantModel::nearestPlant()
+void PlantModel::calcNearestPlant()
 {
-	QGeoCoordinate nearest;
-	double nearest_distance = 9e7;
+    QGeoCoordinate nearest;
+    double nearest_distance = 9e7;
     if (rowCount() == 0) {
-		return QGeoCoordinate();
+        m_nearestCoordinate = QGeoCoordinate();
     } else if (rowCount() == 1) {
-		return plantCoordinate(0);
+        m_nearestCoordinate = plantCoordinate(0);
     } else if (rowCount() >= 2 &&  rowCount() <= 200) {
-		for(int i=0; i<rowCount(); ++i) {
-			double d;
-			QGeoCoordinate x = plantCoordinate(i);
-			if ((d = m_center.distanceTo(x)) < nearest_distance) {
-				nearest_distance = d;
-				nearest = x;
-			}
-		}
-		return nearest;
+        for(int i=0; i<rowCount(); ++i) {
+            double d;
+            QGeoCoordinate x = plantCoordinate(i);
+            if ((d = m_center.distanceTo(x)) < nearest_distance) {
+                nearest_distance = d;
+                nearest = x;
+                m_nearestRow = i;
+            }
+        }
+        m_nearestCoordinate = nearest;
     } else {
-		return plantCoordinate(rowCount() / 2);
-	}
+        m_nearestRow = rowCount() / 2;
+        m_nearestCoordinate = plantCoordinate(m_nearestRow);
+    }
+}
+
+QGeoCoordinate PlantModel::nearestPlantCoordinate()
+{
+    return m_nearestCoordinate;
+}
+
+int PlantModel::nearestRow()
+{
+    return m_nearestRow;
 }
 
 void PlantModel::setCenter(QGeoCoordinate center)
@@ -209,6 +226,7 @@ void PlantModel::setCenter(QGeoCoordinate center)
     //QString filter = QString("latitude > %1 and latitude < %2 and longitude > %3 and longitude < %4").arg(m_p3.latitude()).arg(m_p1.latitude()).arg(m_p4.longitude()).arg(m_p2.longitude());
     //qDebug() << "filter:" << filter;
     setFilter(filter);
+    calcNearestPlant();
 }
 
 static const double PI = 3.14159265358979323846, earthDiameterMeters = 6371.0 * 2 * 1000;

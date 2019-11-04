@@ -62,16 +62,21 @@ int main(int argc, char **argv)
         qWarning() << "Failure loading program translations for" << configuredLanguage;
     }
     QLocale::setDefault(locale);
+
     QGeoCoordinate locationBarna = QGeoCoordinate( 41.403216, 2.186674 );
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setConnectOptions(QLatin1String("QSQLITE_OPEN_READONLY"));
 #if defined(Q_OS_ANDROID)
     QFileInfo orig("assets:/barnatrees.db");
-    QDir destDir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    qDebug() << orig.path() << "exists:" << orig.exists();
+    if (!orig.exists())
+        return -1;
+    QDir destDir = QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
     QFileInfo destFile(destDir, "barnatrees.db");
     if (!destFile.exists()) {
-        QFile::copy(orig.filePath(), destFile.absoluteFilePath());
+        qDebug() << "copy database:" << QFile::copy(orig.filePath(), destFile.absoluteFilePath());
+        qDebug() << "database permissions:" << QFile::setPermissions(destFile.absoluteFilePath(),QFile::WriteOwner | QFile::ReadOwner) ;
     }
     db.setDatabaseName(destFile.absoluteFilePath());
 #elif defined(Q_OS_MAC)

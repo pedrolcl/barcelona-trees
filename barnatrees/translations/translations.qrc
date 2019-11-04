@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>barnatrees_ca.qm</file>
-        <file>barnatrees_es.qm</file>
-        <file>qt_es.qm</file>
-        <file>qt_ca.qm</file>
-    </qresource>
-</RCC>

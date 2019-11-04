@@ -4,7 +4,7 @@ import QtPositioning 5.12
 
 Page {
     property int numberOfRows: 0
-    signal rowSelected(real lat, real lon)
+    signal rowSelected(real lat, real lon, int idx)
 
     title: qsTr("Found %Ln tree(s)", "", numberOfRows)
 
@@ -39,7 +39,7 @@ Page {
             }
             MouseArea {
                 anchors.fill: parent
-                onClicked: rowSelected(latitude, longitude)
+                onClicked: rowSelected(latitude, longitude, index)
             }
         }
     }

@@ -22,7 +22,8 @@ public:
     Q_INVOKABLE void setSpecies(int idSpecies);
     Q_INVOKABLE void setGender(QString gen);
     Q_INVOKABLE void setStreet(QString street);
-	Q_INVOKABLE QGeoCoordinate nearestPlant();
+    Q_INVOKABLE QGeoCoordinate nearestPlantCoordinate();
+    Q_INVOKABLE int nearestRow();
 	Q_INVOKABLE QGeoCoordinate plantCoordinate(int row);
 	Q_INVOKABLE qreal plantDistance(int row);
 	Q_INVOKABLE QString formattedDistance(int row);
@@ -34,8 +35,10 @@ public:
 	void setLimit(int limit);
 
 private:
+    void calcNearestPlant();
 	QGeoCoordinate CoordinateToCoordinate(QGeoCoordinate point, double range, double bearing) const;
-    QGeoCoordinate m_center, m_p1, m_p2, m_p3, m_p4;
+    QGeoCoordinate m_center, m_p1, m_p2, m_p3, m_p4, m_nearestCoordinate;
+    int m_nearestRow;
 	int m_limit;
 };
 
