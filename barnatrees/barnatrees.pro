@@ -62,6 +62,9 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/libs.xml \
+    android/drawable-hdpi/icon.png \
+    android/drawable-ldpi/icon.png \
+    android/drawable-mdpi/icon.png \
     barnatrees.db
 
 TRANSLATIONS = \
@@ -79,6 +82,7 @@ exists(barnatrees.db) {
     android {
         datafiles.path = /assets
         INSTALLS += datafiles
+        ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     } else {
         macx {
             datafiles.path = Contents/Resources
