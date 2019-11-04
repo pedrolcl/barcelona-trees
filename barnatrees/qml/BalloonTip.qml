@@ -7,8 +7,8 @@ ToolTip {
     y: -implicitHeight - 8
 
     background: Rectangle {
-        color: control.palette.toolTipBase
-        border.color: control.palette.toolTipBase
+        color: "black"
+        border.color: "black"
         radius: 6
         Rectangle {
             x: -control.x
@@ -16,8 +16,8 @@ ToolTip {
             width: 10
             height: 10
             rotation: 45
-            color: control.palette.toolTipBase
-            border.color: control.palette.toolTipBase
+            color: "black"
+            border.color: "black"
             anchors.verticalCenter: (control.y < 0) ? parent.bottom : parent.top
         }
     }
