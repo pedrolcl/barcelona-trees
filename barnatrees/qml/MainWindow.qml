@@ -115,7 +115,10 @@ ApplicationWindow {
 
         MenuItem {
             text: qsTr("View Results List")
-            onTriggered: stackView.push(resultsPage, {"numberOfRows": plantModel.rowCount()})
+            onTriggered: {
+                resultsPage.numberOfRows = plantModel.rowCount()
+                stackView.push(resultsPage)
+            }
         }
 
         MenuItem {
@@ -153,15 +156,9 @@ ApplicationWindow {
     GenderSearchDialog {
         id: genderSearchDialog
         onResultsFound: {
+            homePage.clearItems()
             homePage.changeMapCenter(plantModel.nearestPlantCoordinate())
-            gsTimer.running = true
-        }
-        Timer {
-          id: gsTimer
-          running: false
-          repeat: false
-          interval: 1000
-          onTriggered: homePage.showBalloonTip(plantModel.nearestRow())
+            resTimer.running = true
         }
     }
 
@@ -172,15 +169,9 @@ ApplicationWindow {
     SpecieSearchDialog {
         id: specieSearchDialog
         onResultsFound: {
+            homePage.clearItems()
             homePage.changeMapCenter(plantModel.nearestPlantCoordinate())
-            spTimer.running = true
-        }
-        Timer {
-          id: spTimer
-          running: false
-          repeat: false
-          interval: 1000
-          onTriggered: homePage.showBalloonTip(plantModel.nearestRow())
+            resTimer.running = true
         }
     }
 
@@ -191,16 +182,18 @@ ApplicationWindow {
     StreetSearchDialog {
         id: streetSearchDialog
         onResultsFound: {
+            homePage.clearItems()
             homePage.changeMapCenter(plantModel.nearestPlantCoordinate())
-            stTimer.running = true
+            resTimer.running = true
         }
-        Timer {
-          id: stTimer
-          running: false
-          repeat: false
-          interval: 1000
-          onTriggered: homePage.showBalloonTip(plantModel.nearestRow())
-        }
+    }
+
+    Timer {
+      id: resTimer
+      running: false
+      repeat: false
+      interval: 1000
+      onTriggered: homePage.showBalloonTip(plantModel.nearestRow())
     }
 
     Timer {

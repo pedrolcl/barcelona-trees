@@ -4,6 +4,8 @@ import QtPositioning 5.12
 
 Page {
     property int numberOfRows: 0
+    property alias currentIndex: plantsListView.currentIndex
+
     signal rowSelected(real lat, real lon, int idx)
 
     title: qsTr("Found %Ln tree(s)", "", numberOfRows)
@@ -39,7 +41,10 @@ Page {
             }
             MouseArea {
                 anchors.fill: parent
-                onClicked: rowSelected(latitude, longitude, index)
+                onClicked: {
+                    plantsListView.currentIndex = index
+                    rowSelected(latitude, longitude, index)
+                }
             }
         }
     }
@@ -50,7 +55,16 @@ Page {
         spacing: 2
         model: plantModel
         delegate: plantDelegate
+        focus: true
         ScrollIndicator.horizontal: ScrollIndicator {}
         ScrollIndicator.vertical: ScrollIndicator {}
+        highlightFollowsCurrentItem: true
+        highlightMoveDuration: 50
+        highlight: Rectangle {
+            color: 'lightsteelblue'
+            opacity: 0.5
+            z: Infinity
+        }
+        //onCurrentItemChanged: console.log('item', plantsListView.currentIndex, 'selected')
     }
 }

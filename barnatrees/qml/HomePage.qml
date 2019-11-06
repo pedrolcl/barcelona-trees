@@ -8,6 +8,12 @@ Page {
 
     property variant locationBarna: QtPositioning.coordinate( 41.403216, 2.186674 )
     property double defaultZoom: map.maximumZoomLevel - 2
+    property var globalItems: []
+
+    function clearItems() {
+        resultsPage.currentIndex = -1
+        globalItems = []
+    }
 
     function togglePositioning(checked) {
         if (checked) {
@@ -21,6 +27,7 @@ Page {
     }
 
     function changeGlobalCenter(coordinate) {
+        clearItems()
         map.zoomLevel = defaultZoom
         map.center = coordinate
         locationCircle.coordinate = coordinate
@@ -33,13 +40,11 @@ Page {
     }
 
     function showBalloonTip(ix) {
-        //console.log("showBalloonTip:", ix, "map.mapItems.length:", map.mapItems.length);
-        for(var j=0; j<map.mapItems.length; ++j) {
-            var item = map.mapItems[j]
-            //console.log("item.modelIndex:", item.modelIndex)
-            if (item && item.modelIndex === ix) {
+        //console.log("showBalloonTip:", ix, "globalItems.length:", globalItems.length);
+        if (ix < globalItems.length ) {
+            var item = globalItems[ix]
+            if (item && item.modelIndex >= 0) {
                 item.showTip()
-                return;
             }
         }
     }
@@ -72,6 +77,15 @@ Page {
         zoomLevel: defaultZoom
 
         onCopyrightLinkActivated: Qt.openUrlExternally(link)
+        onMapItemsChanged: {
+            //console.log("mapItems.length:", mapItems.length)
+            var lastItem = mapItems[mapItems.length - 1]
+            if (lastItem) {
+                var ix = lastItem.modelIndex
+                //console.log("modelIndex:", ix)
+                globalItems[ix] = lastItem
+            }
+        }
 
         MapQuickItem {
             id: locationCircle
@@ -113,10 +127,12 @@ Page {
                 anchorPoint.x: mark.width / 2
                 anchorPoint.y: mark.height / 2
                 coordinate: QtPositioning.coordinate(model.latitude, model.longitude)
+
+                property int modelIndex: model.index
                 function showTip() {
                     tip.open()
                 }
-                property int modelIndex: model.index
+
                 sourceItem: Rectangle {
                     id: mark
                     radius: 5
