@@ -155,11 +155,8 @@ ApplicationWindow {
 
     GenderSearchDialog {
         id: genderSearchDialog
-        onResultsFound: {
-            homePage.clearItems()
-            homePage.changeMapCenter(plantModel.nearestPlantCoordinate())
-            resTimer.running = true
-        }
+        onDialogAccepted: homePage.clearItems()
+        onResultsFound: homePage.resultsFound()
     }
 
     SettingsDialog {
@@ -168,11 +165,8 @@ ApplicationWindow {
 
     SpecieSearchDialog {
         id: specieSearchDialog
-        onResultsFound: {
-            homePage.clearItems()
-            homePage.changeMapCenter(plantModel.nearestPlantCoordinate())
-            resTimer.running = true
-        }
+        onDialogAccepted: homePage.clearItems()
+        onResultsFound: homePage.resultsFound()
     }
 
     SpecimenDialog {
@@ -181,25 +175,8 @@ ApplicationWindow {
 
     StreetSearchDialog {
         id: streetSearchDialog
-        onResultsFound: {
-            homePage.clearItems()
-            homePage.changeMapCenter(plantModel.nearestPlantCoordinate())
-            resTimer.running = true
-        }
+        onDialogAccepted: homePage.clearItems()
+        onResultsFound: homePage.resultsFound()
     }
 
-    Timer {
-      id: resTimer
-      running: false
-      repeat: false
-      interval: 1000
-      onTriggered: homePage.showBalloonTip(plantModel.nearestRow())
-    }
-
-    Timer {
-      running: true
-      repeat: false
-      interval: 500
-      onTriggered: homePage.showCurrentLocation()
-    }
 }

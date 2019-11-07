@@ -54,7 +54,7 @@ bool SummaryModel::select()
         while(canFetchMore()) {
             fetchMore();
         }
-        qDebug() << "summary.rows:" << rowCount();
+        //qDebug() << "summary.rows:" << rowCount();
     }
     return res;
 }

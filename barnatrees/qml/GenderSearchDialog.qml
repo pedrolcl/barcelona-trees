@@ -11,10 +11,12 @@ Dialog {
     width: Math.round(Math.min(window.width, window.height) / 3 * 2)
     standardButtons: Dialog.Ok | Dialog.Cancel
 
+    signal dialogAccepted()
     signal resultsFound()
 
     onOpened: genderText.clear()
     onAccepted: {
+        dialogAccepted()
         plantModel.setGender(genderText.text)
         if (plantModel.rowCount() > 0) {
             resultsFound();

@@ -50,7 +50,7 @@ int main(int argc, char **argv)
     QTranslator trq;
     QTranslator trp;
     QLocale locale(configuredLanguage);
-    qDebug() << "locale:" << locale;
+    //qDebug() << "locale:" << locale;
     if (trq.load(locale, QLatin1String("qt"), QLatin1String("_"), QLatin1String(":/"))) {
         QCoreApplication::installTranslator(&trq);
     } else {
@@ -90,10 +90,10 @@ int main(int argc, char **argv)
     }
 
     SpeciesModel speciesModel;
-    qDebug() << "species.columns:" << speciesModel.columnCount();
+    //qDebug() << "species.columns:" << speciesModel.columnCount();
     PlantModel plantModel;
     plantModel.setCenter(locationBarna);
-    qDebug() << "plants.columns:" << plantModel.columnCount();
+    //qDebug() << "plants.columns:" << plantModel.columnCount();
     SummaryModel summaryModel;
 
     QQmlApplicationEngine engine;

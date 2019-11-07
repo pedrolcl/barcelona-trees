@@ -72,7 +72,7 @@ bool PlantModel::select()
 		while(canFetchMore()) {
 			fetchMore();
 		}
-		qDebug() << "plants.rows:" << rowCount();
+        //qDebug() << "plants.rows:" << rowCount();
 	}
 	return res;
 }
@@ -183,8 +183,10 @@ void PlantModel::calcNearestPlant()
     QGeoCoordinate nearest;
     double nearest_distance = 9e7;
     if (rowCount() == 0) {
+        m_nearestRow = -1;
         m_nearestCoordinate = QGeoCoordinate();
     } else if (rowCount() == 1) {
+        m_nearestRow = 0;
         m_nearestCoordinate = plantCoordinate(0);
     } else if (rowCount() >= 2 &&  rowCount() <= 200) {
         for(int i=0; i<rowCount(); ++i) {
@@ -216,7 +218,8 @@ int PlantModel::nearestRow()
 void PlantModel::setCenter(QGeoCoordinate center)
 {
     m_center = center;
-	double radius = 353.553390593; // square of ½km side
+    /*double radius = 353.553390593; square of ½km side*/
+    double radius = 176.776695297; // square of 250 m side
 	m_p1 = CoordinateToCoordinate(center, radius, 0);
     m_p2 = CoordinateToCoordinate(center, radius, 90);
     m_p3 = CoordinateToCoordinate(center, radius, 180);

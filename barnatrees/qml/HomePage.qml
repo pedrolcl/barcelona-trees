@@ -8,10 +8,15 @@ Page {
 
     property variant locationBarna: QtPositioning.coordinate( 41.403216, 2.186674 )
     property double defaultZoom: map.maximumZoomLevel - 2
+    property bool pendingTreeTip: false
+    property bool pendingLocationTip: true
     property var globalItems: []
 
     function clearItems() {
+        //console.log("cleaning", map.mapItems.length, "mapItems and",globalItems.length,"globalItems")
         resultsPage.currentIndex = -1
+        map.clearMapItems()
+        map.addMapItem(locationCircle)
         globalItems = []
     }
 
@@ -36,7 +41,10 @@ Page {
     }
 
     function showCurrentLocation() {
-        locationTip.open()
+        if(map.mapReady && pendingLocationTip) {
+            locationTip.open()
+            pendingLocationTip = false;
+        }
     }
 
     function showBalloonTip(ix) {
@@ -45,8 +53,16 @@ Page {
             var item = globalItems[ix]
             if (item && item.modelIndex >= 0) {
                 item.showTip()
-            }
-        }
+            } //else
+                //console.log("Warning!",ix,item)
+        } //else
+            //console.log("Warning!",ix)
+        pendingTreeTip = false
+    }
+
+    function resultsFound() {
+        pendingTreeTip = true
+        changeMapCenter(plantModel.nearestPlantCoordinate())
     }
 
     PositionSource {
@@ -77,13 +93,18 @@ Page {
         zoomLevel: defaultZoom
 
         onCopyrightLinkActivated: Qt.openUrlExternally(link)
+
         onMapItemsChanged: {
-            //console.log("mapItems.length:", mapItems.length)
-            var lastItem = mapItems[mapItems.length - 1]
-            if (lastItem) {
-                var ix = lastItem.modelIndex
-                //console.log("modelIndex:", ix)
-                globalItems[ix] = lastItem
+            if (globalItems.length == 0 && mapItems.length === (1 + plantModel.rowCount())) {
+                //console.log("mapItems.length:", mapItems.length)
+                for(var j=0; j<mapItems.length; ++j) {
+                    if(mapItems[j].modelIndex >= 0) {
+                        var ix = mapItems[j].modelIndex
+                        globalItems[ix] = mapItems[j]
+                    }
+                }
+                //console.log("globalItems.length", globalItems.length)
+                mapTimer.start()
             }
         }
 
@@ -129,6 +150,7 @@ Page {
                 coordinate: QtPositioning.coordinate(model.latitude, model.longitude)
 
                 property int modelIndex: model.index
+
                 function showTip() {
                     tip.open()
                 }
@@ -150,7 +172,7 @@ Page {
                             specimenDialog.specimenDistance = plantModel.formattedDistance(index)
                             specimenDialog.open()
                         }
-                        onEntered: tip.visible = true && (map.zoomLevel === map.maximumZoomLevel)
+                        onEntered: tip.visible = (map.zoomLevel === map.maximumZoomLevel)
                         onExited: tip.visible = false
                     }
                     BalloonTip {
@@ -166,6 +188,21 @@ Page {
             anchors.fill: parent
             propagateComposedEvents: true
             onPressAndHold: changeGlobalCenter(map.toCoordinate(Qt.point(mouse.x, mouse.y)))
+        }
+    }
+
+    Timer {
+        id: mapTimer
+        interval: 200
+        repeat: false
+        running: false
+        onTriggered: {
+            if (pendingLocationTip) {
+                showCurrentLocation()
+            }
+            if (pendingTreeTip) {
+                showBalloonTip(plantModel.nearestRow())
+            }
         }
     }
 }

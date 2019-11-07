@@ -12,8 +12,10 @@ Dialog {
     standardButtons: Dialog.Ok | Dialog.Cancel
 
     signal resultsFound()
+    signal dialogAccepted()
 
     onAccepted: {
+        dialogAccepted()
         var id = speciesModel.data(speciesCombo.currentIndex, "idSpecies");
         plantModel.setSpecies(id)
         if (plantModel.rowCount() > 0) {

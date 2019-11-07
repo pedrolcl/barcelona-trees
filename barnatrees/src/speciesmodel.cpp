@@ -54,7 +54,7 @@ bool SpeciesModel::select()
 		while(canFetchMore()) {
 			fetchMore();
 		}
-		qDebug() << "species.rows:" << rowCount();
+        //qDebug() << "species.rows:" << rowCount();
 	}
 	return res;
 }
