@@ -97,7 +97,7 @@ Page {
         onMapItemsChanged: {
             if (globalItems.length == 0 && mapItems.length === (1 + plantModel.rowCount())) {
                 //console.log("mapItems.length:", mapItems.length)
-                for(var j=0; j<mapItems.length; ++j) {
+                for(var j=1; j<mapItems.length; ++j) {
                     if(mapItems[j].modelIndex >= 0) {
                         var ix = mapItems[j].modelIndex
                         globalItems[ix] = mapItems[j]

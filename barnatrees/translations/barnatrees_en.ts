@@ -9,28 +9,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="30"/>
+        <location filename="../qml/AboutDialog.qml" line="27"/>
         <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. v%1 git:%2. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="50"/>
+        <location filename="../qml/AboutDialog.qml" line="47"/>
         <source>This application contains data provided by the Barcelona&apos;s city council: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/en/&apos;&gt;Open Data BCN&lt;/a&gt; using the datasets &lt;b&gt;Zone trees of the city of Barcelona&lt;/b&gt; and &lt;b&gt;Street trees of the city of Barcelona&lt;/b&gt;, under the therms of the &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/&apos;&gt;Creative Commons Attribution 4.0 International (CC BY 4.0)&lt;/a&gt; license.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="73"/>
+        <location filename="../qml/AboutDialog.qml" line="70"/>
         <source>Processed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="77"/>
-        <source>Trees: %1</source>
+        <location filename="../qml/AboutDialog.qml" line="74"/>
+        <source>Trees: %L1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="81"/>
-        <source>Species: %1</source>
+        <location filename="../qml/AboutDialog.qml" line="78"/>
+        <source>Species: %L1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -50,7 +50,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/GenderSearchDialog.qml" line="28"/>
+        <location filename="../qml/GenderSearchDialog.qml" line="30"/>
         <source>Type a gender (or partial) name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -63,8 +63,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="28"/>
-        <location filename="../qml/HomePage.qml" line="81"/>
+        <location filename="../qml/HomePage.qml" line="135"/>
         <source>Current Location</source>
         <translation type="unfinished"></translation>
     </message>
@@ -77,37 +76,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="91"/>
+        <location filename="../qml/MainWindow.qml" line="95"/>
         <source>Update Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="98"/>
+        <location filename="../qml/MainWindow.qml" line="102"/>
         <source>Search by Street</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="103"/>
+        <location filename="../qml/MainWindow.qml" line="107"/>
         <source>Search by Gender/Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="108"/>
+        <location filename="../qml/MainWindow.qml" line="112"/>
         <source>Search Species</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="113"/>
+        <location filename="../qml/MainWindow.qml" line="117"/>
         <source>View Results List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="118"/>
+        <location filename="../qml/MainWindow.qml" line="125"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="123"/>
+        <location filename="../qml/MainWindow.qml" line="130"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -115,7 +114,7 @@
 <context>
     <name>ResultsPage</name>
     <message numerus="yes">
-        <location filename="../qml/ResultsPage.qml" line="9"/>
+        <location filename="../qml/ResultsPage.qml" line="11"/>
         <source>Found %Ln tree(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -174,12 +173,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SpecieSearchDialog.qml" line="30"/>
+        <location filename="../qml/SpecieSearchDialog.qml" line="32"/>
         <source>Select a Scientific Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SpecieSearchDialog.qml" line="43"/>
+        <location filename="../qml/SpecieSearchDialog.qml" line="45"/>
         <source>Number of specimens: %L1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -200,7 +199,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/StreetSearchDialog.qml" line="29"/>
+        <location filename="../qml/StreetSearchDialog.qml" line="31"/>
         <source>Type the street (or partial) name:</source>
         <translation type="unfinished"></translation>
     </message>

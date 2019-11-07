@@ -15,11 +15,8 @@ Dialog {
     Flickable {
         anchors.fill: parent
         contentHeight: col.height
-        contentWidth: col.width
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        ScrollIndicator.vertical: ScrollIndicator {}
-        ScrollIndicator.horizontal: ScrollIndicator {}
 
         Column {
             id: col
@@ -74,14 +71,16 @@ Dialog {
                     }
                     Label {
                         width: parent.width
-                        text: qsTr("Trees: %1").arg(specimens)
+                        text: qsTr("Trees: %L1").arg(specimens)
                     }
                     Label {
                         width: parent.width
-                        text: qsTr("Species: %1").arg(species)
+                        text: qsTr("Species: %L1").arg(species)
                     }
                 }
             }
         }
+
+        ScrollIndicator.vertical: ScrollIndicator {}
     }
 }
