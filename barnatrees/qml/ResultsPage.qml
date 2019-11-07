@@ -15,12 +15,12 @@ Page {
         Rectangle {
             width: parent.width
             height: row.height
-            color: "ivory"
+            color: "#505050"
             Row {
                 id: row
                 spacing: 5
                 Text {
-                    color: "green"
+                    color: "lime"
                     padding: 5
                     topPadding: (parent.height - contentHeight) / 2
                     font.bold: true
@@ -29,13 +29,16 @@ Page {
                 Column {
                     Text {
                         text: plantModel.formattedScientificName(index)
+                        color: "white"
                         font.bold: true
                     }
                     Text {
                         text: plantAddress
+                        color: "white"
                     }
                     Text {
                         text: plantModel.formattedDistance(index)
+                        color: "white"
                     }
                 }
             }
@@ -56,14 +59,14 @@ Page {
         model: plantModel
         delegate: plantDelegate
         focus: true
-        ScrollIndicator.horizontal: ScrollIndicator {}
-        ScrollIndicator.vertical: ScrollIndicator {}
+        ScrollIndicator.horizontal: ScrollIndicator {z: Infinity}
+        ScrollIndicator.vertical: ScrollIndicator {z: Infinity}
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 50
         highlight: Rectangle {
             color: 'lightsteelblue'
             opacity: 0.5
-            z: Infinity
+            z: 2
         }
         //onCurrentItemChanged: console.log('item', plantsListView.currentIndex, 'selected')
     }
