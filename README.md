@@ -5,7 +5,7 @@
 
 This repository contains code to produce two related programs:
 
-- **treedbcreator**. This command line program downloads and parses two complementary XML datasets from the Open Data BCN catalog: Zone trees of the city of Barcelona and Street trees of the city of Barcelona, containig the names of the species and geolocation of the trees of the city of Barcelona located on public roads. The information contains, among other data, the scientific name, the common names and the addresses. The trees of the parks are not included. This data is used to create a relational SQLite database used by the next program.
+- **treedbcreator**. This command line program downloads and parses two complementary XML datasets from the Open Data BCN catalog: Zone trees of the city of Barcelona and Street trees of the city of Barcelona, containing the names of the species and geolocation of the trees of the city of Barcelona located on public roads. The information contains, among other data, the scientific name, the common names and the addresses. The trees of the parks are not included. This data is used to create a relational SQLite database used by the next program.
 
 - **barnatrees**. This graphic program is a data visualization and navigation tool using the database created by the other program over a map of the city of Barcelona.
 
@@ -39,13 +39,13 @@ Configuration settings. The user may change some visualization options using the
   - Species: [Wikispecies](https://species.wikimedia.org/wiki/Main_Page)
   - Commons: [Wikimedia Commons](https://commons.wikimedia.org/wiki/)
 
-## acknowledgement
+## acknowledgment
 
 The first inspiration to make this program was the work of Juanjo Vidal [Arbrat viari de la ciutat de Barcelona](https://jjvidalmac.carto.com/viz/c3c54164-7fcf-11e4-b04f-0e853d047bba/public_map) using one the datasets from Open Data BCN.
   
 ## credits
 
-Copyright © 2019 Pedro López-Cabanillas. These programm come with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
+Copyright © 2019 Pedro López-Cabanillas. These program come with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
 
 This application contains data provided by the Barcelona's city council: [Open Data BCN](https://opendata-ajuntament.barcelona.cat/en/) using the datasets **Zone trees of the city of Barcelona** and **Street trees of the city of Barcelona**  under the therms of the Creative Commons Attribution 4.0 International [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
 
