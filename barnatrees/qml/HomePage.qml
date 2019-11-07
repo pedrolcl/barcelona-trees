@@ -68,14 +68,14 @@ Page {
     PositionSource {
         id: positionSource
         active: true
-        updateInterval: 120000 // 2 mins
+        updateInterval: 60000 // 1 min
         property variant lastSearchPosition: locationBarna
         onPositionChanged:  {
             var currentPosition = positionSource.position.coordinate
             var distance1 = currentPosition.distanceTo(lastSearchPosition)
             var distance2 = currentPosition.distanceTo(locationBarna)
             //console.log("Position: " + currentPosition + " distance: " + distance1 + " enabled: " + positionEnabled.checked)
-            if (positionEnabled.checked && distance1 > 500 && distance2 < 8000) { // 500m from last and 8km from last location
+            if (positionEnabled.checked && distance1 > 250 && distance2 < 8000) { // 250 m from last location and 8 km from Glories
                 lastSearchPosition = currentPosition
                 changeGlobalCenter(currentPosition)
             }
