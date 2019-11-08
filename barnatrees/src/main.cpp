@@ -23,6 +23,63 @@
 #define _STR(x) #x
 #define STRINGIFY(x) _STR(x)
 
+QString localDatabaseFile()
+{
+    QFile c1File(":/barnatrees.txt");
+    c1File.open(QIODevice::ReadOnly | QIODevice::Text);
+    QString c1txt = c1File.readAll();
+    c1File.close();
+    //QDateTime d1 = QDateTime::fromString(c1txt+'Z', Qt::ISODate);
+
+    QDir destDir = QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
+    if (!destDir.exists()) {
+        if (!destDir.mkpath(".")) {
+            qWarning() << "Error creating the database path";
+            return QString();
+        }
+    }
+
+    QString c2txt;
+    QFileInfo c2(destDir, "barnatrees.txt");
+    if (c2.exists()) {
+        QFile c2file(c2.absoluteFilePath());
+        c2file.open(QIODevice::ReadOnly | QIODevice::Text);
+        c2txt = c2file.readAll();
+        c2file.close();
+
+        QDateTime d2 = QDateTime::fromString(c2txt+'Z', Qt::ISODate);
+        if (d2.addDays(14) < QDateTime::currentDateTimeUtc()) {
+            qWarning() << "The database is old. An update is advisable.";
+        }
+    }
+
+    QFileInfo destFile(destDir, "barnatrees.db");
+    if (!destFile.exists() || c2txt < c1txt) {
+        QFile orig(":/barnatrees.db");
+        if (!orig.exists()) {
+            qCritical() << "barnatrees.db resource is missing! aborting";
+            return QString();
+        }
+        if (destFile.exists()) {
+            QFile::remove(destFile.absoluteFilePath());
+        }
+        if (!orig.copy(destFile.absoluteFilePath())) {
+            qWarning() << "copy database:" << orig.errorString();
+            return QString();
+        }
+        if (!QFile::setPermissions(destFile.absoluteFilePath(), QFile::WriteOwner | QFile::ReadOwner)) {
+            qWarning() << "database file setPermissions() failed!";
+            return QString();
+        }
+        QFile c2file(c2.absoluteFilePath());
+        c2file.open(QIODevice::WriteOnly | QIODevice::Text);
+        c2file.write(c1txt.toUtf8());
+        c2file.close();
+    }
+    qDebug() << "Database file:" << destFile.absoluteFilePath();
+    return destFile.absoluteFilePath();
+}
+
 int main(int argc, char **argv)
 {
     QGuiApplication::setApplicationName("barnatrees");
@@ -63,27 +120,12 @@ int main(int argc, char **argv)
     }
     QLocale::setDefault(locale);
 
-    QGeoCoordinate locationBarna = QGeoCoordinate( 41.403216, 2.186674 );
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setConnectOptions(QLatin1String("QSQLITE_OPEN_READONLY"));
-#if defined(Q_OS_ANDROID)
-    QFileInfo orig("assets:/barnatrees.db");
-    qDebug() << orig.path() << "exists:" << orig.exists();
-    if (!orig.exists())
+    QString dbFile = localDatabaseFile();
+    if (dbFile.isEmpty())
         return -1;
-    QDir destDir = QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
-    QFileInfo destFile(destDir, "barnatrees.db");
-    if (!destFile.exists()) {
-        qDebug() << "copy database:" << QFile::copy(orig.filePath(), destFile.absoluteFilePath());
-        qDebug() << "database permissions:" << QFile::setPermissions(destFile.absoluteFilePath(),QFile::WriteOwner | QFile::ReadOwner) ;
-    }
-    db.setDatabaseName(destFile.absoluteFilePath());
-#elif defined(Q_OS_MAC)
-    db.setDatabaseName("../Resources/barnatrees.db");
-#else
-    db.setDatabaseName("barnatrees.db");
-#endif
+    db.setDatabaseName(dbFile);
     if (!db.open()) {
         qCritical() << db.lastError();
         return -1;
@@ -91,6 +133,7 @@ int main(int argc, char **argv)
 
     SpeciesModel speciesModel;
     //qDebug() << "species.columns:" << speciesModel.columnCount();
+    QGeoCoordinate locationBarna = QGeoCoordinate( 41.403216, 2.186674 );
     PlantModel plantModel;
     plantModel.setCenter(locationBarna);
     //qDebug() << "plants.columns:" << plantModel.columnCount();
@@ -103,6 +146,8 @@ int main(int argc, char **argv)
     engine.rootContext()->setContextProperty("plantModel", &plantModel);
     engine.rootContext()->setContextProperty("summaryModel", &summaryModel);
     engine.load(QUrl(QStringLiteral("qrc:/MainWindow.qml")));
+    QObject::connect(&engine, &QQmlApplicationEngine::exit, &app, &QCoreApplication::quit);
+    QObject::connect(&engine, &QQmlApplicationEngine::quit, &app, &QCoreApplication::quit);
     if (engine.rootObjects().isEmpty()) {
         return -1;
     }

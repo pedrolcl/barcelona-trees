@@ -52,7 +52,7 @@ QString DownloadManager::saveFileName(const QUrl &url) const
     QString completeBN = basename + '.' + suffix;
     if (QFile::exists(completeBN)) {
         // already exists, don't overwrite
-        QString now = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+        QString now = QDateTime::currentDateTimeUtc().toString("yyyyMMdd_hhmmss");
         QString completeNewName = basename + '_' + now + '.' + suffix;
         QFile::rename(completeBN, completeNewName);
     }

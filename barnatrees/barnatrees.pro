@@ -26,6 +26,15 @@ RESOURCES += \
     qml/qml.qrc \
     images/images.qrc
 
+exists(barnatrees.db) {
+    # create barnatrees.txt
+    # linux*:system($$PWD/barnatrees.sh)
+    RESOURCES += data.qrc
+} else {
+    error("barnatrees.db missing")
+}
+
+
 DISTFILES += \
     qml/BalloonTip.qml \
     qml/MainWindow.qml \
@@ -72,32 +81,9 @@ TRANSLATIONS = \
     translations/barnatrees_en.ts \
     translations/barnatrees_es.ts
 
-include(../openssl.pri)
-
 win32:RC_ICONS = images/barnatrees.ico
 macx:ICON = images/barnatrees.icns
 
-exists(barnatrees.db) {
-    datafiles.files = barnatrees.db
-    android {
-        datafiles.path = /assets
-        INSTALLS += datafiles
-        ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-    } else {
-        macx {
-            datafiles.path = Contents/Resources
-            QMAKE_BUNDLE_DATA += datafiles
-        } else {
-            win32|linux* {
-                CONFIG += file_copies
-                datafiles.path = $$OUT_PWD
-                COPIES += datafiles
-            }
-        }
-    }
-} else {
-    error("barnatrees.db missing")
-}
-
 LCONVERT_LANGS=ca es
 include(../lconvert.pri)
+include(../openssl.pri)

@@ -47,3 +47,4 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
+barnatrees.txt

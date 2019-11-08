@@ -116,9 +116,9 @@
     <message numerus="yes">
         <location filename="../qml/ResultsPage.qml" line="11"/>
         <source>Found %Ln tree(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Found %Ln tree</numerusform>
+            <numerusform>Found %Ln trees</numerusform>
         </translation>
     </message>
 </context>

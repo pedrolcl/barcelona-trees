@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>barnatrees.db</file>
+        <file>barnatrees.txt</file>
+    </qresource>
+</RCC>

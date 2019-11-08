@@ -243,7 +243,7 @@ void XmlParser::initDB()
 {
     QFile file("barnatrees.db");
     if (file.exists()) {
-        QString now = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+        QString now = QDateTime::currentDateTimeUtc().toString("yyyyMMdd_hhmmss");
         file.rename(QString("barnatrees_%1.db").arg(now));
     }
 
@@ -311,7 +311,7 @@ void XmlParser::updateDB()
         qWarning() << q.lastError();
     } else {
         q.bindValue(":name", qApp->applicationName() + " v" + qApp->applicationVersion());
-        q.bindValue(":desc", QDateTime::currentDateTime().toString(Qt::ISODate));
+        q.bindValue(":desc", QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
         q.bindValue(":plants", m_plantsDB.count());
         q.bindValue(":species", m_speciesDB.count());
         if (!q.exec()) {
