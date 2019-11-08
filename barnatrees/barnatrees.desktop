@@ -1,0 +1,18 @@
+[Desktop Entry]
+Exec=barnatrees
+Icon=barnatrees
+Comment[en]=Barcelona Trees
+Comment[es]=Árboles de Barcelona
+Comment[ca]=Arbres de Barcelona
+Comment=Barcelona Trees
+GenericName[en]=Barcelona Trees
+GenericName[es]=Árboles de Barcelona
+GenericName[ca]=Arbres de Barcelona
+GenericName=Barcelona Trees
+Name[en]=Barcelona Trees
+Name[es]=Árboles de Barcelona
+Name[ca]=Arbres de Barcelona
+Name=Barcelona Trees
+Terminal=false
+Type=Application
+Categories=Education;Science;DataVisualization;Biology;
