@@ -21,7 +21,7 @@ SOURCES = \
     src/plantmodel.cpp  \
     src/speciesmodel.cpp \
     src/summarymodel.cpp
-	
+
 RESOURCES += \
     qml/qml.qrc \
     images/images.qrc
@@ -38,6 +38,7 @@ exists(barnatrees.db) {
 
 
 DISTFILES += \
+    Info.plist.app \
     qml/BalloonTip.qml \
     qml/MainWindow.qml \
     qml/AboutDialog.qml \
@@ -84,7 +85,13 @@ TRANSLATIONS = \
     translations/barnatrees_es.ts
 
 win32:RC_ICONS = images/barnatrees.ico
-macx:ICON = images/barnatrees.icns
+
+macx {
+    ICON = images/barnatrees.icns
+    QMAKE_TARGET_BUNDLE_PREFIX = com.github
+    QMAKE_BUNDLE = barnatrees
+    QMAKE_INFO_PLIST = Info.plist.app
+}
 
 LCONVERT_LANGS=ca es
 include(../lconvert.pri)
