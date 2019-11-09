@@ -72,14 +72,14 @@ bool PlantModel::select()
 		while(canFetchMore()) {
 			fetchMore();
 		}
-        //qDebug() << "plants.rows:" << rowCount();
+        qDebug() << "plants.rows:" << rowCount();
 	}
 	return res;
 }
 
 void PlantModel::setGender(QString gen)
 {
-    QString filter = "scientificName like '" + gen +  "%'";
+    QString filter = "scientificName like '%" + gen +  "%'";
 	//qDebug() << "filter:" << filter;
     setFilter(filter);
     calcNearestPlant();
@@ -203,6 +203,7 @@ void PlantModel::calcNearestPlant()
         m_nearestRow = rowCount() / 2;
         m_nearestCoordinate = plantCoordinate(m_nearestRow);
     }
+    qDebug() << "nearest row:" << m_nearestRow;
 }
 
 QGeoCoordinate PlantModel::nearestPlantCoordinate()

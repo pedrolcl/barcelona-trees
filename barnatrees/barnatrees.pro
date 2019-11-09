@@ -27,8 +27,10 @@ RESOURCES += \
     images/images.qrc
 
 exists(barnatrees.db) {
-    # create barnatrees.txt
-    # linux*:system($$PWD/barnatrees.sh)
+    !exists(barnatrees.txt) {
+        unix:system($$PWD/barnatrees.sh)
+        win32:system($$PWD/barnatrees.cmd)
+    }
     RESOURCES += data.qrc
 } else {
     error("barnatrees.db missing")

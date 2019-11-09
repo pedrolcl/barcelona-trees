@@ -15,9 +15,10 @@ Page {
     function clearItems() {
         //console.log("cleaning", map.mapItems.length, "mapItems and",globalItems.length,"globalItems")
         resultsPage.currentIndex = -1
-        map.clearMapItems()
-        map.addMapItem(locationCircle)
         globalItems = []
+        map.clearMapItems()
+        gc()
+        map.addMapItem(locationCircle)
     }
 
     function togglePositioning(checked) {
