@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+<?if $(var.Platform) = x64 ?>
+  <?define Win64 = "yes" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+<?else ?>
+  <?define Win64 = "no" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+<?endif ?>  
+  
+  <Product Id="*" Name="BarcelonaTrees" Language="1033" Version="0.0.1.0" Manufacturer="Pedro Lopez-Cabanillas" UpgradeCode="760c2826-429c-43c0-b07a-3ce84b52adff">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="BarcelonaTrees" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+    </Feature>
+    
+    <Feature Id="VCRedist" Title="Visual C++ 14.1 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+      <MergeRef Id="VCRedist"/>
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="$(var.PlatformProgramFilesFolder)">
+        <Directory Id="INSTALLLOCATION" Name="BarcelonaTrees" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="BarcelonaTrees"/>
+      </Directory>
+      <?if $(var.Platform) = x64 ?>
+        <Merge Id="VCRedist" SourceFile="Microsoft_VC141_CRT_x64.msm" DiskId="1" Language="0"/>
+      <?else ?>
+        <Merge Id="VCRedist" SourceFile="Microsoft_VC141_CRT_x86.msm" DiskId="1" Language="0"/>
+      <?endif ?>
+    </Directory>
+  </Fragment>
+  
+  <Fragment>
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="{10995EB3-D1BF-44E2-B13D-4567615A0047}">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+              Name="Barcelona Trees" Description="Barcelona Trees" Target="[#filE65091447C0E9C7FF1CBC83EDA6A8CE5]"
+              WorkingDirectory="INSTALLLOCATION"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\BarcelonaTrees\BarcelonaTrees" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLLOCATION">
+      <ComponentGroupRef Id="ComponentFiles" />
+    </ComponentGroup>
+  </Fragment>
+</Wix>
