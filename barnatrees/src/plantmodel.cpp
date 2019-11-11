@@ -10,7 +10,7 @@
 PlantModel::PlantModel(QObject *parent, QSqlDatabase db):
     QSqlRelationalTableModel(parent, db),
     m_nearestRow(-1),
-    m_limit(10000)
+    m_limit(5000)
 {
     setEditStrategy(QSqlTableModel::OnManualSubmit);
 	setTable("plants");
