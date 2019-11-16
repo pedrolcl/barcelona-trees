@@ -1,7 +1,4 @@
-# barcelona-trees
-### A guide of the trees of Barcelona city
-
-![icon](barnatrees/images/barnatrees_icon256.png)
+![icon](web_hi_res_512.png)
 
 This repository contains code to produce two related programs:
 
@@ -16,7 +13,7 @@ Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages,
 The current release is: **Alfa**
 
  Platform | arch  | files    
-----------|-------|----------
+:---------|:-----:|:----------
  android  | arm64 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa/barnatrees-alfa-android-arm64.apk) 
  android  | armV7 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa/barnatrees-alfa-android-armv7.apk)      
  macOS    | x64   | [dmg](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa/barnatrees-alfa-mac-x64.dmg)
@@ -24,6 +21,7 @@ The current release is: **Alfa**
  windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa/barnatrees-alfa-windows-x64.msi)
  sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/alfa.zip)
  sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/alfa.tar.gz)
+
 
 ## treedbcreator
 
