@@ -48,3 +48,9 @@ target_wrapper.*
 # QtCreator CMake
 CMakeLists.txt.user*
 barnatrees.txt
+*.msm
+windowsmsi/Components.wxs
+windowsmsi/.vs/
+windowsmsi/bin/
+windowsmsi/obj/
+windowsmsi/x64/
