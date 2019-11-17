@@ -1,3 +1,5 @@
+> If you only want to download a program, then jump directly to the [downloads](#downloads) section and click on a file for your platform. If you are looking for instructions to use the visualization program, go to the section [barnatrees](#barnatrees).
+
 ![icon](web_hi_res_512.png)
 
 This repository contains code to produce two related programs:
@@ -8,9 +10,10 @@ This repository contains code to produce two related programs:
 
 Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages, and can be built (using a suitable modern compiler) for the most common targets: Windows, macOS, Linux and Android operating systems.
 
+<a name="downloads"/>
 ## downloads
 
-[The current release][downloads] is: **Alfa**
+The current release is: **Alfa**
 
  Platform | arch  | files    
 :---------|:-----:|:----------
@@ -27,6 +30,7 @@ Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages,
 
 The program does not have any command line arguments. It simply outputs at the same working directory the files &quot;arbrat_viari.xml&quot;, &quot;arbrat_zona.xml&quot; and &quot;barnatrees.db&quot;.
 
+<a name="barnatrees"/>
 ## barnatrees
 
 Upon startup, this program shows a map of Barcelona, centered at the default location point: Glòries square, a blue circle labeled as &quot;Current Location&quot;, and the trees found nearby. The user can change the location by hand, with a long press and hold of the main mouse button or touch screen, or automatically using the device's GPS (menu option &quot;Update Position&quot;. The user can change the zoom scale either with the mouse wheel or using a &quot;pinch&quot; gesture in the touch screen.
