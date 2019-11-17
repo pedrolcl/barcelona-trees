@@ -10,7 +10,7 @@ Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages,
 
 ## downloads
 
-The current release is: **Alfa**
+[The current release][downloads] is: **Alfa**
 
  Platform | arch  | files    
 :---------|:-----:|:----------
