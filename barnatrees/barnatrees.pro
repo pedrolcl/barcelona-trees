@@ -3,8 +3,8 @@ QT += sql quick quickcontrols2 qml network positioning location
 CONFIG += c++11 lrelease embed_translations
 LRELEASE_DIR='.'
 QM_FILES_RESOURCE_PREFIX='/'
-win32:VERSION = 0.0.1.0
-else:VERSION = 0.0.1
+win32:VERSION = 0.0.2.0
+else:VERSION = 0.0.2
 DEFINES += APPVER=$$VERSION
 DEFINES += GITVER=$$system(git describe --always)
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -45,6 +45,7 @@ DISTFILES += \
     qml/GenderSearchDialog.qml \
     qml/HomePage.qml \
     qml/Marker.qml \
+    qml/MsgDialog.qml \
     qml/ResultsPage.qml \
     qml/DetailsPage.qml \
     qml/SettingsDialog.qml \

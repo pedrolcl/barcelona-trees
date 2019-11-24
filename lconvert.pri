@@ -1,5 +1,5 @@
 qtPrepareTool(LCONVERT, lconvert)
-isEmpty(LCONVERT_LANGS): LCONVERT_LANGS = es en
+isEmpty(LCONVERT_LANGS): LCONVERT_LANGS = es en ca
 isEmpty(LCONVERT_PATTERNS): LCONVERT_PATTERNS = qtbase qtdeclarative qtlocation qtquickcontrols2 qtscript
 LCONVERT_OUTPUTS =
 for(lang, LCONVERT_LANGS) {

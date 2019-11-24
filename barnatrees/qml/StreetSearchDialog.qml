@@ -13,6 +13,7 @@ Dialog {
 
     signal dialogAccepted()
     signal resultsFound()
+    signal resultsNotFound()
 
     onOpened: streetText.clear()
     onAccepted: {
@@ -20,6 +21,8 @@ Dialog {
         plantModel.setStreet(streetText.text)
         if (plantModel.rowCount() > 0) {
             resultsFound();
+        } else {
+            resultsNotFound()
         }
     }
 

@@ -11,8 +11,9 @@ Dialog {
     width: Math.round(Math.min(window.width, window.height) / 3 * 2)
     standardButtons: Dialog.Ok | Dialog.Cancel
 
-    signal resultsFound()
     signal dialogAccepted()
+    signal resultsFound()
+    signal resultsNotFound()
 
     onAccepted: {
         dialogAccepted()
@@ -20,6 +21,8 @@ Dialog {
         plantModel.setSpecies(id)
         if (plantModel.rowCount() > 0) {
             resultsFound();
+        } else {
+            resultsNotFound()
         }
     }
 

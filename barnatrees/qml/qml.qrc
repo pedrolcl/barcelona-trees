@@ -13,5 +13,6 @@
         <file>StreetSearchDialog.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>BalloonTip.qml</file>
+        <file>MsgDialog.qml</file>
     </qresource>
 </RCC>

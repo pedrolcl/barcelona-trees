@@ -219,8 +219,7 @@ int PlantModel::nearestRow()
 void PlantModel::setCenter(QGeoCoordinate center)
 {
     m_center = center;
-    /*double radius = 353.553390593; square of ½km side*/
-    double radius = 176.776695297; // square of 250 m side
+    double radius = 250.0; // square of 500 m side
 	m_p1 = CoordinateToCoordinate(center, radius, 0);
     m_p2 = CoordinateToCoordinate(center, radius, 90);
     m_p3 = CoordinateToCoordinate(center, radius, 180);

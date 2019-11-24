@@ -13,6 +13,7 @@ Dialog {
 
     signal dialogAccepted()
     signal resultsFound()
+    signal resultsNotFound()
 
     onOpened: genderText.clear()
     onAccepted: {
@@ -20,6 +21,8 @@ Dialog {
         plantModel.setGender(genderText.text)
         if (plantModel.rowCount() > 0) {
             resultsFound();
+        } else {
+            resultsNotFound()
         }
     }
 

@@ -157,6 +157,7 @@ ApplicationWindow {
         id: genderSearchDialog
         onDialogAccepted: homePage.clearItems()
         onResultsFound: homePage.resultsFound()
+        onResultsNotFound: resultsNotFoundDialog.open()
     }
 
     SettingsDialog {
@@ -167,6 +168,7 @@ ApplicationWindow {
         id: specieSearchDialog
         onDialogAccepted: homePage.clearItems()
         onResultsFound: homePage.resultsFound()
+        onResultsNotFound: resultsNotFoundDialog.open()
     }
 
     SpecimenDialog {
@@ -177,6 +179,13 @@ ApplicationWindow {
         id: streetSearchDialog
         onDialogAccepted: homePage.clearItems()
         onResultsFound: homePage.resultsFound()
+        onResultsNotFound: resultsNotFoundDialog.open()
+    }
+
+    MsgDialog {
+        id: resultsNotFoundDialog
+        title: qsTr("Sorry!")
+        dlgMessage: qsTr("Your search returned no results.")
     }
 
 }

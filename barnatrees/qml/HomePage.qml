@@ -11,6 +11,7 @@ Page {
     property bool pendingTreeTip: false
     property bool pendingLocationTip: true
     property var globalItems: []
+    property int numberOfRows: 0
 
     function clearItems() {
         //console.log("cleaning", map.mapItems.length, "mapItems and",globalItems.length,"globalItems")
@@ -105,6 +106,7 @@ Page {
                     }
                 }
                 //console.log("globalItems.length", globalItems.length)
+                numberOfRows = plantModel.rowCount()
                 mapTimer.start()
             }
         }
@@ -204,6 +206,14 @@ Page {
             if (pendingTreeTip) {
                 showBalloonTip(plantModel.nearestRow())
             }
+            resultsFoundDialog.open()
         }
+    }
+
+    MsgDialog {
+        id: resultsFoundDialog
+        y: 100
+        title: qsTr("Success!")
+        dlgMessage: qsTr("Found %Ln tree(s)", "", numberOfRows)
     }
 }
