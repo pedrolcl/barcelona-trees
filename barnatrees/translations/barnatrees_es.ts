@@ -62,7 +62,7 @@
         <translation>Buscar por nombre de género</translation>
     </message>
     <message>
-        <location filename="../qml/GenderSearchDialog.qml" line="30"/>
+        <location filename="../qml/GenderSearchDialog.qml" line="33"/>
         <source>Type a gender (or partial) name:</source>
         <translation>Escribir el nombre (parcial) de género:</translation>
     </message>
@@ -75,9 +75,22 @@
         <translation>Árboles de Barcelona</translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="135"/>
+        <location filename="../qml/HomePage.qml" line="138"/>
         <source>Current Location</source>
         <translation>Ubicación actual</translation>
+    </message>
+    <message>
+        <location filename="../qml/HomePage.qml" line="216"/>
+        <source>Success!</source>
+        <translation>¡Éxito!</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/HomePage.qml" line="217"/>
+        <source>Found %Ln tree(s)</source>
+        <translation>
+            <numerusform>Encontrado %Ln árbol</numerusform>
+            <numerusform>Encontrados %Ln árboles</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -121,6 +134,16 @@
         <location filename="../qml/MainWindow.qml" line="130"/>
         <source>About</source>
         <translation>Acerca de</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainWindow.qml" line="187"/>
+        <source>Sorry!</source>
+        <translation>¡Lo siento!</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainWindow.qml" line="188"/>
+        <source>Your search returned no results.</source>
+        <translation>Su búsqueda no produjo resultados.</translation>
     </message>
 </context>
 <context>
@@ -197,12 +220,12 @@
         <translation>Buscar especie</translation>
     </message>
     <message>
-        <location filename="../qml/SpecieSearchDialog.qml" line="32"/>
+        <location filename="../qml/SpecieSearchDialog.qml" line="35"/>
         <source>Select a Scientific Name:</source>
         <translation>Seleccionar un nombre científico:</translation>
     </message>
     <message>
-        <location filename="../qml/SpecieSearchDialog.qml" line="45"/>
+        <location filename="../qml/SpecieSearchDialog.qml" line="48"/>
         <source>Number of specimens: %L1</source>
         <translation>Número de especímenes: %L1</translation>
     </message>
@@ -223,7 +246,7 @@
         <translation>Buscar por calle</translation>
     </message>
     <message>
-        <location filename="../qml/StreetSearchDialog.qml" line="31"/>
+        <location filename="../qml/StreetSearchDialog.qml" line="34"/>
         <source>Type the street (or partial) name:</source>
         <translation>Escribir el nombre (parcial) de la calle:</translation>
     </message>

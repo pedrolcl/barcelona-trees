@@ -8,6 +8,7 @@ else:VERSION = 0.0.2
 DEFINES += APPVER=$$VERSION
 DEFINES += GITVER=$$system(git describe --always)
 DEFINES += QT_DEPRECATED_WARNINGS
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 HEADERS += \
     src/basemodel.h \
@@ -35,7 +36,6 @@ exists(barnatrees.db) {
 } else {
     error("barnatrees.db missing")
 }
-
 
 DISTFILES += \
     Info.plist.app \
@@ -97,3 +97,4 @@ macx {
 LCONVERT_LANGS=ca es
 include(../lconvert.pri)
 include(../openssl.pri)
+include(../q7zip.pri)

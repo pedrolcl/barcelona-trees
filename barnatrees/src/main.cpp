@@ -19,6 +19,8 @@
 #include "plantmodel.h"
 #include "speciesmodel.h"
 #include "summarymodel.h"
+#include "q7z_facade.h"
+#include "q7z_extract.h"
 
 #define _STR(x) #x
 #define STRINGIFY(x) _STR(x)
@@ -55,16 +57,28 @@ QString localDatabaseFile()
 
     QFileInfo destFile(destDir, "barnatrees.db");
     if (!destFile.exists() || c2txt < c1txt) {
-        QFile orig(":/barnatrees.db");
+        QFile orig(":/barnatrees.db.7z");
         if (!orig.exists()) {
-            qCritical() << "barnatrees.db resource is missing! aborting";
+            qCritical() << "barnatrees.db.7z resource is missing! aborting";
             return QString();
         }
         if (destFile.exists()) {
             QFile::remove(destFile.absoluteFilePath());
         }
-        if (!orig.copy(destFile.absoluteFilePath())) {
-            qWarning() << "copy database:" << orig.errorString();
+        //if (!orig.copy(destFile.absoluteFilePath())) {
+        try {
+            orig.open(QIODevice::ReadOnly);
+            Q7z::extractArchive(&orig, destDir.absolutePath());
+            orig.close();
+        }
+        catch (const Q7z::SevenZipException& e)
+        {
+            qWarning() << "extract database:" << e.message();
+            orig.close();
+            return QString();
+        }
+        if(!QFile::exists(destFile.absoluteFilePath())) {
+            qWarning() << "copy database: extraction failed";
             return QString();
         }
         if (!QFile::setPermissions(destFile.absoluteFilePath(), QFile::WriteOwner | QFile::ReadOwner)) {
@@ -122,6 +136,7 @@ int main(int argc, char **argv)
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setConnectOptions(QLatin1String("QSQLITE_OPEN_READONLY"));
+    Q7z::initSevenZ();
     QString dbFile = localDatabaseFile();
     if (dbFile.isEmpty())
         return -1;

@@ -8,10 +8,12 @@
 *.so
 *.dll
 *.dylib
+*.so.*
 
 # SQLite databases
 *.db
 *.db3
+*.7z
 
 # Qt-es
 object_script.*.Release
