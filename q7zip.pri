@@ -7,10 +7,15 @@ INCLUDEPATH += \
     $$7ZIP_BASE/CPP/myWindows \
     $$7ZIP_BASE/CPP/include_windows
 
-!android:linux {
+linux*:!android {
+    linux-g++:QMAKE_TARGET.arch = $$QMAKE_HOST.arch
+    linux-g++-32:QMAKE_TARGET.arch = x86
+    linux-g++-64:QMAKE_TARGET.arch = x86_64
+
     LIBS += $$PWD/linux_x86_64/libq7z.so
     CONFIG += file_copies
     extralibs.path = $$OUT_PWD/lib
+    message("QMAKE_HOST.arch: " $$QMAKE_HOST.arch)
     contains(QMAKE_TARGET.arch, x86_64) {
         extralibs.files = $$PWD/linux_x86_64/libq7z.so.*
     }
