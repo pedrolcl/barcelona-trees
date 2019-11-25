@@ -27,20 +27,16 @@ android {
 win32 {
     CONFIG += file_copies
     CONFIG(debug, debug|release) {
-        extralibs.path = $$OUT_PWD/debug
+        tlslibs.path = $$OUT_PWD/debug
     } else {
-        extralibs.path = $$OUT_PWD/release
+        tlslibs.path = $$OUT_PWD/release
     }
-    #message($$extralibs.path)
-
     contains(QMAKE_TARGET.arch, x86_64) {
-        extralibs.files = $$PWD/winx64/libcrypto-1_1-x64.dll \
+        tlslibs.files = $$PWD/winx64/libcrypto-1_1-x64.dll \
                           $$PWD/winx64/libssl-1_1-x64.dll
     } else {
-        extralibs.files = $$PWD/winx86/libcrypto-1_1.dll \
+        tlslibs.files = $$PWD/winx86/libcrypto-1_1.dll \
                           $$PWD/winx86/libssl-1_1.dll
     }
-
-    #message($$extralibs.files)
-    COPIES += extralibs
+    COPIES += tlslibs
 }

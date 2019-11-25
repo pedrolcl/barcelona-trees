@@ -22,12 +22,12 @@ linux*:!android {
 
     LIBS += $$PWD/linux_x86_64/libq7z.so
     CONFIG += file_copies
-    extralibs.path = $$OUT_PWD/lib
-    message("QMAKE_HOST.arch: " $$QMAKE_HOST.arch)
+    q7zlbs.path = $$OUT_PWD/lib
+    #message("QMAKE_HOST.arch: " $$QMAKE_HOST.arch)
     contains(QMAKE_TARGET.arch, x86_64) {
-        extralibs.files = $$PWD/linux_x86_64/libq7z.so.*
+        q7zlbs.files = $$PWD/linux_x86_64/libq7z.so.*
     }
-    COPIES += extralibs
+    COPIES += q7zlbs
     QMAKE_RPATHDIR += lib
 }
 
@@ -53,16 +53,16 @@ android {
 win32 {
     CONFIG += file_copies
     CONFIG(debug, debug|release) {
-        extralibs.path = $$OUT_PWD/debug
+        q7zlbs.path = $$OUT_PWD/debug
     } else {
-        extralibs.path = $$OUT_PWD/release
+        q7zlbs.path = $$OUT_PWD/release
     }
     contains(QMAKE_TARGET.arch, x86_64) {
         LIBS += $$PWD/winx64/q7z.lib
-        extralibs.files = $$PWD/winx64/q7z.dll
+        q7zlbs.files = $$PWD/winx64/q7z.dll
     } else {
         LIBS += $$PWD/winx86/q7z.lib
-        extralibs.files = $$PWD/winx86/q7z.dll
+        q7zlbs.files = $$PWD/winx86/q7z.dll
     }
-    COPIES += extralibs
+    COPIES += q7zlbs
 }

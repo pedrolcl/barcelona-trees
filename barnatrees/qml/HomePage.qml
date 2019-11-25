@@ -86,6 +86,8 @@ Page {
 
     Map {
         id: map
+        maximumZoomLevel: 20.0
+        minimumZoomLevel: 13.0
         anchors.fill: parent
         plugin: Plugin {
             name: "osm" // esri, osm, mapboxgl
@@ -94,6 +96,7 @@ Page {
         center: locationBarna
         zoomLevel: defaultZoom
 
+        //onZoomLevelChanged: console.log("Zoom: " + map.zoomLevel)
         onCopyrightLinkActivated: Qt.openUrlExternally(link)
 
         onMapItemsChanged: {
@@ -175,7 +178,7 @@ Page {
                             specimenDialog.specimenDistance = plantModel.formattedDistance(index)
                             specimenDialog.open()
                         }
-                        onEntered: tip.visible = (map.zoomLevel === map.maximumZoomLevel)
+                        onEntered: tip.visible = (map.zoomLevel >= map.maximumZoomLevel)
                         onExited: tip.visible = false
                     }
                     BalloonTip {
@@ -191,6 +194,23 @@ Page {
             anchors.fill: parent
             propagateComposedEvents: true
             onPressAndHold: changeGlobalCenter(map.toCoordinate(Qt.point(mouse.x, mouse.y)))
+        }
+
+        Column {
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            Button {
+                width: 50
+                height: 50
+                icon.name: "zoomin"
+                onPressed: if (map.zoomLevel < 20.0) map.zoomLevel += 0.1;
+            }
+            Button {
+                width: 50
+                height: 50
+                icon.name: "zoomout"
+                onPressed: if (map.zoomLevel > 13.0) map.zoomLevel -= 0.1;
+            }
         }
     }
 
