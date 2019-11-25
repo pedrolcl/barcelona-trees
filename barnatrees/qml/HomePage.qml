@@ -197,8 +197,8 @@ Page {
         }
 
         Column {
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
+            anchors.top: parent.top
+            anchors.left: parent.left
             Button {
                 width: 50
                 height: 50
