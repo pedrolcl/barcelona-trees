@@ -9,8 +9,10 @@
 *.dll
 *.dylib
 *.so.*
+*.lib
 
 # SQLite databases
+barnatrees.txt
 *.db
 *.db3
 *.7z
@@ -49,7 +51,7 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
-barnatrees.txt
+
 *.msm
 windowsmsi/Components.wxs
 windowsmsi/.vs/

@@ -27,14 +27,14 @@ RESOURCES += \
     qml/qml.qrc \
     images/images.qrc
 
-exists(barnatrees.db) {
+exists(barnatrees.db.7z) {
     !exists(barnatrees.txt) {
         unix:system($$PWD/barnatrees.sh)
         win32:system($$PWD/barnatrees.cmd)
     }
     RESOURCES += data.qrc
 } else {
-    error("barnatrees.db missing")
+    error("barnatrees.db.7z missing")
 }
 
 DISTFILES += \
