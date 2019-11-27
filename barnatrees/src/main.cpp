@@ -21,17 +21,63 @@
 #include "summarymodel.h"
 #include "q7z_facade.h"
 #include "q7z_extract.h"
+#include "dropboxdownloader.h"
 
 #define _STR(x) #x
 #define STRINGIFY(x) _STR(x)
 
+int downloadFromCloud(QDir &destDir, QString current)
+{
+    const QUrl texturl("https://www.dropbox.com/s/e485ypwbdy113v9/barnatrees.txt?dl=1");
+    const QUrl dataurl("https://www.dropbox.com/s/7o9aa8744mwjx7i/barnatrees.db.7z?dl=1");
+    QEventLoop loop;
+
+    QString newtimestamp;
+    DropboxDownloader dwnloader;
+    QObject::connect(&dwnloader, &DropboxDownloader::downloadProgress, [&](qint64 received, qint64 total) {
+        qDebug() << "%" << (1.0 * received / total) * 100.0;
+    });
+    QObject::connect(&dwnloader, &DropboxDownloader::downloadError, [&](QString msg) {
+        qWarning() << "download error: " << msg;
+        loop.exit(-1);
+    });
+    QObject::connect(&dwnloader, &DropboxDownloader::downloadSuccessful, [&]() {
+        qDebug() << "download finished";
+        QFile tsfile(destDir.absoluteFilePath("barnatrees.txt.remote"));
+        tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
+        tsfile.write(newtimestamp.toUtf8());
+        tsfile.close();
+        loop.exit();
+    });
+    QObject::connect(&dwnloader, &DropboxDownloader::downloadTextReady, [&](QString text) {
+        qDebug() << "text download finished:" << text;
+        newtimestamp = text;
+    });
+    QObject::connect(&dwnloader, &DropboxDownloader::readyForNext, [&]() {
+        qDebug() << "Next operation is ready";
+        if (!newtimestamp.isEmpty() && (newtimestamp > current)) {
+            QFileInfo finfo(destDir, "barnatrees.db.7z");
+            dwnloader.downloadBinFile(dataurl, finfo.absoluteFilePath());
+        } else {
+            qDebug() << "Nothing newer from the cloud";
+            loop.exit();
+        }
+    });
+    dwnloader.downloadText(texturl);
+    qDebug() << "entering loop";
+    auto rc = loop.exec();
+    qDebug() << "exiting loop";
+    return rc;
+}
+
 QString localDatabaseFile()
 {
-    QFile c1File(":/barnatrees.txt");
-    c1File.open(QIODevice::ReadOnly | QIODevice::Text);
-    QString c1txt = c1File.readAll();
-    c1File.close();
-    //QDateTime d1 = QDateTime::fromString(c1txt+'Z', Qt::ISODate);
+    QString currenttimestamp;
+
+    QFile embeddedFile(":/barnatrees.txt");
+    embeddedFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    QString embedded_timestamp = embeddedFile.readAll();
+    embeddedFile.close();
 
     QDir destDir = QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
     if (!destDir.exists()) {
@@ -41,29 +87,55 @@ QString localDatabaseFile()
         }
     }
 
-    QString c2txt;
-    QFileInfo c2(destDir, "barnatrees.txt");
-    if (c2.exists()) {
-        QFile c2file(c2.absoluteFilePath());
-        c2file.open(QIODevice::ReadOnly | QIODevice::Text);
-        c2txt = c2file.readAll();
-        c2file.close();
-
-        QDateTime d2 = QDateTime::fromString(c2txt+'Z', Qt::ISODate);
-        if (d2.addDays(14) < QDateTime::currentDateTimeUtc()) {
-            qWarning() << "The database is old. An update is advisable.";
+    QFileInfo cmpfileinfo(destDir, "barnatrees.db.7z");
+    if (cmpfileinfo.exists()) {
+        if (QFile::exists(destDir.absoluteFilePath("barnatrees.db"))) {
+            QFile::remove(destDir.absoluteFilePath("barnatrees.db"));
+        }
+        QFile cmpfile(cmpfileinfo.absoluteFilePath());
+        try {
+            cmpfile.open(QIODevice::ReadOnly);
+            Q7z::extractArchive(&cmpfile, destDir.absolutePath());
+            cmpfile.close();
+            cmpfile.remove();
+        } catch (const Q7z::SevenZipException &e) {
+            qWarning() << e.message();
+            cmpfile.close();
+        }
+        if (QFile::exists(destDir.absoluteFilePath("barnatrees.txt"))) {
+            QFile::remove(destDir.absoluteFilePath("barnatrees.txt"));
+        }
+        if (QFile::exists(destDir.absoluteFilePath("barnatrees.txt.remote"))) {
+            QFile::rename(destDir.absoluteFilePath("barnatrees.txt.remote"),
+                          destDir.absoluteFilePath("barnatrees.txt"));
         }
     }
 
-    QFileInfo destFile(destDir, "barnatrees.db");
-    if (!destFile.exists() || c2txt < c1txt) {
+    QFileInfo tsFileInfo(destDir, "barnatrees.txt");
+    if (tsFileInfo.exists()) {
+        QFile tsFile(tsFileInfo.absoluteFilePath());
+        tsFile.open(QIODevice::ReadOnly | QIODevice::Text);
+        currenttimestamp = tsFile.readAll();
+        tsFile.close();
+
+        if (!cmpfileinfo.exists()) {
+            QDateTime ts = QDateTime::fromString(currenttimestamp+'Z', Qt::ISODate);
+            if (ts.addDays(7) < QDateTime::currentDateTimeUtc()) {
+                qWarning() << "The database is old. Updating from the cloud.";
+                downloadFromCloud(destDir, currenttimestamp);
+            }
+        }
+    }
+
+    QFileInfo dbFileInfo(destDir, "barnatrees.db");
+    if (!dbFileInfo.exists() || currenttimestamp < embedded_timestamp) {
         QFile orig(":/barnatrees.db.7z");
         if (!orig.exists()) {
             qCritical() << "barnatrees.db.7z resource is missing! aborting";
             return QString();
         }
-        if (destFile.exists()) {
-            QFile::remove(destFile.absoluteFilePath());
+        if (dbFileInfo.exists()) {
+            QFile::remove(dbFileInfo.absoluteFilePath());
         }
         //if (!orig.copy(destFile.absoluteFilePath())) {
         try {
@@ -77,21 +149,21 @@ QString localDatabaseFile()
             orig.close();
             return QString();
         }
-        if(!QFile::exists(destFile.absoluteFilePath())) {
+        if(!QFile::exists(dbFileInfo.absoluteFilePath())) {
             qWarning() << "copy database: extraction failed";
             return QString();
         }
-        if (!QFile::setPermissions(destFile.absoluteFilePath(), QFile::WriteOwner | QFile::ReadOwner)) {
+        if (!QFile::setPermissions(dbFileInfo.absoluteFilePath(), QFile::WriteOwner | QFile::ReadOwner)) {
             qWarning() << "database file setPermissions() failed!";
             return QString();
         }
-        QFile c2file(c2.absoluteFilePath());
-        c2file.open(QIODevice::WriteOnly | QIODevice::Text);
-        c2file.write(c1txt.toUtf8());
-        c2file.close();
+        QFile tsfile(tsFileInfo.absoluteFilePath());
+        tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
+        tsfile.write(embedded_timestamp.toUtf8());
+        tsfile.close();
     }
-    qDebug() << "Database file:" << destFile.absoluteFilePath();
-    return destFile.absoluteFilePath();
+    qDebug() << "Database file:" << dbFileInfo.absoluteFilePath();
+    return dbFileInfo.absoluteFilePath();
 }
 
 int main(int argc, char **argv)
