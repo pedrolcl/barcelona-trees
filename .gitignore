@@ -58,3 +58,4 @@ windowsmsi/.vs/
 windowsmsi/bin/
 windowsmsi/obj/
 windowsmsi/x64/
+*.exe

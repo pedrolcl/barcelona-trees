@@ -9,12 +9,15 @@
   <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
 <?endif ?>  
   
-  <Product Id="*" Name="BarcelonaTrees" Language="1033" Version="0.0.1.0" Manufacturer="Pedro Lopez-Cabanillas" UpgradeCode="760c2826-429c-43c0-b07a-3ce84b52adff">
+  <Product Id="*" Name="BarcelonaTrees" Language="1033" Version="0.0.2.0" Manufacturer="Pedro Lopez-Cabanillas" UpgradeCode="760c2826-429c-43c0-b07a-3ce84b52adff">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
+    <Icon Id="barnatrees.ico" SourceFile="..\barnatrees\images\barnatrees.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="barnatrees.ico" />
+    
     <Feature Id="ProductFeature" Title="BarcelonaTrees" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentRef Id="ApplicationShortcut" />
