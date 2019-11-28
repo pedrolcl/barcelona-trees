@@ -22,13 +22,13 @@ linux*:!android {
 
     LIBS += $$PWD/linux_x86_64/libq7z.so
     CONFIG += file_copies
-    q7zlbs.path = $$OUT_PWD/lib
+    q7zlbs.path = $$OUT_PWD/../lib
     #message("QMAKE_HOST.arch: " $$QMAKE_HOST.arch)
     contains(QMAKE_TARGET.arch, x86_64) {
         q7zlbs.files = $$PWD/linux_x86_64/libq7z.so.*
     }
     COPIES += q7zlbs
-    QMAKE_RPATHDIR += lib
+    QMAKE_RPATHDIR += ../lib
 }
 
 android {

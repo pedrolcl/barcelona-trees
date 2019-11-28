@@ -7,7 +7,7 @@ Dialog {
     focus: true
     x: Math.round((window.width - width) / 2)
     y: Math.round((window.height - height) / 2)
-    width: Math.round(Math.min(window.width, window.height) / 3)
+    width: 250
     standardButtons: Dialog.Close
 
     property string dlgMessage: null
