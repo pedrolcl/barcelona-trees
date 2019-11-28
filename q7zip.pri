@@ -66,3 +66,7 @@ win32 {
     }
     COPIES += q7zlbs
 }
+
+macx {
+    LIBS += $$PWD/mac_x64/libq7z.dylib
+}
