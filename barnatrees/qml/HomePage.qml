@@ -226,7 +226,9 @@ Page {
             if (pendingTreeTip) {
                 showBalloonTip(plantModel.nearestRow())
             }
-            resultsFoundDialog.open()
+            if (numberOfRows > 0) {
+                resultsFoundDialog.open()
+            }
         }
     }
 
