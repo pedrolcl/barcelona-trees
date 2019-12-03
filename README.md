@@ -13,17 +13,20 @@ Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages,
 
 ## downloads
 
-The current release is: **Alfa**
+The current release is: **Alfa2**
+
+![GitHub All Releases](https://img.shields.io/github/downloads/pedrolcl/barcelona-trees/total) 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
  Platform | arch  | files    
 ----------|-------|----------
- android  | arm64 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa/barnatrees-alfa-android-arm64.apk) 
- android  | armV7 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa/barnatrees-alfa-android-armv7.apk)      
- macOS    | x64   | [dmg](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa/barnatrees-alfa-mac-x64.dmg)
- linux    | x64   | [AppImage](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa/barnatrees-alfa-linux-x64.AppImage)
- windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa/barnatrees-alfa-windows-x64.msi)
- sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/alfa.zip)
- sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/alfa.tar.gz)
+ android  | arm64 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-android-arm64.apk) 
+ android  | armV7 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-android-armv7.apk)      
+ macOS    | x64   | [dmg](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-mac-x64.dmg)
+ linux    | x64   | [AppImage](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-linux-x64.AppImage)
+ windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-windows-x64.msi)
+ sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/alfa2.zip)
+ sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/alfa2.tar.gz)
 
 ## treedbcreator
 
