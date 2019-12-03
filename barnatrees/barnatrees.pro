@@ -3,8 +3,8 @@ QT += sql quick quickcontrols2 qml network positioning location
 CONFIG += c++11 lrelease embed_translations
 LRELEASE_DIR='.'
 QM_FILES_RESOURCE_PREFIX='/'
-win32:VERSION = 0.0.2.0
-else:VERSION = 0.0.2
+win32:VERSION = 0.0.3.0
+else:VERSION = 0.0.3
 DEFINES += APPVER=$$VERSION
 DEFINES += GITVER=$$system(git describe --always)
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -15,6 +15,7 @@ HEADERS += \
     src/dropboxdownloader.h \
     src/plantmodel.h \
     src/speciesmodel.h \
+    src/splashwindow.h \
     src/summarymodel.h
 
 SOURCES = \
@@ -23,6 +24,7 @@ SOURCES = \
     src/main.cpp \
     src/plantmodel.cpp  \
     src/speciesmodel.cpp \
+    src/splashwindow.cpp \
     src/summarymodel.cpp
 
 RESOURCES += \

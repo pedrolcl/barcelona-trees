@@ -24,5 +24,6 @@
         <file>icons/example/20x20@4/zoomin.png</file>
         <file>icons/example/20x20@4/zoomout.png</file>
         <file>icons/example/index.theme</file>
+        <file>splash.png</file>
     </qresource>
 </RCC>

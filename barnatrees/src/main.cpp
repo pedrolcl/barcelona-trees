@@ -16,12 +16,14 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QIcon>
+#include <QTimer>
 #include "plantmodel.h"
 #include "speciesmodel.h"
 #include "summarymodel.h"
 #include "q7z_facade.h"
 #include "q7z_extract.h"
 #include "dropboxdownloader.h"
+#include "splashwindow.h"
 
 #define _STR(x) #x
 #define STRINGIFY(x) _STR(x)
@@ -179,7 +181,11 @@ int main(int argc, char **argv)
     qDebug()<<"version:" << STRINGIFY(APPVER) << STRINGIFY(GITVER);
     //qDebug()<<"SSL version use for build: "<<QSslSocket::sslLibraryBuildVersionString();
     //qDebug()<<"SSL version use for run-time: "<<QSslSocket::sslLibraryVersionString();
-    //qDebug()<<QCoreApplication::libraryPaths();
+
+    SplashWindow splash;
+    splash.setMessage("Barcelona Trees v" STRINGIFY(APPVER));
+    splash.show();
+    QTimer::singleShot(2000, &splash, SLOT(close()));
 
     QSettings settings;
     QString defStyle = QQuickStyle::name();
