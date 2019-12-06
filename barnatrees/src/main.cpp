@@ -182,10 +182,12 @@ int main(int argc, char **argv)
     //qDebug()<<"SSL version use for build: "<<QSslSocket::sslLibraryBuildVersionString();
     //qDebug()<<"SSL version use for run-time: "<<QSslSocket::sslLibraryVersionString();
 
+#if !defined(Q_OS_ANDROID)
     SplashWindow splash;
     splash.setMessage("Barcelona Trees v" STRINGIFY(APPVER));
     splash.show();
     QTimer::singleShot(2000, &splash, SLOT(close()));
+#endif
 
     QSettings settings;
     QString defStyle = QQuickStyle::name();

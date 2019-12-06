@@ -12,7 +12,7 @@ SplashWindow::SplashWindow(QWindow *parent)
     , m_image(":/splash.png")
     , m_message(qApp->applicationName() + " " + qApp->applicationVersion())
 {
-    setFlags(Qt::SplashScreen | Qt::FramelessWindowHint);
+    setFlags(Qt::SplashScreen | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     setGeometry(0, 0, 400, 400);
 }
 

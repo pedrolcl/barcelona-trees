@@ -79,10 +79,14 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/libs.xml \
-    android/drawable-hdpi/icon.png \
-    android/drawable-ldpi/icon.png \
-    android/drawable-mdpi/icon.png \
-    barnatrees.db
+    android/res/values/theme.xml \
+    android/res/drawable/splash.xml \
+    android/res/drawable-hdpi/icon.png \
+    android/res/drawable-ldpi/icon.png \
+    android/res/drawable-mdpi/icon.png \
+    android/res/drawable-hdpi/logo.png \
+    android/res/drawable-ldpi/logo.png \
+    android/res/drawable-mdpi/logo.png
 
 TRANSLATIONS = \
     translations/barnatrees_ca.ts \
