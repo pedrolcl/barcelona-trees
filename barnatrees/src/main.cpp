@@ -20,6 +20,8 @@
 #include "plantmodel.h"
 #include "speciesmodel.h"
 #include "summarymodel.h"
+#include "gendermodel.h"
+#include "streetlistmodel.h"
 #include "q7z_facade.h"
 #include "q7z_extract.h"
 #include "dropboxdownloader.h"
@@ -234,12 +236,23 @@ int main(int argc, char **argv)
     //qDebug() << "plants.columns:" << plantModel.columnCount();
     SummaryModel summaryModel;
 
+    GenderModel genderModel;
+    //qDebug() << "gender.columns:" << genderModel.columnCount();
+
+    StreetListModel streetModel;
+    FilterProxyModel streetFilter;
+    streetFilter.setSourceModel(&streetModel);
+    streetFilter.setFilterRegExp(QStringLiteral("^[\\*]*$"));
+    //qDebug() << "filtered.rows:" << streetFilter.rowCount();
+
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("gitversion", STRINGIFY(GITVER));
     engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
     engine.rootContext()->setContextProperty("speciesModel", &speciesModel);
     engine.rootContext()->setContextProperty("plantModel", &plantModel);
     engine.rootContext()->setContextProperty("summaryModel", &summaryModel);
+    engine.rootContext()->setContextProperty("genderModel", &genderModel);
+    engine.rootContext()->setContextProperty("streetModel", &streetFilter);
     engine.load(QUrl(QStringLiteral("qrc:/MainWindow.qml")));
     QObject::connect(&engine, &QQmlApplicationEngine::exit, &app, &QCoreApplication::quit);
     QObject::connect(&engine, &QQmlApplicationEngine::quit, &app, &QCoreApplication::quit);

@@ -13,18 +13,22 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 HEADERS += \
     src/basemodel.h \
     src/dropboxdownloader.h \
+    src/gendermodel.h \
     src/plantmodel.h \
     src/speciesmodel.h \
     src/splashwindow.h \
+    src/streetlistmodel.h \
     src/summarymodel.h
 
 SOURCES = \
     src/basemodel.cpp \
     src/dropboxdownloader.cpp \
+    src/gendermodel.cpp \
     src/main.cpp \
     src/plantmodel.cpp  \
     src/speciesmodel.cpp \
     src/splashwindow.cpp \
+    src/streetlistmodel.cpp \
     src/summarymodel.cpp
 
 RESOURCES += \

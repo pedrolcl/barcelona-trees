@@ -15,10 +15,14 @@ Dialog {
     signal resultsFound()
     signal resultsNotFound()
 
-    onOpened: streetText.clear()
+    onOpened: {
+        streetCombo.currentIndex = -1
+        streetCombo.contentItem.clear()
+    }
+
     onAccepted: {
         dialogAccepted()
-        plantModel.setStreet(streetText.text)
+        plantModel.setStreet(streetCombo.editText)
         if (plantModel.rowCount() > 0) {
             resultsFound();
         } else {
@@ -36,10 +40,23 @@ Dialog {
             width: parent.width
         }
 
-        TextField {
-            id: streetText
-            focus: true
+        ComboBox {
+            id: streetCombo
             width: parent.width
+            editable: true
+            focus: true
+            model: streetModel
+            textRole: "display"
+            onEditTextChanged: {
+                if (editText.length === 1) {
+                    var filterText = editText
+                    streetModel.setFilterString(filterText)
+                    currentIndex = -1
+                    contentItem.text = filterText
+                } else {
+                    contentItem.text = editText
+                }
+            }
         }
     }
 }

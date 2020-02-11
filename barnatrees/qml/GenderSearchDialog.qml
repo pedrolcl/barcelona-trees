@@ -15,10 +15,10 @@ Dialog {
     signal resultsFound()
     signal resultsNotFound()
 
-    onOpened: genderText.clear()
+    onOpened: genderCombo.currentIndex = -1
     onAccepted: {
         dialogAccepted()
-        plantModel.setGender(genderText.text)
+        plantModel.setGender(genderCombo.editText)
         if (plantModel.rowCount() > 0) {
             resultsFound();
         } else {
@@ -34,10 +34,13 @@ Dialog {
             wrapMode: Label.Wrap
             width: parent.width
         }
-        TextField {
-            id: genderText
-            focus: true
+        ComboBox {
+            id: genderCombo
             width: parent.width
+            focus: true
+            editable: true
+            model: genderModel
+            textRole: "gender"
         }
     }
 }
