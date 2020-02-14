@@ -17,7 +17,7 @@ void StreetListModel::addQueryData(const QString sqlqry)
         while(qry.next()) {
             QString val = qry.value(0).toString();
             if (val.length() > 2) {
-                names << val.remove(QRegExp("^(d'|de|del|dels|de\\sla)")).trimmed();
+                names << val.remove(QRegExp("^(d'|de|del|dels|de\\sla|de\\sl'|l'|la)")).trimmed();
             }
         }
         names.removeDuplicates();
