@@ -24,20 +24,16 @@ Page {
                     padding: 5
                     topPadding: (parent.height - contentHeight) / 2
                     font.bold: true
-                    text: index + 1
+                    text: fmtDistance
                 }
                 Column {
                     Text {
-                        text: plantModel.formattedScientificName(index)
+                        text: fmtName
                         color: "white"
                         font.bold: true
                     }
                     Text {
                         text: plantAddress
-                        color: "white"
-                    }
-                    Text {
-                        text: plantModel.formattedDistance(index)
                         color: "white"
                     }
                 }
@@ -46,7 +42,7 @@ Page {
                 anchors.fill: parent
                 onClicked: {
                     plantsListView.currentIndex = index
-                    rowSelected(latitude, longitude, index)
+                    rowSelected(latitude, longitude, plantProxy.sourceRow(index))
                 }
             }
         }
@@ -56,7 +52,7 @@ Page {
         id: plantsListView
         anchors.fill: parent
         spacing: 2
-        model: plantModel
+        model: plantProxy
         delegate: plantDelegate
         focus: true
         ScrollIndicator.horizontal: ScrollIndicator {z: Infinity}

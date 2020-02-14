@@ -15,6 +15,7 @@ HEADERS += \
     src/dropboxdownloader.h \
     src/gendermodel.h \
     src/plantmodel.h \
+    src/plantproxymodel.h \
     src/speciesmodel.h \
     src/splashwindow.h \
     src/streetlistmodel.h \
@@ -26,6 +27,7 @@ SOURCES = \
     src/gendermodel.cpp \
     src/main.cpp \
     src/plantmodel.cpp  \
+    src/plantproxymodel.cpp \
     src/speciesmodel.cpp \
     src/splashwindow.cpp \
     src/streetlistmodel.cpp \

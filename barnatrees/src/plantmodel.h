@@ -17,28 +17,25 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 	QString selectStatement() const override;
 	bool select() override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
     Q_INVOKABLE void setCenter(QGeoCoordinate center);
     Q_INVOKABLE void setSpecies(int idSpecies);
     Q_INVOKABLE void setGender(QString gen);
     Q_INVOKABLE void setStreet(QString street);
-    Q_INVOKABLE QGeoCoordinate nearestPlantCoordinate();
-    Q_INVOKABLE int nearestRow();
-	Q_INVOKABLE QGeoCoordinate plantCoordinate(int row);
-	Q_INVOKABLE qreal plantDistance(int row);
-	Q_INVOKABLE QString formattedDistance(int row);
-	Q_INVOKABLE QString formattedScientificName(int row);
-	Q_INVOKABLE QString wikiLink(int row);
-	Q_INVOKABLE QString streetLink(int row);
+    Q_INVOKABLE QGeoCoordinate plantCoordinate(int row) const;
+    Q_INVOKABLE qreal plantDistance(int row) const;
+    Q_INVOKABLE QString formattedDistance(int row) const;
+    Q_INVOKABLE QString formattedScientificName(int row) const;
+    Q_INVOKABLE QString wikiLink(int row) const;
+    Q_INVOKABLE QString streetLink(int row) const;
 
 	int limit() const;
 	void setLimit(int limit);
 
 private:
-    void calcNearestPlant();
 	QGeoCoordinate CoordinateToCoordinate(QGeoCoordinate point, double range, double bearing) const;
-    QGeoCoordinate m_center, m_p1, m_p2, m_p3, m_p4, m_nearestCoordinate;
-    int m_nearestRow;
+    QGeoCoordinate m_center, m_p1, m_p2, m_p3, m_p4; //, m_nearestCoordinate;
 	int m_limit;
 };
 

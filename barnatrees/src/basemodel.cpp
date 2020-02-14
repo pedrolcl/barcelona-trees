@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "basemodel.h"
 
 BaseModel::BaseModel()
@@ -6,10 +7,10 @@ BaseModel::BaseModel()
 void BaseModel::generateRoleNames(const QSqlRecord& rec)
 {
 	m_roleNames.clear();
-	for (int i = 0; i < rec.count(); i ++) {
+    for (int i = 0; i < rec.count(); i++) {
 		QByteArray roleName = rec.fieldName(i).toUtf8();
-		int r = Qt::UserRole + i + 1;
-		m_roleNames.insert(r, roleName);
-		//qDebug() << "role" << r << roleName;
+        m_lastRole = Qt::UserRole + i + 1;
+        m_roleNames.insert(m_lastRole, roleName);
+        //qDebug() << "role" << r << roleName;
 	}
 }

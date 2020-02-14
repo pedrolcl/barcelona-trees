@@ -64,7 +64,7 @@ Page {
 
     function resultsFound() {
         pendingTreeTip = true
-        changeMapCenter(plantModel.nearestPlantCoordinate())
+        changeMapCenter(plantProxy.nearestPlantCoordinate())
     }
 
     PositionSource {
@@ -224,7 +224,7 @@ Page {
                 showCurrentLocation()
             }
             if (pendingTreeTip) {
-                showBalloonTip(plantModel.nearestRow())
+                showBalloonTip(plantProxy.nearestRow())
             }
             if (numberOfRows > 0) {
                 resultsFoundDialog.open()

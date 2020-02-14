@@ -18,6 +18,7 @@
 #include <QIcon>
 #include <QTimer>
 #include "plantmodel.h"
+#include "plantproxymodel.h"
 #include "speciesmodel.h"
 #include "summarymodel.h"
 #include "gendermodel.h"
@@ -234,11 +235,11 @@ int main(int argc, char **argv)
     PlantModel plantModel;
     plantModel.setCenter(locationBarna);
     //qDebug() << "plants.columns:" << plantModel.columnCount();
-    SummaryModel summaryModel;
+    PlantProxyModel plantProxy(&plantModel);
 
+    SummaryModel summaryModel;
     GenderModel genderModel;
     //qDebug() << "gender.columns:" << genderModel.columnCount();
-
     StreetListModel streetModel;
     FilterProxyModel streetFilter;
     streetFilter.setSourceModel(&streetModel);
@@ -250,6 +251,7 @@ int main(int argc, char **argv)
     engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
     engine.rootContext()->setContextProperty("speciesModel", &speciesModel);
     engine.rootContext()->setContextProperty("plantModel", &plantModel);
+    engine.rootContext()->setContextProperty("plantProxy", &plantProxy);
     engine.rootContext()->setContextProperty("summaryModel", &summaryModel);
     engine.rootContext()->setContextProperty("genderModel", &genderModel);
     engine.rootContext()->setContextProperty("streetModel", &streetFilter);
