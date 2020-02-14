@@ -43,7 +43,6 @@ Dialog {
             popup.font.italic: true
             model: speciesModel
             textRole: "scientificName"
-            editable: true
             onCurrentIndexChanged: {
                 //console.log("current index:" + currentIndex);
                 var num = speciesModel.data(currentIndex, "numSpecimens");
