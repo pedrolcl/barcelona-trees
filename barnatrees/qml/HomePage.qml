@@ -8,8 +8,6 @@ Page {
 
     property variant locationBarna: QtPositioning.coordinate( 41.403216, 2.186674 )
     property double defaultZoom: map.maximumZoomLevel - 2
-    property bool pendingTreeTip: false
-    property bool pendingLocationTip: true
     property var globalItems: []
     property int numberOfRows: 0
 
@@ -43,9 +41,8 @@ Page {
     }
 
     function showCurrentLocation() {
-        if(map.mapReady && pendingLocationTip) {
+        if (map.mapReady) {
             locationTip.open()
-            pendingLocationTip = false;
         }
     }
 
@@ -59,12 +56,21 @@ Page {
                 //console.log("Warning!",ix,item)
         } //else
             //console.log("Warning!",ix)
-        pendingTreeTip = false
+        mapTimer.pendingTreeTip = false
+        mapTimer.pendingTreeRow = -1
+    }
+
+    function delayedBalloonTip(ix) {
+        mapTimer.pendingTreeRow = ix
+        mapTimer.pendingTreeTip = true
+        mapTimer.start()
     }
 
     function resultsFound() {
-        pendingTreeTip = true
         changeMapCenter(plantProxy.nearestPlantCoordinate())
+        mapTimer.pendingTreeTip = true
+        mapTimer.pendingSuccessMsg = true
+        mapTimer.start()
     }
 
     PositionSource {
@@ -77,7 +83,7 @@ Page {
             var distance1 = currentPosition.distanceTo(lastSearchPosition)
             var distance2 = currentPosition.distanceTo(locationBarna)
             //console.log("Position: " + currentPosition + " distance: " + distance1 + " enabled: " + positionEnabled.checked)
-            if (positionEnabled.checked && distance1 > 250 && distance2 < 8000) { // 250 m from last location and 8 km from Glories
+            if (positionEnabled && positionEnabled.checked && distance1 > 250 && distance2 < 8000) { // 250 m from last location and 8 km from Glories
                 lastSearchPosition = currentPosition
                 changeGlobalCenter(currentPosition)
             }
@@ -219,15 +225,23 @@ Page {
         interval: 200
         repeat: false
         running: false
+        property int pendingTreeRow: -1
+        property bool pendingTreeTip: false
+        property bool pendingLocationTip: true
+        property bool pendingSuccessMsg: false
         onTriggered: {
             if (pendingLocationTip) {
                 showCurrentLocation()
+                pendingLocationTip = false
             }
             if (pendingTreeTip) {
-                showBalloonTip(plantProxy.nearestRow())
+                showBalloonTip(pendingTreeRow > -1 ? pendingTreeRow : plantProxy.nearestRow())
+                pendingTreeTip = false
+                pendingTreeRow = -1
             }
-            if (numberOfRows > 0) {
+            if (pendingSuccessMsg && numberOfRows > 0) {
                 resultsFoundDialog.open()
+                pendingSuccessMsg = false
             }
         }
     }

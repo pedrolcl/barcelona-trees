@@ -2,13 +2,19 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtPositioning 5.12
 
-Page {
-    property int numberOfRows: 0
+Drawer {
+    y: windowHeader.height
+    width: window.width > 300 ? 300 : window.width
+    height: window.height - windowHeader.height
+    edge: Qt.RightEdge
+
     property alias currentIndex: plantsListView.currentIndex
 
     signal rowSelected(real lat, real lon, int idx)
 
-    title: qsTr("Found %Ln tree(s)", "", numberOfRows)
+    onOpened: {
+        windowHeader.title = qsTr("Found %Ln tree(s)", "", plantProxy.rowCount())
+    }
 
     Component {
         id: plantDelegate
@@ -55,6 +61,7 @@ Page {
         model: plantProxy
         delegate: plantDelegate
         focus: true
+        clip: true
         ScrollIndicator.horizontal: ScrollIndicator {z: Infinity}
         ScrollIndicator.vertical: ScrollIndicator {z: Infinity}
         highlightFollowsCurrentItem: true

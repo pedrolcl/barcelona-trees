@@ -26,9 +26,9 @@ ApplicationWindow {
 
     Shortcut {
         sequences: ["Esc", "Back"]
-        enabled: stackView.depth > 1
+        enabled: resultsPage.visible
         onActivated: {
-            stackView.pop()
+            resultsPage.close()
         }
     }
 
@@ -41,6 +41,7 @@ ApplicationWindow {
         id: windowHeader
         Material.foreground: "white"
         contentHeight: toolButton.implicitHeight
+        property string title: qsTr("Barcelona Trees")
 
         RowLayout {
             spacing: 20
@@ -53,7 +54,7 @@ ApplicationWindow {
             }
 
             Label {
-                text: stackView.currentItem.title
+                text: windowHeader.title
                 font.pixelSize: 20
                 elide: Label.ElideRight
                 horizontalAlignment: Qt.AlignHCenter
@@ -63,10 +64,10 @@ ApplicationWindow {
 
             ToolButton {
                 id: toolButton
-                icon.name: stackView.depth > 1 ? "back" : "drawer"
+                icon.name: resultsPage.visible ? "back" : "drawer"
                 onClicked: {
-                    if (stackView.depth > 1) {
-                        stackView.pop()
+                    if (resultsPage.visible) {
+                        resultsPage.close()
                     } else {
                         optionsMenu.open()
                     }
@@ -115,10 +116,7 @@ ApplicationWindow {
 
         MenuItem {
             text: qsTr("View Results List")
-            onTriggered: {
-                resultsPage.numberOfRows = plantModel.rowCount()
-                stackView.push(resultsPage)
-            }
+            onTriggered: resultsPage.open()
         }
 
         MenuItem {
@@ -132,21 +130,22 @@ ApplicationWindow {
         }
     }
 
-    ResultsPage {
-        id: resultsPage
-        onRowSelected: {
-            homePage.changeMapCenter(QtPositioning.coordinate(lat, lon))
-            stackView.pop();
-            homePage.showBalloonTip(idx)
-        }
+    HomePage {
+        id: homePage
+        anchors.fill: parent
     }
 
-    StackView {
-        id: stackView
-        initialItem: HomePage {
-            id: homePage
+    ResultsPage {
+        id: resultsPage
+        visible: false
+        onClosed: {
+            windowHeader.title = qsTr("Barcelona Trees")
         }
-        anchors.fill: parent
+        onRowSelected: {
+            homePage.changeMapCenter(QtPositioning.coordinate(lat, lon))
+            close()
+            homePage.delayedBalloonTip(idx)
+        }
     }
 
     AboutDialog {
@@ -188,4 +187,9 @@ ApplicationWindow {
         dlgMessage: qsTr("Your search returned no results.")
     }
 
+    Component.onCompleted: {
+        if (Qt.platform.os !== "android") {
+            optionsMenu.removeItem(positionEnabled)
+        }
+    }
 }
