@@ -57,7 +57,6 @@ DISTFILES += \
     qml/Marker.qml \
     qml/MsgDialog.qml \
     qml/ResultsPage.qml \
-    qml/DetailsPage.qml \
     qml/SettingsDialog.qml \
     qml/SpecieSearchDialog.qml \
     qml/SpecimenDialog.qml \

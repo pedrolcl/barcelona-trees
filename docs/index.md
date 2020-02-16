@@ -64,7 +64,13 @@ The first inspiration to make this program was the work of Juanjo Vidal [Arbrat 
   
 ## credits
 
-Copyright © 2019 Pedro López-Cabanillas. These program come with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
+Copyright © 2019-2020 Pedro López-Cabanillas. These programs come with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
+
+This application uses [Qt5](https://www.qt.io/).
+
+This application includes software developed by the OpenSSL Project for use in the [OpenSSL Toolkit](http://www.openssl.org/).  This program is released under the GPL with the additional exemption that compiling, linking, and/or using OpenSSL is allowed.
+
+This application contains source code from the [7-zip](https://www.7-zip.org) and [p7zip](http://p7zip.sourceforge.net) projects and some classes from the [Qt Installer Framework](https://doc.qt.io/qtinstallerframework/index.html).
 
 This application contains data provided by the Barcelona's city council: [Open Data BCN](https://opendata-ajuntament.barcelona.cat/en/) using the datasets **Zone trees of the city of Barcelona** and **Street trees of the city of Barcelona**  under the therms of the Creative Commons Attribution 4.0 International [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
 

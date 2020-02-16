@@ -32,7 +32,12 @@ Dialog {
     signal resultsFound()
     signal resultsNotFound()
 
-    onOpened: genderCombo.currentIndex = -1
+    onOpened: {
+        genderCombo.currentIndex = -1
+        genderCombo.contentItem.clear()
+        genderCombo.forceActiveFocus()
+    }
+
     onAccepted: {
         dialogAccepted()
         plantModel.setGender(genderCombo.editText)

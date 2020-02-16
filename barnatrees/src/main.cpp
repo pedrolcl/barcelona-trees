@@ -46,10 +46,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "dropboxdownloader.h"
 #include "splashwindow.h"
 
-#define _STR(x) #x
-#define STRINGIFY(x) _STR(x)
-
-int downloadFromCloud(QDir &destDir, QString current)
+int downloadFromCloud(QDir &destDir, QString current, bool& dbFileNew)
 {
     const QUrl texturl("https://www.dropbox.com/s/e485ypwbdy113v9/barnatrees.txt?dl=1");
     const QUrl dataurl("https://www.dropbox.com/s/7o9aa8744mwjx7i/barnatrees.db.7z?dl=1");
@@ -81,8 +78,10 @@ int downloadFromCloud(QDir &destDir, QString current)
         if (!newtimestamp.isEmpty() && (newtimestamp > current)) {
             QFileInfo finfo(destDir, "barnatrees.db.7z");
             dwnloader.downloadBinFile(dataurl, finfo.absoluteFilePath());
+            dbFileNew = true;
         } else {
             qDebug() << "Nothing newer from the cloud";
+            dbFileNew = false;
             loop.exit();
         }
     });
@@ -93,7 +92,7 @@ int downloadFromCloud(QDir &destDir, QString current)
     return rc;
 }
 
-QString localDatabaseFile()
+QString localDatabaseFile(bool& dbFileNew)
 {
     QString currenttimestamp;
 
@@ -145,7 +144,7 @@ QString localDatabaseFile()
             QDateTime ts = QDateTime::fromString(currenttimestamp+'Z', Qt::ISODate);
             if (ts.addDays(7) < QDateTime::currentDateTimeUtc()) {
                 qWarning() << "The database is old. Updating from the cloud.";
-                downloadFromCloud(destDir, currenttimestamp);
+                downloadFromCloud(destDir, currenttimestamp, dbFileNew);
             }
         }
     }
@@ -160,7 +159,6 @@ QString localDatabaseFile()
         if (dbFileInfo.exists()) {
             QFile::remove(dbFileInfo.absoluteFilePath());
         }
-        //if (!orig.copy(destFile.absoluteFilePath())) {
         try {
             orig.open(QIODevice::ReadOnly);
             Q7z::extractArchive(&orig, destDir.absolutePath());
@@ -194,18 +192,18 @@ int main(int argc, char **argv)
     QGuiApplication::setApplicationName("barnatrees");
     QGuiApplication::setOrganizationName("BarcelonaTrees");
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication::setApplicationVersion(STRINGIFY(APPVER));
+    QGuiApplication::setApplicationVersion(QT_STRINGIFY(APPVER));
     QGuiApplication app(argc,argv);
     app.setWindowIcon(QIcon("qrc:/barnatrees_icon64.png"));
     QIcon::setThemeName("example");
 
-    qDebug()<<"version:" << STRINGIFY(APPVER) << STRINGIFY(GITVER);
+    qDebug()<<"version:" << QT_STRINGIFY(APPVER) << QT_STRINGIFY(GITVER);
     //qDebug()<<"SSL version use for build: "<<QSslSocket::sslLibraryBuildVersionString();
     //qDebug()<<"SSL version use for run-time: "<<QSslSocket::sslLibraryVersionString();
 
 #if !defined(Q_OS_ANDROID)
     SplashWindow splash;
-    splash.setMessage("Barcelona Trees v" STRINGIFY(APPVER));
+    splash.setMessage("Barcelona Trees v" QT_STRINGIFY(APPVER));
     splash.show();
     QTimer::singleShot(2000, &splash, SLOT(close()));
 #endif
@@ -235,10 +233,11 @@ int main(int argc, char **argv)
     }
     QLocale::setDefault(locale);
 
+    bool newDatabase = false;
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setConnectOptions(QLatin1String("QSQLITE_OPEN_READONLY"));
     Q7z::initSevenZ();
-    QString dbFile = localDatabaseFile();
+    QString dbFile = localDatabaseFile(newDatabase);
     if (dbFile.isEmpty())
         return -1;
     db.setDatabaseName(dbFile);
@@ -265,7 +264,9 @@ int main(int argc, char **argv)
     //qDebug() << "filtered.rows:" << streetFilter.rowCount();
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("gitversion", STRINGIFY(GITVER));
+    engine.rootContext()->setContextProperty("gitversion", QT_STRINGIFY(GITVER));
+    engine.rootContext()->setContextProperty("qtversion", QT_VERSION_STR);
+    engine.rootContext()->setContextProperty("newDatabase", newDatabase);
     engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
     engine.rootContext()->setContextProperty("speciesModel", &speciesModel);
     engine.rootContext()->setContextProperty("plantModel", &plantModel);

@@ -246,6 +246,7 @@ Page {
         property bool pendingTreeTip: false
         property bool pendingLocationTip: true
         property bool pendingSuccessMsg: false
+        property bool pendingNewDatabase: newDatabase
         onTriggered: {
             if (pendingLocationTip) {
                 showCurrentLocation()
@@ -260,6 +261,10 @@ Page {
                 resultsFoundDialog.open()
                 pendingSuccessMsg = false
             }
+            if (pendingNewDatabase) {
+                newDatabaseDialog.open()
+                pendingNewDatabase = false
+            }
         }
     }
 
@@ -269,4 +274,12 @@ Page {
         title: qsTr("Success!")
         dlgMessage: qsTr("Found %Ln tree(s)", "", numberOfRows)
     }
+
+    MsgDialog {
+        id: newDatabaseDialog
+        y: 100
+        title: qsTr("New Database")
+        dlgMessage: qsTr("A new database file has been downloaded. It will become active the next time you start this program.")
+    }
+
 }

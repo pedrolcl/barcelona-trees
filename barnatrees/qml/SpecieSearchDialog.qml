@@ -32,6 +32,10 @@ Dialog {
     signal resultsFound()
     signal resultsNotFound()
 
+    onOpened: {
+        speciesCombo.forceActiveFocus()
+    }
+
     onAccepted: {
         dialogAccepted()
         var id = speciesModel.data(speciesCombo.currentIndex, "idSpecies");
@@ -58,6 +62,7 @@ Dialog {
             width: parent.width
             font.italic: true
             popup.font.italic: true
+            focus: true
             model: speciesModel
             textRole: "scientificName"
             onCurrentIndexChanged: {

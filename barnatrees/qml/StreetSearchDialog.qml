@@ -35,6 +35,7 @@ Dialog {
     onOpened: {
         streetCombo.currentIndex = -1
         streetCombo.contentItem.clear()
+        streetCombo.forceActiveFocus()
     }
 
     onAccepted: {

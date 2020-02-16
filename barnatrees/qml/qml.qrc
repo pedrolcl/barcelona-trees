@@ -3,8 +3,6 @@
         <file>MainWindow.qml</file>
         <file>HomePage.qml</file>
         <file>ResultsPage.qml</file>
-        <file>DetailsPage.qml</file>
-        <file>Marker.qml</file>
         <file>AboutDialog.qml</file>
         <file>SettingsDialog.qml</file>
         <file>SpecieSearchDialog.qml</file>
