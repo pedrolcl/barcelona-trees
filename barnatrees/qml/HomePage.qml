@@ -85,6 +85,7 @@ Page {
 
     function resultsFound() {
         changeMapCenter(plantProxy.nearestPlantCoordinate())
+        numberOfRows = plantModel.rowCount()
         mapTimer.pendingTreeTip = true
         mapTimer.pendingSuccessMsg = true
         mapTimer.start()
