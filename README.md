@@ -20,13 +20,13 @@ The current release is: **Alfa2**
 
  Platform | arch  | files    
 ----------|-------|----------
- android  | arm64 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-android-arm64.apk) 
- android  | armV7 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-android-armv7.apk)      
- macOS    | x64   | [dmg](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-mac-x64.dmg)
- linux    | x64   | [AppImage](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-linux-x64.AppImage)
- windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/alfa2/barnatrees-alfa2-windows-x64.msi)
- sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/alfa2.zip)
- sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/alfa2.tar.gz)
+ android  | arm64 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-android-arm64.apk) 
+ android  | armV7 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-android-armv7.apk)      
+ macOS    | x64   | [dmg](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-mac-x64.dmg)
+ linux    | x64   | [AppImage](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-linux-x64.AppImage)
+ windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-windows-x64.msi)
+ sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.3.zip)
+ sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.3.tar.gz)
 
 ## treedbcreator
 
