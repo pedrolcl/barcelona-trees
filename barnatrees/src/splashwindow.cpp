@@ -15,12 +15,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-#include <QCoreApplication>
+#include <QGuiApplication>
 #include <QBackingStore>
 #include <QResizeEvent>
 #include <QPainter>
 #include <QGradient>
 #include <QFont>
+#include <QScreen>
 #include "splashwindow.h"
 
 SplashWindow::SplashWindow(QWindow *parent)
@@ -29,8 +30,10 @@ SplashWindow::SplashWindow(QWindow *parent)
     , m_image(":/splash.png")
     , m_message(qApp->applicationName() + " " + qApp->applicationVersion())
 {
-    setFlags(Qt::SplashScreen | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-    setGeometry(0, 0, 400, 400);
+    setFlags(Qt::SplashScreen | Qt::FramelessWindowHint);
+    QRect r(QPoint(), m_image.size() / m_image.devicePixelRatio());
+    QPoint c = screen()->geometry().center() - r.center();
+    setGeometry(c.x(), c.y(), r.width(), r.height());
 }
 
 bool SplashWindow::event(QEvent *event)
@@ -81,7 +84,7 @@ void SplashWindow::renderNow()
 
     painter.fillRect(rect, QGradient::SaintPetersburg);
     painter.drawImage(rect, m_image);
-    painter.setFont(QFont("Arial", 20, QFont::ExtraBold));
+    painter.setFont(QFont("Arial", 16, QFont::ExtraBold));
     render(&painter);
     painter.end();
 
@@ -91,7 +94,8 @@ void SplashWindow::renderNow()
 
 void SplashWindow::render(QPainter *painter)
 {
+    QRectF rect(0, 0, width(), height());
     if (!m_message.isEmpty()) {
-        painter->drawText(QRectF(0, 0, width(), height()), Qt::AlignCenter | Qt::AlignBottom, m_message);
+        painter->drawText(rect, Qt::AlignCenter | Qt::AlignBottom, m_message);
     }
 }
