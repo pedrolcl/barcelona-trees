@@ -13,7 +13,7 @@ Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages,
 
 ## downloads
 
-The current release is: **Alfa2**
+The current release is: **Beta v0.0.3**
 
 ![GitHub All Releases](https://img.shields.io/github/downloads/pedrolcl/barcelona-trees/total) 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
