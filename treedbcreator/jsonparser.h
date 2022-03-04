@@ -1,5 +1,5 @@
-#ifndef SPLASHWINDOW_H
-#define SPLASHWINDOW_H
+#ifndef JSONPARSER_H
+#define JSONPARSER_H
 /*
 Barcelona Trees; a guide of the trees of Barcelona
 Copyright (C) 2019-2022 Pedro Lopez-Cabanillas <plcl@users.sf.net>
@@ -17,31 +17,42 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-#include <QWindow>
+#include <QObject>
+#include <QByteArray>
+#include <QSqlDatabase>
+#include "treedata.h"
+#include "downloadmanager.h"
 
-class SplashWindow : public QWindow
+class JsonParser: public QObject
 {
     Q_OBJECT
-public:
-    explicit SplashWindow(QWindow *parent = 0);
-    virtual void render(QPainter *painter);
 
-    QString message() const;
-    void setMessage(const QString &message);
+public:
+    explicit JsonParser(QObject *parent = nullptr);
+    void initDB();
 
 public slots:
-    void renderLater();
-    void renderNow();
+    void execute();
+    void addDataset(OpenDataset ds);
 
-protected:
-    bool event(QEvent *event) override;
-    void resizeEvent(QResizeEvent *event) override;
-    void exposeEvent(QExposeEvent *event) override;
+signals:
+    void done();
 
 private:
-    QBackingStore *m_backingStore;
-    QImage  m_image;
-    QString m_message;
+    void parseJson(const QByteArray& text);
+    void parse(OpenDataset& ds);
+    void process(const TreeData& data);
+    void update(OpenDataset& ds);
+    void updateDB();
+
+    QList<OpenDataset> m_pendingDatasets;
+    QSqlDatabase m_db;
+
+    QSet<QString> m_plantsDB;
+    QSet<int> m_speciesDB;
+
+    QSet<QString> m_plantsDataset;
+    QSet<int> m_speciesDataset;
 };
 
-#endif // SPLASHWINDOW_H
+#endif // JSONPARSER_H

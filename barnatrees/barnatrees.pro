@@ -3,8 +3,8 @@ QT += sql quick quickcontrols2 qml network positioning location
 CONFIG += c++11 lrelease embed_translations
 LRELEASE_DIR='.'
 QM_FILES_RESOURCE_PREFIX='/'
-win32:VERSION = 0.0.3.0
-else:VERSION = 0.0.3
+win32:VERSION = 0.0.4.0
+else:VERSION = 0.0.4
 DEFINES += APPVER=$$VERSION
 DEFINES += GITVER=$$system(git describe --always)
 DEFINES += QT_DEPRECATED_WARNINGS

@@ -1,6 +1,6 @@
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2020 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2022 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,26 +18,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <QObject>
 #include <QCoreApplication>
 #include <QTimer>
-#include "xmlparser.h"
+#include "jsonparser.h"
 #include "downloadmanager.h"
 
-#define _STR(x) #x
-#define STRINGIFY(x) _STR(x)
+//#define _STR(x) #x
+//#define STRINGIFY(x) _STR(x)
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setApplicationName("treedbcreator");
     QCoreApplication::setOrganizationName("BarcelonaTrees");
-    QCoreApplication::setApplicationVersion(STRINGIFY(APPVER));
+    QCoreApplication::setApplicationVersion(QT_STRINGIFY(APPVER));
     QCoreApplication app(argc, argv);
 
-    XmlParser parser;
+    JsonParser parser;
     DownloadManager manager;
-    QObject::connect(&manager, &DownloadManager::downloadReady, &parser, &XmlParser::addDataset);
-    QObject::connect(&manager, &DownloadManager::done, &parser, &XmlParser::execute);
-    QObject::connect(&parser, &XmlParser::done, &app, &QCoreApplication::quit);
+    QObject::connect(&manager, &DownloadManager::downloadReady, &parser, &JsonParser::addDataset);
+    QObject::connect(&manager, &DownloadManager::done, &parser, &JsonParser::execute);
+    QObject::connect(&parser, &JsonParser::done, &app, &QCoreApplication::quit);
 
-    QTimer::singleShot(0, &manager, SLOT(execute()));
+    QTimer::singleShot(0, &manager, &DownloadManager::execute);
     parser.initDB();
 
     app.exec();

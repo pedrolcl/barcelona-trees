@@ -1,6 +1,6 @@
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2020 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2022 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,15 +26,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
 {
-    m_connection = connect(&m_manager, SIGNAL(finished(QNetworkReply*)),
-                           SLOT(onManagerFinished(QNetworkReply*)));
+    m_connection = connect(&m_manager, &QNetworkAccessManager::finished,
+                           this, &DownloadManager::onManagerFinished);
 }
 
 void DownloadManager::startDownloads()
 {
     disconnect(m_connection);
-    m_connection = connect(&m_manager, SIGNAL(finished(QNetworkReply*)),
-                           SLOT(downloadFinished(QNetworkReply*)));
+    m_connection = connect(&m_manager, &QNetworkAccessManager::finished,
+                           this, &DownloadManager::downloadFinished);
     m_currentDownload = nullptr;
     if (m_pendingDownloads.isEmpty()) {
         emit done();
@@ -50,8 +50,8 @@ void DownloadManager::doDownload(const OpenDataset& res)
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     QNetworkReply *reply = m_manager.get(request);
 #if QT_CONFIG(ssl)
-    connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
-            SLOT(sslErrors(QList<QSslError>)));
+    connect(reply, &QNetworkReply::sslErrors,
+            this, &DownloadManager::sslErrors);
 #endif
     m_currentDataset = res;
     m_currentDownload = reply;
@@ -65,7 +65,7 @@ QString DownloadManager::saveFileName(const QUrl &url) const
     if (basename.isEmpty())
         basename = "download";
     if (suffix.isEmpty())
-        suffix = "xml";
+        suffix = "json";
     QString completeBN = basename + '.' + suffix;
     if (QFile::exists(completeBN)) {
         // already exists, don't overwrite
@@ -101,8 +101,8 @@ void DownloadManager::execute()
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     QNetworkReply *reply = m_manager.get(request);
 #if QT_CONFIG(ssl)
-    connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
-            SLOT(sslErrors(QList<QSslError>)));
+    connect(reply, &QNetworkReply::sslErrors,
+            this, &DownloadManager::sslErrors);
 #endif
 }
 
@@ -146,9 +146,6 @@ void DownloadManager::downloadFinished(QNetworkReply *reply)
 
 void DownloadManager::onManagerFinished(QNetworkReply *reply)
 {
-    QString dsName;
-    QDateTime dsTime;
-    QUrl dsUri;
     auto statusCode = reply->attribute( QNetworkRequest::HttpStatusCodeAttribute );
     if (reply->isFinished() && statusCode.toInt() == 200) {
         QJsonDocument doc = QJsonDocument::fromJson(reply->readAll());
@@ -168,26 +165,41 @@ void DownloadManager::onManagerFinished(QNetworkReply *reply)
                             //qDebug() << "results:" << resCount << results.count() << results.size();
                             for(int i=0; i<resCount; ++i) {
                                 QJsonObject dataset = results[i].toObject();
-                                if (dataset.contains("resources") && dataset["resources"].isArray()) {
+                                if (dataset.contains("resources") && dataset["resources"].isArray() &&
+                                    dataset.contains("code") && dataset["code"].isString()) {
                                     QJsonArray resources = dataset["resources"].toArray();
-                                    //qDebug() << "resources:" << resources.count() << resources.size();
+                                    QString code = dataset["code"].toString();
+                                    //qDebug() << code << "resources:" << resources.count() << resources.size();
+                                    if (code == "ARBRES_INTERES_LOCAL") {
+                                        //qDebug() << "ignored";
+                                        continue;
+                                    }
+                                    QString lastName;
+                                    QUrl lastUri;
+                                    QDateTime lastTime = QDateTime::fromMSecsSinceEpoch(0);
                                     for(int j=0; j<resources.size(); ++j) {
                                         QJsonObject resource = resources[j].toObject();
                                         if (resource.contains("format") && resource["format"].isString()) {
                                             QString format = resource["format"].toString();
-                                            if (format == "XML") {
-                                                QString sqa = resource["qa"].toString();
-                                                dsTime = QDateTime::fromString(sqa.mid(13, 26), Qt::ISODate);
-                                                dsName = resource["name"].toString();
-                                                dsUri = QUrl(resource["url"].toString());
+                                            if (format == "JSON") {
+                                                QDateTime dsTime = QDateTime::fromString(resource["created"].toString(), Qt::ISODate);
+                                                QString dsName = resource["name"].toString();
+                                                QUrl dsUri = QUrl(resource["url"].toString());
                                                 //qDebug() << "------------- resource:" << j;
-                                                //qDebug() << "updated:" << dsTime;
+                                                //qDebug() << "created:" << dsTime;
                                                 //qDebug() << "name:" << dsName;
                                                 //qDebug() << "url:" << dsUri;
-                                                m_pendingDownloads.append(OpenDataset{ dsName, QString(), dsUri, dsTime, 0, 0 });
-                                                break;
+                                                if (dsTime > lastTime) {
+                                                    //qDebug() << "latest";
+                                                    lastTime = dsTime;
+                                                    lastName = dsName;
+                                                    lastUri = dsUri;
+                                                }
                                             }
                                         }
+                                    }
+                                    if (!lastName.isEmpty() && lastUri.isValid()) {
+                                        m_pendingDownloads.append(OpenDataset{ lastName, QString(), lastUri, lastTime, 0, 0 });
                                     }
                                 }
                             }

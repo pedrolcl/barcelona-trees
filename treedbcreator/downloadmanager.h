@@ -2,7 +2,7 @@
 #define DOWNLOADMANAGER_H
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2020 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2022 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

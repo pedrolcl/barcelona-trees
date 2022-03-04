@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../qml/AboutDialog.qml" line="44"/>
-        <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. version: %1 git: %2.&lt;br/&gt;Copyright © 2019-2020 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
+        <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. version: %1 git: %2.&lt;br/&gt;Copyright © 2019-2022 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

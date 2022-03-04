@@ -62,7 +62,7 @@ The first inspiration to make this program was the work of Juanjo Vidal [Arbrat 
   
 ## credits
 
-Copyright © 2019-2020 Pedro López-Cabanillas. These programs come with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
+Copyright © 2019-2022 Pedro López-Cabanillas. These programs come with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
 
 This application uses [Qt5](https://www.qt.io/).
 
