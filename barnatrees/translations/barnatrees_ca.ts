@@ -23,17 +23,22 @@
         <translation>Aquest programa utilitza Qt versió %1 (&lt;a href=&apos;https://www.qt.io/&apos;&gt;www.qt.io&lt;/a&gt;)&lt;br/&gt;Aquesta aplicació inclou programari desenvolupat pel Projecte OpenSSL per al seu ús al &lt;a href=&apos;http://www.openssl.org/&apos;&gt;OpenSSL Toolkit&lt;/a&gt;. Aquest programa es publica sota la GPL amb l&apos;exempció addicional que es permet recopilar, enllaçar i/o utilitzar OpenSSL.&lt;br/&gt;Aquesta aplicació conté codi font de &lt;a href=&apos;https://www.7-zip.org&apos;&gt;7-zip&lt;/a&gt; i &lt;a href=&apos;http://p7zip.sourceforge.net&apos;&gt;p7zip&lt;/a&gt; i algunes classes de &lt;a href=&apos;https://doc.qt.io/qtinstallerframework/&apos;&gt;Qt Installer Framework&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="101"/>
+        <location filename="../qml/AboutDialog.qml" line="78"/>
+        <source>This application contains data provided by the Barcelona&apos;s city council: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/en/&apos;&gt;Open Data BCN&lt;/a&gt; using the datasets &lt;b&gt;Zone trees of the city of Barcelona&lt;/b&gt;, &lt;b&gt;Street trees of the city of Barcelona&lt;/b&gt;, and &lt;b&gt;Trees in the parks of the city of Barcelona&lt;/b&gt;, under the therms of the &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/&apos;&gt;Creative Commons Attribution 4.0 International (CC BY 4.0)&lt;/a&gt; license.</source>
+        <translation>Aquesta aplicació conté dades proporcionades per l&apos;Ajuntament de Barcelona: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/ca/&apos;&gt;Open Data BCN&lt;/a&gt;&lt;br/&gt; usant els datasets &lt;b&gt;Arbrat de zona de la ciutat de Barcelona&lt;/b&gt;, &lt;b&gt;Arbrat viari de la ciutat de Barcelona&lt;/b&gt; i &lt;b&gt;Arbrat dels parcs de la ciutat de Barcelona&lt;/b&gt;, sota els termes de la llicència &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/deed.ca&apos;&gt;Creative Commons Reconeixement 4.0 Internacional (CC BY 4.0)&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutDialog.qml" line="102"/>
         <source>Processed: %1</source>
         <translation>Processat: %1</translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="105"/>
+        <location filename="../qml/AboutDialog.qml" line="106"/>
         <source>Trees: %L1</source>
         <translation>Arbres: %L1</translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="109"/>
+        <location filename="../qml/AboutDialog.qml" line="110"/>
         <source>Species: %L1</source>
         <translation>Espècies: %L1</translation>
     </message>
@@ -50,9 +55,8 @@
         <translation type="vanished">&lt;h1&gt;Arbres de Barcelona&lt;/h1&gt;Una guia d&apos;arbres de Barcelona. Copyright © 2019 Pedro López-Cabanillas.&lt;br/&gt;Aquest programa ve amb ABSOLUTAMENT CAP GARANTIA. Això és programari lliure, i ets benvingut de redistribuir-lo sota els termes de la llicència &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="78"/>
         <source>This application contains data provided by the Barcelona&apos;s city council: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/en/&apos;&gt;Open Data BCN&lt;/a&gt; using the datasets &lt;b&gt;Zone trees of the city of Barcelona&lt;/b&gt; and &lt;b&gt;Street trees of the city of Barcelona&lt;/b&gt;, under the therms of the &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/&apos;&gt;Creative Commons Attribution 4.0 International (CC BY 4.0)&lt;/a&gt; license.</source>
-        <translation>Aquesta aplicació conté dades proporcionades per l&apos;Ajuntament de Barcelona: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/ca/&apos;&gt;Open Data BCN&lt;/a&gt;&lt;br/&gt; usant els datasets &lt;b&gt;Arbrat de zona de la ciutat de Barcelona&lt;/b&gt; i &lt;b&gt;Arbrat viari de la ciutat de Barcelona&lt;/b&gt;, sota els termes de la llicència &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/deed.ca&apos;&gt;Creative Commons Reconeixement 4.0 Internacional (CC BY 4.0)&lt;/a&gt;.</translation>
+        <translation type="vanished">Aquesta aplicació conté dades proporcionades per l&apos;Ajuntament de Barcelona: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/ca/&apos;&gt;Open Data BCN&lt;/a&gt;&lt;br/&gt; usant els datasets &lt;b&gt;Arbrat de zona de la ciutat de Barcelona&lt;/b&gt; i &lt;b&gt;Arbrat viari de la ciutat de Barcelona&lt;/b&gt;, sota els termes de la llicència &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/deed.ca&apos;&gt;Creative Commons Reconeixement 4.0 Internacional (CC BY 4.0)&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>

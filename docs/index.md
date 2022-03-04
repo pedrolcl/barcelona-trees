@@ -4,7 +4,7 @@
 
 This repository contains code to produce two related programs:
 
-- **treedbcreator**. This command line program downloads and parses two complementary XML datasets from the Open Data BCN catalog: Zone trees of the city of Barcelona and Street trees of the city of Barcelona, containing the names of the species and geolocation of the trees of the city of Barcelona located on public roads. The information contains, among other data, the scientific name, the common names and the addresses. The trees of the parks are not included. This data is used to create a relational SQLite database used by the next program.
+- **treedbcreator**. This command line program downloads and parses three complementary JSON datasets from the Open Data BCN catalog: Zone trees of the city of Barcelona, Street trees of the city of Barcelona, and Trees in the parks of the city of Barcelona, containing the names of the species and geolocation of the trees of the city of Barcelona located on public roads. The information contains, among other data, the scientific name, the common names and the addresses. This data is used to create a relational SQLite database used by the next program.
 
 - **barnatrees**. This graphic program is a data visualization and navigation tool using the database created by the other program over a map of the city of Barcelona.
 

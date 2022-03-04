@@ -35,7 +35,7 @@ void DropboxDownloader::downloadText(QUrl url)
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     m_networkReply = m_nam.get(request);
     connect(m_networkReply, &QObject::destroyed, this, &DropboxDownloader::readyForNext);
-    connect(m_networkReply, &QNetworkReply::finished, [&]() {
+    connect(m_networkReply, &QNetworkReply::finished, this, [&]() {
         if (m_networkReply->error() == QNetworkReply::NoError) {
             int status = m_networkReply->attribute( QNetworkRequest::HttpStatusCodeAttribute ).toInt();
             if (status == 200) {

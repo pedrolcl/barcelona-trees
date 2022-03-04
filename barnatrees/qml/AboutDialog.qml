@@ -15,8 +15,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 Dialog {
     parent: Overlay.overlay
@@ -77,8 +77,9 @@ Dialog {
                 width: aboutDialog.availableWidth
                 text: qsTr("This application contains data provided by the Barcelona's city council: "
                     + "<a href='https://opendata-ajuntament.barcelona.cat/en/'>Open Data BCN</a> "
-                    + "using the datasets <b>Zone trees of the city of Barcelona</b> and "
+                    + "using the datasets <b>Zone trees of the city of Barcelona</b>, "
                     + "<b>Street trees of the city of Barcelona</b>, "
+                    + "and <b>Trees in the parks of the city of Barcelona</b>, "
                     + "under the therms of the <a href='https://creativecommons.org/licenses/by/4.0/'>"
                     + "Creative Commons Attribution 4.0 International (CC BY 4.0)</a> license.");
                 wrapMode: Label.Wrap

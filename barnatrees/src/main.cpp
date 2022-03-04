@@ -205,7 +205,7 @@ int main(int argc, char **argv)
     SplashWindow splash;
     splash.setMessage("Barcelona Trees v" QT_STRINGIFY(APPVER));
     splash.show();
-    QTimer::singleShot(2000, &splash, SLOT(close()));
+    QTimer::singleShot(2000, &splash, &QWindow::close);
 #endif
 
     QSettings settings;

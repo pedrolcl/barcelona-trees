@@ -15,8 +15,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 Dialog {
     parent: Overlay.overlay
@@ -28,10 +28,10 @@ Dialog {
     width: Math.round(Math.min(window.width, window.height) / 3 * 2)
     standardButtons: Dialog.Close
 
-    property string specieScientificName: null
-    property string specieCommonNames: null
-    property string specimenLocation: null
-    property string specimenDistance: null
+    property string specieScientificName: ""
+    property string specieCommonNames: ""
+    property string specimenLocation: ""
+    property string specimenDistance: ""
 
     Column {
         anchors.fill: parent

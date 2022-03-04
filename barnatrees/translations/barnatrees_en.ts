@@ -20,21 +20,21 @@
     </message>
     <message>
         <location filename="../qml/AboutDialog.qml" line="78"/>
-        <source>This application contains data provided by the Barcelona&apos;s city council: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/en/&apos;&gt;Open Data BCN&lt;/a&gt; using the datasets &lt;b&gt;Zone trees of the city of Barcelona&lt;/b&gt; and &lt;b&gt;Street trees of the city of Barcelona&lt;/b&gt;, under the therms of the &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/&apos;&gt;Creative Commons Attribution 4.0 International (CC BY 4.0)&lt;/a&gt; license.</source>
+        <source>This application contains data provided by the Barcelona&apos;s city council: &lt;a href=&apos;https://opendata-ajuntament.barcelona.cat/en/&apos;&gt;Open Data BCN&lt;/a&gt; using the datasets &lt;b&gt;Zone trees of the city of Barcelona&lt;/b&gt;, &lt;b&gt;Street trees of the city of Barcelona&lt;/b&gt;, and &lt;b&gt;Trees in the parks of the city of Barcelona&lt;/b&gt;, under the therms of the &lt;a href=&apos;https://creativecommons.org/licenses/by/4.0/&apos;&gt;Creative Commons Attribution 4.0 International (CC BY 4.0)&lt;/a&gt; license.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="101"/>
+        <location filename="../qml/AboutDialog.qml" line="102"/>
         <source>Processed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="105"/>
+        <location filename="../qml/AboutDialog.qml" line="106"/>
         <source>Trees: %L1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="109"/>
+        <location filename="../qml/AboutDialog.qml" line="110"/>
         <source>Species: %L1</source>
         <translation type="unfinished"></translation>
     </message>

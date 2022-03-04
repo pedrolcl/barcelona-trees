@@ -21,9 +21,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "jsonparser.h"
 #include "downloadmanager.h"
 
-//#define _STR(x) #x
-//#define STRINGIFY(x) _STR(x)
-
 int main(int argc, char *argv[])
 {
     QCoreApplication::setApplicationName("treedbcreator");
@@ -40,5 +37,5 @@ int main(int argc, char *argv[])
     QTimer::singleShot(0, &manager, &DownloadManager::execute);
     parser.initDB();
 
-    app.exec();
+    return app.exec();
 }

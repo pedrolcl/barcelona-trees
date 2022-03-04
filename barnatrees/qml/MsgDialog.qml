@@ -15,8 +15,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 Dialog {
     parent: Overlay.overlay
@@ -27,7 +27,7 @@ Dialog {
     width: 250
     standardButtons: Dialog.Close
 
-    property string dlgMessage: null
+    property string dlgMessage: String.empty
 
     Label {
         text: dlgMessage
