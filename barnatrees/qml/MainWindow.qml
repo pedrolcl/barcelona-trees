@@ -154,7 +154,6 @@ ApplicationWindow {
 
     ResultsPage {
         id: resultsPage
-        visible: false
         onClosed: {
             windowHeader.title = qsTr("Barcelona Trees")
         }

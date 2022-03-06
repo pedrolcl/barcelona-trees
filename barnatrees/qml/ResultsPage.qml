@@ -17,7 +17,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtPositioning 5.15
 
 Drawer {
     y: windowHeader.height
