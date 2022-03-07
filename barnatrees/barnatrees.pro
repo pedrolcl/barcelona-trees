@@ -98,7 +98,13 @@ TRANSLATIONS = \
     translations/barnatrees_en.ts \
     translations/barnatrees_es.ts
 
-win32:RC_ICONS = images/barnatrees.ico
+win32 {
+    RC_ICONS = images/barnatrees.ico
+    QMAKE_TARGET_COMPANY = "Pedro Lopez-Cabanillas"
+    QMAKE_TARGET_DESCRIPTION = "Barcelona Trees; a guide of the trees of Barcelona" 
+    QMAKE_TARGET_COPYRIGHT = "Copyright (C) 2019-2022 Pedro Lopez-Cabanillas"
+    QMAKE_TARGET_PRODUCT = "Barcelona Trees"
+}
 
 macx {
     ICON = images/barnatrees.icns

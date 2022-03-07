@@ -21,3 +21,10 @@ include(../openssl.pri)
 
 DISTFILES += \
     readme.md
+
+win32 {
+    QMAKE_TARGET_COMPANY = "Pedro Lopez-Cabanillas"
+    QMAKE_TARGET_DESCRIPTION = "Barcelona Trees DB Creator" 
+    QMAKE_TARGET_COPYRIGHT = "Copyright (C) 2019-2022 Pedro Lopez-Cabanillas"
+    QMAKE_TARGET_PRODUCT = "Barcelona Trees"
+}
