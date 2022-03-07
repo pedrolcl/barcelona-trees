@@ -9,8 +9,8 @@
   <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
 <?endif ?>  
   
-  <Product Id="*" Name="BarcelonaTrees" Language="1033" Version="0.0.2.0" Manufacturer="Pedro Lopez-Cabanillas" UpgradeCode="760c2826-429c-43c0-b07a-3ce84b52adff">
-    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  <Product Id="*" Name="BarcelonaTrees" Language="1033" Version="0.0.4.0" Manufacturer="Pedro Lopez-Cabanillas" UpgradeCode="760c2826-429c-43c0-b07a-3ce84b52adff">
+    <Package InstallerVersion="301" Compressed="yes" InstallScope="perMachine" />
     
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />

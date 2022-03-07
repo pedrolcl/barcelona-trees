@@ -22,10 +22,10 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
-    <OutputName>BarcelonaTrees_x64</OutputName>
+    <OutputName>barnatrees-beta2-windows-x64</OutputName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
-    <OutputName>BarcelonaTrees_x86</OutputName>
+    <OutputName>barnatrees-beta2-windows-x86</OutputName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components.wxs" />
