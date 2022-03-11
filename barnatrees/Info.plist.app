@@ -25,7 +25,7 @@
         <key>CFBundleShortVersionString</key>
         <string>@FULL_VERSION@</string>
         <key>NSHumanReadableCopyright</key>
-        <string>© 2019, Pedro López-Cabanillas</string>
+        <string>© 2019-2022, Pedro López-Cabanillas</string>
         <key>NSHighResolutionCapable</key><true/>
         <key>NSSupportsAutomaticGraphicsSwitching</key><true/>
         <key>NOTE</key><string>Barcelona Trees is free software, released under the GPLv3 license.</string>
