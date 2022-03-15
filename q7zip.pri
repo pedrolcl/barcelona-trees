@@ -32,22 +32,8 @@ linux*:!android {
 }
 
 android {
-    equals(ANDROID_TARGET_ARCH,armeabi-v7a) {
-        LIBS += $$PWD/android_arm/libq7z.so
-        ANDROID_EXTRA_LIBS += $$PWD/android_arm/libq7z.so
-    }
-    equals(ANDROID_TARGET_ARCH,arm64-v8a) {
-        LIBS += $$PWD/android_arm64/libq7z.so
-        ANDROID_EXTRA_LIBS += $$PWD/android_arm64/libq7z.so
-    }
-    equals(ANDROID_TARGET_ARCH,x86) {
-        LIBS += $$PWD/android_x86/libq7z.so
-        ANDROID_EXTRA_LIBS += $$PWD/android_x86/libq7z.so
-    }
-    equals(ANDROID_TARGET_ARCH,x86_64) {
-        LIBS += $$PWD/android_x86_64/libq7z.so
-        ANDROID_EXTRA_LIBS += $$PWD/android_x86_64/libq7z.so
-    }
+	LIBS += $$PWD/android/libq7z_$${ANDROID_TARGET_ARCH}.so
+	ANDROID_EXTRA_LIBS += $$PWD/android/libq7z_$${ANDROID_TARGET_ARCH}.so
 }
 
 win32 {
