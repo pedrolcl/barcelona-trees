@@ -49,6 +49,14 @@ exists(barnatrees.db.7z) {
 
 DISTFILES += \
     Info.plist.app \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/gradle.properties \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew \
+    android/gradlew.bat \
+    android/res/values/libs.xml \
     qml/BalloonTip.qml \
     qml/MainWindow.qml \
     qml/AboutDialog.qml \
