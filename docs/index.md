@@ -2,6 +2,16 @@
 
 ![icon](web_hi_res_512.png)
 
+<a name="summary"/>
+## summary
+
+The motivation of this program is to help answering questions such as:
+
+* What trees are nearby? (from manual location or GPS)
+* What trees are on a given street?
+* Where can I find specimens of a certain genus/species?
+* For each specimen, obtain more information about its species from existing data on Wikipedia and public images.
+
 This repository contains code to produce two related programs:
 
 - **treedbcreator**. This command line program downloads and parses three complementary JSON datasets from the Open Data BCN catalog: Zone trees of the city of Barcelona, Street trees of the city of Barcelona, and Trees in the parks of the city of Barcelona, containing the names of the species and geolocation of the trees of the city of Barcelona located on public roads. The information contains, among other data, the scientific name, the common names and the addresses. This data is used to create a relational SQLite database used by the next program.
@@ -13,20 +23,18 @@ Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages,
 <a name="downloads"/>
 ## downloads
 
-The current release is: **Beta v0.0.3**
+The current release is: **Beta2 v0.0.4**
 
 ![GitHub All Releases](https://img.shields.io/github/downloads/pedrolcl/barcelona-trees/total) 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
  Platform | arch  | files    
 :---------|:-----:|:----------
- android  | arm64 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-android-arm64.apk) 
- android  | armV7 | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-android-armv7.apk)      
- macOS    | x64   | [dmg](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-mac-x64.dmg)
- linux    | x64   | [AppImage](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-linux-x64.AppImage)
- windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.3/barnatrees-beta-windows-x64.msi)
- sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.3.zip)
- sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.3.tar.gz)
+ android  | all   | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.4/barnatrees-beta2-android.apk) 
+ linux    | x64   | [AppImage](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.4/barnatrees-beta2-linux-x64.AppImage)
+ windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.4/barnatrees-beta2-windows-x64.msi)
+ sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.4.zip)
+ sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.4.tar.gz)
 
 
 ## treedbcreator

@@ -8,7 +8,11 @@ else:VERSION = 0.0.4
 DEFINES += APPVER=$$VERSION
 DEFINES += GITVER=$$system(git describe --always)
 DEFINES += QT_DEPRECATED_WARNINGS
+
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+ANDROID_FEATURES = android.hardware.location.network android.hardware.location.gps
+ANDROID_VERSION_CODE = 004
+ANDROID_VERSION_NAME = v0.0.4
 
 HEADERS += \
     src/basemodel.h \
@@ -125,3 +129,17 @@ LCONVERT_LANGS=ca es
 include(../lconvert.pri)
 include(../openssl.pri)
 include(../q7zip.pri)
+
+ANDROID_EXTRA_LIBS = \
+    $$PWD/../android/libq7z_armeabi-v7a.so \
+    $$PWD/../android/libq7z_arm64-v8a.so \
+    $$PWD/../android/libq7z_x86.so \
+    $$PWD/../android/libq7z_x86_64.so \
+    $$PWD/../../../../AppData/Local/Android/Sdk/android_openssl/latest/arm/libcrypto_1_1.so \
+    $$PWD/../../../../AppData/Local/Android/Sdk/android_openssl/latest/arm/libssl_1_1.so \
+    $$PWD/../../../../AppData/Local/Android/Sdk/android_openssl/latest/arm64/libcrypto_1_1.so \
+    $$PWD/../../../../AppData/Local/Android/Sdk/android_openssl/latest/arm64/libssl_1_1.so \
+    $$PWD/../../../../AppData/Local/Android/Sdk/android_openssl/latest/x86/libcrypto_1_1.so \
+    $$PWD/../../../../AppData/Local/Android/Sdk/android_openssl/latest/x86/libssl_1_1.so \
+    $$PWD/../../../../AppData/Local/Android/Sdk/android_openssl/latest/x86_64/libcrypto_1_1.so \
+    $$PWD/../../../../AppData/Local/Android/Sdk/android_openssl/latest/x86_64/libssl_1_1.so \

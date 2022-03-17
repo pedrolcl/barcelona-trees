@@ -33,7 +33,7 @@ linux*:!android {
 
 android {
 	LIBS += $$PWD/android/libq7z_$${ANDROID_TARGET_ARCH}.so
-	ANDROID_EXTRA_LIBS += $$PWD/android/libq7z_$${ANDROID_TARGET_ARCH}.so
+	#ANDROID_EXTRA_LIBS += $$PWD/android/libq7z_$${ANDROID_TARGET_ARCH}.so
 }
 
 win32 {
