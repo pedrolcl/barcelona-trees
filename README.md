@@ -79,7 +79,7 @@ This application includes software developed by the OpenSSL Project for use in t
 
 This application contains source code from the [7-zip](https://www.7-zip.org) and [p7zip](http://p7zip.sourceforge.net) projects and some classes from the [Qt Installer Framework](https://doc.qt.io/qtinstallerframework/index.html).
 
-This application contains data provided by the Barcelona's city council: [Open Data BCN](https://opendata-ajuntament.barcelona.cat/en/) using the datasets **Zone trees of the city of Barcelona** and **Street trees of the city of Barcelona**  under the therms of the Creative Commons Attribution 4.0 International [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
+This application contains data provided by the Barcelona's city council: [Open Data BCN](https://opendata-ajuntament.barcelona.cat/en/) using the datasets **Zone trees of the city of Barcelona**, **Street trees of the city of Barcelona**, and **Trees in the parks of the city of Barcelona**  under the therms of the Creative Commons Attribution 4.0 International [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
 
 Map tilesets © [WikiMedia Foundation](https://foundation.wikimedia.org/wiki/Terms_of_Use/en), using data © [OpenStreetMap](https://www.openstreetmap.org/copyright/en) contributors.
 
