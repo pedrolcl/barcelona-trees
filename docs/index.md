@@ -39,10 +39,12 @@ The current release is: **Beta2 v0.0.4**
 
 ## treedbcreator
 
-The program does not have any command line arguments. It simply outputs at the same working directory the files &quot;arbrat_viari.xml&quot;, &quot;arbrat_zona.xml&quot; and &quot;barnatrees.db&quot;.
+The program does not have any command line arguments. It simply outputs at the same working directory the JSON files &quot;arbrat_viari&quot;, &quot;arbrat_zona&quot;, &quot;arbrat_parcs&quot; and &quot;barnatrees.db&quot;.
 
 <a name="barnatrees"/>
 ## barnatrees
+
+![screenshot](screenshot.png)
 
 Upon startup, this program shows a map of Barcelona, centered at the default location point: Glòries square, a blue circle labeled as &quot;Current Location&quot;, and the trees found nearby. The user can change the location by hand, with a long press and hold of the main mouse button or touch screen, or automatically using the device's GPS (menu option &quot;Update Position&quot;. The user can change the zoom scale either with the mouse wheel or using a &quot;pinch&quot; gesture in the touch screen.
 
