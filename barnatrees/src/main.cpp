@@ -54,14 +54,14 @@ int downloadFromCloud(QDir &destDir, QString current, bool& dbFileNew)
 
     QString newtimestamp;
     DropboxDownloader dwnloader;
-    QObject::connect(&dwnloader, &DropboxDownloader::downloadProgress, [&](qint64 received, qint64 total) {
+    QObject::connect(&dwnloader, &DropboxDownloader::downloadProgress, &loop, [&](qint64 received, qint64 total) {
         qDebug() << "%" << (1.0 * received / total) * 100.0;
     });
-    QObject::connect(&dwnloader, &DropboxDownloader::downloadError, [&](QString msg) {
+    QObject::connect(&dwnloader, &DropboxDownloader::downloadError, &loop, [&](QString msg) {
         qWarning() << "download error: " << msg;
         loop.exit(-1);
     });
-    QObject::connect(&dwnloader, &DropboxDownloader::downloadSuccessful, [&]() {
+    QObject::connect(&dwnloader, &DropboxDownloader::downloadSuccessful, &loop, [&]() {
         qDebug() << "download finished";
         QFile tsfile(destDir.absoluteFilePath("barnatrees.txt.remote"));
         tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -69,11 +69,11 @@ int downloadFromCloud(QDir &destDir, QString current, bool& dbFileNew)
         tsfile.close();
         loop.exit();
     });
-    QObject::connect(&dwnloader, &DropboxDownloader::downloadTextReady, [&](QString text) {
+    QObject::connect(&dwnloader, &DropboxDownloader::downloadTextReady, &loop, [&](QString text) {
         qDebug() << "text download finished:" << text;
         newtimestamp = text;
     });
-    QObject::connect(&dwnloader, &DropboxDownloader::readyForNext, [&]() {
+    QObject::connect(&dwnloader, &DropboxDownloader::readyForNext, &loop, [&]() {
         qDebug() << "Next operation is ready";
         if (!newtimestamp.isEmpty() && (newtimestamp > current)) {
             QFileInfo finfo(destDir, "barnatrees.db.7z");
@@ -205,7 +205,7 @@ int main(int argc, char **argv)
     SplashWindow splash;
     splash.setMessage("Barcelona Trees v" QT_STRINGIFY(APPVER));
     splash.show();
-    QTimer::singleShot(2000, &splash, &QWindow::close);
+    QCoreApplication::processEvents();
 #endif
 
     QSettings settings;
@@ -221,17 +221,19 @@ int main(int argc, char **argv)
     QTranslator trp;
     QLocale locale(configuredLanguage);
     //qDebug() << "locale:" << locale;
-    if (trq.load(locale, QLatin1String("qt"), QLatin1String("_"), QLatin1String(":/"))) {
-        QCoreApplication::installTranslator(&trq);
-    } else {
-        qWarning() << "Failure loading Qt5 translations for" << configuredLanguage;
+    if ((locale.language() != QLocale::C) && (locale.language() != QLocale::English)) {
+        if (trq.load(locale, QLatin1String("qt"), QLatin1String("_"), QLatin1String(":/"))) {
+            QCoreApplication::installTranslator(&trq);
+        } else {
+            qWarning() << "Failure loading Qt5 translations for" << configuredLanguage;
+        }
+        if (trp.load(locale, QLatin1String("barnatrees"), QLatin1String("_"), QLatin1String(":/"))) {
+            QCoreApplication::installTranslator(&trp);
+        } else {
+            qWarning() << "Failure loading program translations for" << configuredLanguage;
+        }
+        QLocale::setDefault(locale);
     }
-    if (trp.load(locale, QLatin1String("barnatrees"), QLatin1String("_"), QLatin1String(":/"))) {
-        QCoreApplication::installTranslator(&trp);
-    } else {
-        qWarning() << "Failure loading program translations for" << configuredLanguage;
-    }
-    QLocale::setDefault(locale);
 
     bool newDatabase = false;
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -264,21 +266,34 @@ int main(int argc, char **argv)
     //qDebug() << "filtered.rows:" << streetFilter.rowCount();
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("gitversion", QT_STRINGIFY(GITVER));
-    engine.rootContext()->setContextProperty("qtversion", QT_VERSION_STR);
-    engine.rootContext()->setContextProperty("newDatabase", newDatabase);
-    engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
-    engine.rootContext()->setContextProperty("speciesModel", &speciesModel);
-    engine.rootContext()->setContextProperty("plantModel", &plantModel);
-    engine.rootContext()->setContextProperty("plantProxy", &plantProxy);
-    engine.rootContext()->setContextProperty("summaryModel", &summaryModel);
-    engine.rootContext()->setContextProperty("genderModel", &genderModel);
-    engine.rootContext()->setContextProperty("streetModel", &streetFilter);
+    engine.rootContext()->setContextProperties({
+        { "gitversion", QT_STRINGIFY(GITVER) },
+        { "qtversion", QT_VERSION_STR },
+        { "newDatabase", newDatabase },
+        { "availableStyles", QVariant::fromValue(QQuickStyle::availableStyles()) },
+        { "speciesModel", QVariant::fromValue(&speciesModel) },
+        { "plantModel", QVariant::fromValue(&plantModel) },
+        { "plantProxy", QVariant::fromValue(&plantProxy) },
+        { "summaryModel", QVariant::fromValue(&summaryModel) },
+        { "genderModel", QVariant::fromValue(&genderModel) },
+        { "streetModel", QVariant::fromValue(&streetFilter) }
+    });
     engine.load(QUrl(QStringLiteral("qrc:/MainWindow.qml")));
     QObject::connect(&engine, &QQmlApplicationEngine::exit, &app, &QCoreApplication::quit);
     QObject::connect(&engine, &QQmlApplicationEngine::quit, &app, &QCoreApplication::quit);
     if (engine.rootObjects().isEmpty()) {
         return -1;
     }
+#if !defined(Q_OS_ANDROID)
+     else {
+        QQuickWindow *qmlWindow = qobject_cast<QQuickWindow *>(engine.rootObjects().constFirst());
+        QCoreApplication::processEvents();
+        if (qmlWindow->isVisible()) {
+            splash.close();
+        } else {
+            splash.finish(qmlWindow);
+        }
+    }
+#endif
     return app.exec();
 }
