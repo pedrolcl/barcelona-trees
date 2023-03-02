@@ -3,16 +3,16 @@ QT += sql quick quickcontrols2 qml network positioning location
 CONFIG += c++11 lrelease embed_translations
 LRELEASE_DIR='.'
 QM_FILES_RESOURCE_PREFIX='/'
-win32:VERSION = 0.0.4.0
-else:VERSION = 0.0.4
+win32:VERSION = 0.0.5.0
+else:VERSION = 0.0.5
 DEFINES += APPVER=$$VERSION
 DEFINES += GITVER=$$system(git describe --always)
 DEFINES += QT_DEPRECATED_WARNINGS
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 ANDROID_FEATURES = android.hardware.location.network android.hardware.location.gps
-ANDROID_VERSION_CODE = 004
-ANDROID_VERSION_NAME = v0.0.4
+ANDROID_VERSION_CODE = 005
+ANDROID_VERSION_NAME = v0.0.5
 
 HEADERS += \
     src/basemodel.h \
@@ -108,13 +108,14 @@ DISTFILES += \
 TRANSLATIONS = \
     translations/barnatrees_ca.ts \
     translations/barnatrees_en.ts \
-    translations/barnatrees_es.ts
+    translations/barnatrees_es.ts \
+    translations/barnatrees_nl.ts
 
 win32 {
     RC_ICONS = images/barnatrees.ico
     QMAKE_TARGET_COMPANY = "Pedro Lopez-Cabanillas"
     QMAKE_TARGET_DESCRIPTION = "Barcelona Trees; a guide of the trees of Barcelona" 
-    QMAKE_TARGET_COPYRIGHT = "Copyright (C) 2019-2022 Pedro Lopez-Cabanillas"
+    QMAKE_TARGET_COPYRIGHT = "Copyright (C) 2019-2023 Pedro Lopez-Cabanillas"
     QMAKE_TARGET_PRODUCT = "Barcelona Trees"
 }
 
@@ -125,7 +126,7 @@ macx {
     QMAKE_INFO_PLIST = Info.plist.app
 }
 
-LCONVERT_LANGS=ca es
+LCONVERT_LANGS=ca es nl
 include(../lconvert.pri)
 include(../openssl.pri)
 include(../q7zip.pri)

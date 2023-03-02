@@ -1,6 +1,6 @@
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2022 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2023 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -71,6 +71,7 @@ Dialog {
                 ListElement { key: qsTr("English"); value: "en" }
                 ListElement { key: qsTr("Catalan"); value: "ca" }
                 ListElement { key: qsTr("Spanish"); value: "es" }
+                ListElement { key: qsTr("Dutch");   value: "nl" }
             }
             Component.onCompleted: {
                 for(var i=0; i<model.count; ++i) {

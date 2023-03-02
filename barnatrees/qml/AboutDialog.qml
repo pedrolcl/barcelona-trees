@@ -1,6 +1,6 @@
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2022 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2023 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ Dialog {
             Label {
                 width: aboutDialog.availableWidth
                 text: qsTr("<h1>Barcelona Trees</h1>A guide of the trees of Barcelona. "
-                         + "version: %1 git: %2.<br/>Copyright © 2019-2022 Pedro López-Cabanillas.<br/>"
+                         + "version: %1 git: %2.<br/>Copyright © 2019-2023 Pedro López-Cabanillas.<br/>"
                          + "This program comes with ABSOLUTELY NO WARRANTY. "
                          + "This is free software, and you are welcome to redistribute it "
                          + "under the terms of the license "

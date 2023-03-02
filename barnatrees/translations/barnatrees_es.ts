@@ -14,8 +14,8 @@
     </message>
     <message>
         <location filename="../qml/AboutDialog.qml" line="44"/>
-        <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. version: %1 git: %2.&lt;br/&gt;Copyright © 2019-2022 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
-        <translation>&lt;h1&gt;Árboles de Barcelona&lt;/h1&gt;Una guía de árboles de Barcelona.versión: %1 git:%2.Copyright © 2019-2022 Pedro López-Cabanillas.&lt;br/&gt;Este programa viene sin ABSOLUTAMENTE NINGUNA GARANTÍA. Esto es software libre, y eres bienvenido de redistribuirlo bajo los términos de la licencia &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</translation>
+        <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. version: %1 git: %2.&lt;br/&gt;Copyright © 2019-2023 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
+        <translation>&lt;h1&gt;Árboles de Barcelona&lt;/h1&gt;Una guía de árboles de Barcelona.versión: %1 git:%2.Copyright © 2019-2023 Pedro López-Cabanillas.&lt;br/&gt;Este programa viene sin ABSOLUTAMENTE NINGUNA GARANTÍA. Esto es software libre, y eres bienvenido de redistribuirlo bajo los términos de la licencia &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../qml/AboutDialog.qml" line="57"/>
@@ -120,7 +120,7 @@
     <message>
         <location filename="../qml/MainWindow.qml" line="31"/>
         <location filename="../qml/MainWindow.qml" line="61"/>
-        <location filename="../qml/MainWindow.qml" line="159"/>
+        <location filename="../qml/MainWindow.qml" line="158"/>
         <source>Barcelona Trees</source>
         <translation>Árboles de Barcelona</translation>
     </message>
@@ -160,12 +160,12 @@
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="203"/>
+        <location filename="../qml/MainWindow.qml" line="202"/>
         <source>Sorry!</source>
         <translation>¡Lo siento!</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="204"/>
+        <location filename="../qml/MainWindow.qml" line="203"/>
         <source>Your search returned no results.</source>
         <translation>Su búsqueda no produjo resultados.</translation>
     </message>
@@ -173,7 +173,7 @@
 <context>
     <name>ResultsPage</name>
     <message numerus="yes">
-        <location filename="../qml/ResultsPage.qml" line="33"/>
+        <location filename="../qml/ResultsPage.qml" line="32"/>
         <source>Found %Ln tree(s)</source>
         <translation>
             <numerusform>Encontrado %Ln árbol</numerusform>
@@ -214,7 +214,12 @@
         <translation>español</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="88"/>
+        <location filename="../qml/SettingsDialog.qml" line="74"/>
+        <source>Dutch</source>
+        <translation>Neerlandés</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsDialog.qml" line="89"/>
         <source>Wiki:</source>
         <translation>Wiki:</translation>
     </message>
@@ -231,7 +236,7 @@
         <translation type="vanished">WikiCommons</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="109"/>
+        <location filename="../qml/SettingsDialog.qml" line="110"/>
         <source>Restart required</source>
         <translation>Reinicio requerido</translation>
     </message>
