@@ -32,7 +32,9 @@ void DropboxDownloader::downloadText(QUrl url)
         return;
     }
     QNetworkRequest request(url);
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+#endif
     m_networkReply = m_nam.get(request);
     connect(m_networkReply, &QObject::destroyed, this, &DropboxDownloader::readyForNext);
     connect(m_networkReply, &QNetworkReply::finished, this, [&]() {
@@ -62,7 +64,9 @@ void DropboxDownloader::downloadBinFile(QUrl url, QString fileName)
         return;
     }
     QNetworkRequest request(url);
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+#endif
     m_networkReply = m_nam.get(request);
     connect(m_networkReply, &QIODevice::readyRead, this, &DropboxDownloader::readData);
     connect(m_networkReply, &QNetworkReply::downloadProgress, this, &DropboxDownloader::downloadProgress);

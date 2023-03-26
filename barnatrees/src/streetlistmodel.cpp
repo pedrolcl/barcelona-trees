@@ -34,7 +34,7 @@ void StreetListModel::addQueryData(const QString sqlqry)
         while(qry.next()) {
             QString val = qry.value(0).toString();
             if (val.length() > 2) {
-                names << val.remove(QRegExp("^(d'|de|del|dels|de\\sla|de\\sl'|l'|la)")).trimmed();
+                names << val.remove(QRegularExpression("^(d'|de|del|dels|de\\sla|de\\sl'|l'|la)")).trimmed();
             }
         }
         names.removeDuplicates();
@@ -56,6 +56,6 @@ FilterProxyModel::FilterProxyModel(QObject *parent)
 void FilterProxyModel::setFilterString(QString string)
 {
     QString filter = QString("^%1.*$").arg(string);
-    setFilterRegExp(filter);
+    setFilterRegularExpression(filter);
     //qDebug() << Q_FUNC_INFO << "row count:" << rowCount();
 }

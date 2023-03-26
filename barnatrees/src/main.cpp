@@ -191,7 +191,7 @@ int main(int argc, char **argv)
 {
     QGuiApplication::setApplicationName("barnatrees");
     QGuiApplication::setOrganizationName("BarcelonaTrees");
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    //QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setApplicationVersion(QT_STRINGIFY(APPVER));
     QGuiApplication app(argc,argv);
     app.setWindowIcon(QIcon("qrc:/barnatrees_icon64.png"));
@@ -262,15 +262,16 @@ int main(int argc, char **argv)
     StreetListModel streetModel;
     FilterProxyModel streetFilter;
     streetFilter.setSourceModel(&streetModel);
-    streetFilter.setFilterRegExp(QStringLiteral("^[\\*]*$"));
+    streetFilter.setFilterRegularExpression(QStringLiteral("^[\\*]*$"));
     //qDebug() << "filtered.rows:" << streetFilter.rowCount();
 
+    QStringList styles{"Fusion", "Material"};
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperties({
         { "gitversion", QT_STRINGIFY(GITVER) },
         { "qtversion", QT_VERSION_STR },
         { "newDatabase", newDatabase },
-        { "availableStyles", QVariant::fromValue(QQuickStyle::availableStyles()) },
+        { "availableStyles", QVariant::fromValue(&styles) }, //QQuickStyle::availableStyles()) },
         { "speciesModel", QVariant::fromValue(&speciesModel) },
         { "plantModel", QVariant::fromValue(&plantModel) },
         { "plantProxy", QVariant::fromValue(&plantProxy) },

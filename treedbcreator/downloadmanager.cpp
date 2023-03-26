@@ -47,7 +47,9 @@ void DownloadManager::doDownload(const OpenDataset& res)
 {
     QUrl url = res.url;
     QNetworkRequest request(url);
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+#endif
     QNetworkReply *reply = m_manager.get(request);
 #if QT_CONFIG(ssl)
     connect(reply, &QNetworkReply::sslErrors,
@@ -98,7 +100,9 @@ bool DownloadManager::isHttpRedirect(QNetworkReply *reply) const
 void DownloadManager::execute()
 {
     QNetworkRequest request(QUrl("https://opendata-ajuntament.barcelona.cat/data/api/3/action/package_search?fq=tags:Arbrat"));
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+#endif
     QNetworkReply *reply = m_manager.get(request);
 #if QT_CONFIG(ssl)
     connect(reply, &QNetworkReply::sslErrors,
