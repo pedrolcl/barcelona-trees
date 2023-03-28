@@ -15,9 +15,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 Dialog {
     x: Math.round((window.width - width) / 2)
@@ -52,7 +52,8 @@ Dialog {
         ComboBox {
             id: styleBox
             property int styleIndex: -1
-            model: availableStyles
+            //model: availableStyles
+            model: ["Basic", "Fusion", "Imagine", "Material", "Universal"]
             Component.onCompleted: {
                 styleIndex = find(settings.style, Qt.MatchFixedString)
                 if (styleIndex !== -1)

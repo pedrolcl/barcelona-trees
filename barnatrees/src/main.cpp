@@ -265,13 +265,12 @@ int main(int argc, char **argv)
     streetFilter.setFilterRegularExpression(QStringLiteral("^[\\*]*$"));
     //qDebug() << "filtered.rows:" << streetFilter.rowCount();
 
-    QStringList styles{"Fusion", "Material"};
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperties({
         { "gitversion", QT_STRINGIFY(GITVER) },
         { "qtversion", QT_VERSION_STR },
         { "newDatabase", newDatabase },
-        { "availableStyles", QVariant::fromValue(&styles) }, //QQuickStyle::availableStyles()) },
+        //{ "availableStyles", QVariant::fromValue(QQuickStyle::availableStyles()) },
         { "speciesModel", QVariant::fromValue(&speciesModel) },
         { "plantModel", QVariant::fromValue(&plantModel) },
         { "plantProxy", QVariant::fromValue(&plantProxy) },
