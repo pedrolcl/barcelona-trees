@@ -265,12 +265,24 @@ int main(int argc, char **argv)
     streetFilter.setFilterRegularExpression(QStringLiteral("^[\\*]*$"));
     //qDebug() << "filtered.rows:" << streetFilter.rowCount();
 
+    QStringList builtInStyles = { QLatin1String("Basic"), QLatin1String("Fusion"),
+                                 QLatin1String("Imagine"), QLatin1String("Material"),
+                                 QLatin1String("Universal") };
+#if defined(Q_OS_MACOS)
+    builtInStyles << QLatin1String("macOS");
+    builtInStyles << QLatin1String("iOS");
+#elif defined(Q_OS_IOS)
+    builtInStyles << QLatin1String("iOS");
+#elif defined(Q_OS_WINDOWS)
+    builtInStyles << QLatin1String("Windows");
+#endif
+
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperties({
         { "gitversion", QT_STRINGIFY(GITVER) },
         { "qtversion", QT_VERSION_STR },
         { "newDatabase", newDatabase },
-        //{ "availableStyles", QVariant::fromValue(QQuickStyle::availableStyles()) },
+        { "availableStyles", builtInStyles },
         { "speciesModel", QVariant::fromValue(&speciesModel) },
         { "plantModel", QVariant::fromValue(&plantModel) },
         { "plantProxy", QVariant::fromValue(&plantProxy) },

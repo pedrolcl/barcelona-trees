@@ -41,6 +41,11 @@ qt_add_executable( barnatrees
     ${RESOURCES}
 )
 
+target_compile_definitions( barnatrees PRIVATE
+    APPVER=${PROJECT_VERSION}
+    GITVER=${PROJECT_WC_REVISION}
+)
+
 set_target_properties( barnatrees PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}

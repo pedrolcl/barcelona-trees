@@ -52,8 +52,7 @@ Dialog {
         ComboBox {
             id: styleBox
             property int styleIndex: -1
-            //model: availableStyles
-            model: ["Basic", "Fusion", "Imagine", "Material", "Universal"]
+            model: availableStyles
             Component.onCompleted: {
                 styleIndex = find(settings.style, Qt.MatchFixedString)
                 if (styleIndex !== -1)

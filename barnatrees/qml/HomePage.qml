@@ -15,12 +15,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtPositioning 5.15
-import QtLocation 5.15
+import QtQuick
+import QtQuick.Controls
+import QtPositioning
+import QtLocation
 
 Page {
+    id: homePage
     title: qsTr("Barcelona Trees")
 
     property variant locationBarna: QtPositioning.coordinate( 41.403216, 2.186674 )
