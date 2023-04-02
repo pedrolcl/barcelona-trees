@@ -10,7 +10,7 @@ set( CMAKE_AUTORCC ON )
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
 
-find_package( Qt6 6.5 COMPONENTS Core Sql Network Quick QuickControls2 Qml Positioning Location REQUIRED )
+find_package( Qt6 6.5 COMPONENTS Core Sql Network Gui Quick QuickControls2 Qml Positioning Location LinguistTools REQUIRED )
 find_package( Q7Zip REQUIRED )
 
 list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake )

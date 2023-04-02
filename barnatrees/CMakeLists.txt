@@ -24,6 +24,7 @@ set (SOURCES
 )
 
 set (RESOURCES
+    data.qrc
     qml/qml.qrc
     images/images.qrc
 )
@@ -39,6 +40,11 @@ qt_add_executable( barnatrees
     ${HEADERS}
     ${SOURCES}
     ${RESOURCES}
+)
+
+qt_add_translations( barnatrees
+    TS_FILES ${TRANSLATIONS}
+    RESOURCE_PREFIX "/"
 )
 
 target_compile_definitions( barnatrees PRIVATE
