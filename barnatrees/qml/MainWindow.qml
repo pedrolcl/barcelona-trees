@@ -22,6 +22,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtPositioning
 import QtLocation
+import Qt.labs.animation
 
 ApplicationWindow {
     id: window
@@ -31,8 +32,9 @@ ApplicationWindow {
     height: 800
     title: qsTr("Barcelona Trees")
 
-    property variant locationBarna: QtPositioning.coordinate( 41.403216, 2.186674 )
-    property double defaultZoom: map.maximumZoomLevel - 2
+    property var locationBarna: QtPositioning.coordinate( 41.403216, 2.186674 )
+    property var barnaRegion: QtPositioning.rectangle(QtPositioning.coordinate(41.45,2.09), QtPositioning.coordinate(41.33, 2.23))
+    property double defaultZoom: map.maximumZoomLevel - 2.0
     property var globalItems: []
     property int numberOfRows: 0
 
@@ -170,12 +172,14 @@ ApplicationWindow {
         }
 
         function changeGlobalCenter(coordinate) {
-            clearItems()
-            map.zoomLevel = defaultZoom
-            map.center = coordinate
-            locationCircle.coordinate = coordinate
-            plantModel.setCenter(coordinate)
-            locationTip.open()
+            if (barnaRegion.contains(coordinate)) {
+                clearItems()
+                map.zoomLevel = defaultZoom
+                map.center = coordinate
+                locationCircle.coordinate = coordinate
+                plantModel.setCenter(coordinate)
+                locationTip.open()
+            }
         }
 
         function showCurrentLocation() {
@@ -274,19 +278,15 @@ ApplicationWindow {
 
         Map {
             id: map
-            maximumZoomLevel: 20.0
-            minimumZoomLevel: 13.0
             anchors.fill: parent
-            plugin: Plugin {
-                name: "osm" // esri, osm, mapboxgl
-                //PluginParameter {...}
-            }
+            maximumZoomLevel: zlBr.maximum
+            minimumZoomLevel: zlBr.minimum
+            plugin: Plugin { name: "osm" }
             center: locationBarna
             zoomLevel: defaultZoom
 
-            //onZoomLevelChanged: console.log("Zoom: " + map.zoomLevel)
+            onZoomLevelChanged: zlBr.returnToBounds()
             onCopyrightLinkActivated: Qt.openUrlExternally(link)
-
             onMapItemsChanged: {
                 if (globalItems.length === 0 && mapItems.length === (1 + plantModel.rowCount())) {
                     //console.log("mapItems.length:", mapItems.length)
@@ -300,6 +300,12 @@ ApplicationWindow {
                     numberOfRows = plantModel.rowCount()
                     mapTimer.start()
                 }
+            }
+
+            BoundaryRule on zoomLevel {
+                id: zlBr
+                minimum: 13.0
+                maximum: 20.0
             }
 
             MapQuickItem {
@@ -393,13 +399,13 @@ ApplicationWindow {
                     width: 50
                     height: 50
                     icon.name: "zoomin"
-                    onPressed: if (map.zoomLevel < 20.0) map.zoomLevel += 0.1;
+                    onPressed: map.zoomLevel += 1;
                 }
                 Button {
                     width: 50
                     height: 50
                     icon.name: "zoomout"
-                    onPressed: if (map.zoomLevel > 13.0) map.zoomLevel -= 0.1;
+                    onPressed: map.zoomLevel -= 1;
                 }
             }
 
@@ -430,14 +436,12 @@ ApplicationWindow {
                 onTranslationChanged: (delta) => map.pan(-delta.x, -delta.y)
             }
             Shortcut {
-                enabled: map.zoomLevel < map.maximumZoomLevel
                 sequence: StandardKey.ZoomIn
-                onActivated: map.zoomLevel = Math.round(map.zoomLevel + 1)
+                onActivated: map.zoomLevel += 1
             }
             Shortcut {
-                enabled: map.zoomLevel > map.minimumZoomLevel
                 sequence: StandardKey.ZoomOut
-                onActivated: map.zoomLevel = Math.round(map.zoomLevel - 1)
+                onActivated: map.zoomLevel -= 1
             }
         }
 

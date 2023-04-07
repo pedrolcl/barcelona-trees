@@ -82,22 +82,22 @@
 <context>
     <name>HomePage</name>
     <message>
-        <location filename="../qml/HomePage.qml" line="24"/>
+        <location filename="../qml/HomePage.qml" line="25"/>
         <source>Barcelona Trees</source>
         <translation>Arbres de Barcelona</translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="165"/>
+        <location filename="../qml/HomePage.qml" line="166"/>
         <source>Current Location</source>
         <translation>Ubicació actual</translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="275"/>
+        <location filename="../qml/HomePage.qml" line="314"/>
         <source>Success!</source>
         <translation>Èxit!</translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/HomePage.qml" line="276"/>
+        <location filename="../qml/HomePage.qml" line="315"/>
         <source>Found %Ln tree(s)</source>
         <translation>
             <numerusform>Trobat %Ln arbre</numerusform>
@@ -105,12 +105,12 @@
         </translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="282"/>
+        <location filename="../qml/HomePage.qml" line="321"/>
         <source>New Database</source>
         <translation>Nova base de dades</translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="283"/>
+        <location filename="../qml/HomePage.qml" line="322"/>
         <source>A new database file has been downloaded. It will become active the next time you start this program.</source>
         <translation>S&apos;ha descarregat un nou fitxer de base de dades. S’activarà la propera vegada que inicieu aquest programa.</translation>
     </message>
@@ -118,54 +118,88 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../qml/MainWindow.qml" line="31"/>
-        <location filename="../qml/MainWindow.qml" line="61"/>
-        <location filename="../qml/MainWindow.qml" line="158"/>
+        <location filename="../qml/MainWindow.qml" line="32"/>
+        <location filename="../qml/MainWindow.qml" line="148"/>
+        <location filename="../qml/MainWindow.qml" line="218"/>
+        <location filename="../qml/MainWindow.qml" line="493"/>
         <source>Barcelona Trees</source>
         <translation>Arbres de Barcelona</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="113"/>
+        <location filename="../qml/MainWindow.qml" line="103"/>
         <source>Update Position</source>
         <translation>Actualitzar ubicació</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="120"/>
+        <location filename="../qml/MainWindow.qml" line="110"/>
         <source>Search by Street</source>
         <translation>Buscar per carrer</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="125"/>
+        <location filename="../qml/MainWindow.qml" line="115"/>
         <source>Search by Gender/Name</source>
         <translation>Buscar per gènere/nom</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="130"/>
+        <location filename="../qml/MainWindow.qml" line="120"/>
         <source>Search Species</source>
         <translation>Buscar espècies</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="135"/>
+        <location filename="../qml/MainWindow.qml" line="125"/>
         <source>View Results List</source>
         <translation>Veure llista de resultats</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="140"/>
+        <location filename="../qml/MainWindow.qml" line="130"/>
         <source>Settings</source>
         <translation>Opcions</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="145"/>
+        <location filename="../qml/MainWindow.qml" line="135"/>
         <source>About</source>
         <translation>Sobre</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="202"/>
+        <location filename="../qml/MainWindow.qml" line="141"/>
+        <source>Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainWindow.qml" line="329"/>
+        <source>Current Location</source>
+        <translation type="unfinished">Ubicació actual</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainWindow.qml" line="478"/>
+        <source>Success!</source>
+        <translation type="unfinished">Èxit!</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/MainWindow.qml" line="479"/>
+        <source>Found %Ln tree(s)</source>
+        <translation type="unfinished">
+            <numerusform>Trobat %Ln arbre</numerusform>
+            <numerusform>Trobats %Ln arbres</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../qml/MainWindow.qml" line="485"/>
+        <source>New Database</source>
+        <translation type="unfinished">Nova base de dades</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainWindow.qml" line="486"/>
+        <source>A new database file has been downloaded. It will become active the next time you start this program.</source>
+        <translation type="unfinished">S&apos;ha descarregat un nou fitxer de base de dades. S’activarà la propera vegada que inicieu aquest programa.</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainWindow.qml" line="537"/>
         <source>Sorry!</source>
         <translation>Ho sento!</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="203"/>
+        <location filename="../qml/MainWindow.qml" line="538"/>
         <source>Your search returned no results.</source>
         <translation>La vostra cerca no ha donat resultats.</translation>
     </message>
