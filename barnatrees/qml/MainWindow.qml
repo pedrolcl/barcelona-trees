@@ -340,22 +340,19 @@ ApplicationWindow {
 
                 ToolButton {
                     visible: Qt.platform.os !== "android"
-                    text: "🗙"
-                    font.pixelSize: Qt.application.font.pixelSize * 1.6
+                    icon.name: "close"
                     onClicked: window.close()
                 }
 
                 ToolButton {
                     visible: Qt.platform.os !== "android"
-                    text: window.visibility == Window.Maximized ? "🗗" : "🗖"
-                    font.pixelSize: Qt.application.font.pixelSize * 1.6
+                    icon.name: window.visibility == Window.Maximized ? "resize" : "maximize"
                     onClicked: window.toggleMaximized()
                 }
 
                 ToolButton {
                     visible: Qt.platform.os !== "android"
-                    text: "🗕"
-                    font.pixelSize: Qt.application.font.pixelSize * 1.6
+                    icon.name: "minimize"
                     onClicked: window.showMinimized();
                 }
 
