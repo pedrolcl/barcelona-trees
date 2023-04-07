@@ -23,10 +23,6 @@ ToolTip {
     x: parent ? (parent.width - implicitWidth) / 2 : 0
     y: -implicitHeight - 8
 
-    onVisibleChanged: {
-        if (visible) console.log("x=",control.x,"y=",control.y);
-    }
-
     background: Rectangle {
         color: "black"
         border.color: "black"

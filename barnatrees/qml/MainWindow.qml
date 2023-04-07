@@ -47,6 +47,7 @@ ApplicationWindow {
     }
 
     DragHandler {
+        enabled: Qt.platform.os !== "android"
         id: resizeHandler
         grabPermissions: TapHandler.TakeOverForbidden
         target: null
@@ -58,6 +59,108 @@ ApplicationWindow {
             if (p.y / height < 0.10) { e |= Qt.TopEdge }
             if (p.y / height > 0.90) { e |= Qt.BottomEdge }
             window.startSystemResize(e);
+        }
+    }
+
+    Rectangle{
+        visible: window.visibility !== Window.Maximized && Qt.platform.os !== "android"
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.topMargin: 5
+        anchors.bottomMargin: 5
+        width: 5
+        color: "transparent"
+        HoverHandler {
+            cursorShape: Qt.SizeHorCursor
+        }
+    }
+    Rectangle{
+        visible: window.visibility !== Window.Maximized && Qt.platform.os !== "android"
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.topMargin: 5
+        anchors.bottomMargin: 5
+        width: 5
+        color: "transparent"
+        HoverHandler {
+            cursorShape: Qt.SizeHorCursor
+        }
+    }
+    Rectangle{
+        visible: window.visibility !== Window.Maximized && Qt.platform.os !== "android"
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: 5
+        anchors.rightMargin: 5
+        height: 5
+        color: "transparent"
+        HoverHandler {
+            cursorShape: Qt.SizeVerCursor
+        }
+    }
+    Rectangle{
+        visible: window.visibility !== Window.Maximized && Qt.platform.os !== "android"
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: 5
+        anchors.rightMargin: 5
+        height: 5
+        color: "transparent"
+        HoverHandler {
+            cursorShape: Qt.SizeVerCursor
+        }
+    }
+
+    Rectangle{
+        visible: window.visibility !== Window.Maximized && Qt.platform.os !== "android"
+        anchors.top: parent.top
+        anchors.left: parent.left
+        width: 6
+        height: 6
+        radius: 3
+        color: "white"
+        HoverHandler {
+            cursorShape: Qt.SizeFDiagCursor
+        }
+    }
+    Rectangle{
+        visible: window.visibility !== Window.Maximized && Qt.platform.os !== "android"
+        anchors.top: parent.top
+        anchors.right: parent.right
+        width: 6
+        height: 6
+        radius: 3
+        color: "white"
+        HoverHandler {
+            cursorShape: Qt.SizeBDiagCursor
+        }
+    }
+    Rectangle{
+        visible: window.visibility !== Window.Maximized && Qt.platform.os !== "android"
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        width: 6
+        height: 6
+        radius: 3
+        color: "white"
+        HoverHandler {
+            cursorShape: Qt.SizeBDiagCursor
+        }
+    }
+    Rectangle{
+        visible: window.visibility !== Window.Maximized && Qt.platform.os !== "android"
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        width: 6
+        height: 6
+        radius: 3
+        color: "white"
+        HoverHandler {
+            cursorShape: Qt.SizeFDiagCursor
         }
     }
 
@@ -221,16 +324,43 @@ ApplicationWindow {
             contentHeight: toolButton.implicitHeight
             property string title: qsTr("Barcelona Trees")
 
+            HoverHandler {
+                cursorShape: Qt.SizeAllCursor
+            }
+
             RowLayout {
                 spacing: 20
                 anchors.fill: parent
 
                 DragHandler {
+                    enabled: Qt.platform.os !== "android"
                     grabPermissions: TapHandler.CanTakeOverFromAnything
                     onActiveChanged: if (active) { window.startSystemMove(); }
                 }
 
+                ToolButton {
+                    visible: Qt.platform.os !== "android"
+                    text: "🗙"
+                    font.pixelSize: Qt.application.font.pixelSize * 1.6
+                    onClicked: window.close()
+                }
+
+                ToolButton {
+                    visible: Qt.platform.os !== "android"
+                    text: window.visibility == Window.Maximized ? "🗗" : "🗖"
+                    font.pixelSize: Qt.application.font.pixelSize * 1.6
+                    onClicked: window.toggleMaximized()
+                }
+
+                ToolButton {
+                    visible: Qt.platform.os !== "android"
+                    text: "🗕"
+                    font.pixelSize: Qt.application.font.pixelSize * 1.6
+                    onClicked: window.showMinimized();
+                }
+
                 Image {
+                    visible: Qt.platform.os !== "android"
                     horizontalAlignment: Image.AlignLeft
                     fillMode: Image.PreserveAspectFit
                     source: "qrc:/barnatrees_icon32.png"
@@ -238,9 +368,9 @@ ApplicationWindow {
 
                 Label {
                     text: windowHeader.title
-                    font.pixelSize: 20
+                    font.pixelSize: Qt.application.font.pixelSize * 1.6
                     elide: Label.ElideRight
-                    horizontalAlignment: Qt.AlignHCenter
+                    horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     Layout.fillWidth: true
                 }
@@ -286,7 +416,7 @@ ApplicationWindow {
             zoomLevel: defaultZoom
 
             onZoomLevelChanged: zlBr.returnToBounds()
-            onCopyrightLinkActivated: Qt.openUrlExternally(link)
+            onCopyrightLinkActivated: (link)=> Qt.openUrlExternally(link)
             onMapItemsChanged: {
                 if (globalItems.length === 0 && mapItems.length === (1 + plantModel.rowCount())) {
                     //console.log("mapItems.length:", mapItems.length)
@@ -311,7 +441,7 @@ ApplicationWindow {
             MapQuickItem {
                 id: locationCircle
                 coordinate: locationBarna
-                opacity:1.0
+                opacity: 1.0
                 anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
                 function showTip() {
                     locationTip.open()
@@ -344,7 +474,6 @@ ApplicationWindow {
 
                 delegate: MapQuickItem {
                     id: item
-                    zoomLevel: map.maximumZoomLevel
                     anchorPoint.x: mark.width / 2
                     anchorPoint.y: mark.height / 2
                     coordinate: QtPositioning.coordinate(model.latitude, model.longitude)
@@ -357,10 +486,10 @@ ApplicationWindow {
 
                     sourceItem: Rectangle {
                         id: mark
-                        radius: 5
+                        radius: 4
                         smooth: true
-                        width: 10
-                        height: 10
+                        width: 8
+                        height: 8
                         color: "green"
                         MouseArea {
                             anchors.fill: parent
@@ -372,7 +501,7 @@ ApplicationWindow {
                                 specimenDialog.specimenDistance = plantModel.formattedDistance(index)
                                 specimenDialog.open()
                             }
-                            onEntered: tip.visible = (map.zoomLevel >= map.maximumZoomLevel)
+                            onEntered: tip.visible = true
                             onExited: tip.visible = false
                         }
                         BalloonTip {
@@ -395,6 +524,7 @@ ApplicationWindow {
             Column {
                 anchors.top: parent.top
                 anchors.left: parent.left
+                anchors.margins: 10
                 Button {
                     width: 50
                     height: 50
