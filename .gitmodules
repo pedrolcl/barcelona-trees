@@ -1,0 +1,3 @@
+[submodule "libq7zip"]
+	path = libq7zip
+	url = git@github.com:pedrolcl/libq7zip.git
