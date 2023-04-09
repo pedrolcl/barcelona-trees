@@ -357,7 +357,6 @@ ApplicationWindow {
                 }
 
                 Image {
-                    visible: Qt.platform.os !== "android"
                     horizontalAlignment: Image.AlignLeft
                     fillMode: Image.PreserveAspectFit
                     source: "qrc:/barnatrees_icon32.png"

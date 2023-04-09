@@ -1,3 +1,7 @@
 [submodule "libq7zip"]
 	path = libq7zip
 	url = git@github.com:pedrolcl/libq7zip.git
+[submodule "android_openssl"]
+	path = android_openssl
+	url = git@github.com:pedrolcl/android_openssl.git
+	branch = qt_6.5

@@ -76,7 +76,10 @@ target_link_libraries( barnatrees PRIVATE
 )
 
 if (ANDROID)
-    include( $ENV{ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt )
+    include( ../android_openssl/CMakeLists.txt )
+    if( QT_VERSION VERSION_GREATER_EQUAL 6.5 )
+        add_target_openssl_libs( barnatrees )
+    endif()
 endif()
 
 install(TARGETS barnatrees
