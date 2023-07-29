@@ -23,9 +23,14 @@ ToolTip {
     x: parent ? (parent.width - implicitWidth) / 2 : 0
     y: -implicitHeight - 8
 
+    contentItem: Text {
+        text: control.text
+        color: palette.toolTipText
+    }
+
     background: Rectangle {
-        color: "black"
-        border.color: "black"
+        color: palette.toolTipBase
+        border.color: palette.toolTipBase
         radius: 6
         Rectangle {
             x: -control.x
@@ -33,8 +38,8 @@ ToolTip {
             width: 10
             height: 10
             rotation: 45
-            color: "black"
-            border.color: "black"
+            color: palette.toolTipBase
+            border.color: palette.toolTipBase
             anchors.verticalCenter: (control.y < 0) ? parent.bottom : parent.top
         }
     }

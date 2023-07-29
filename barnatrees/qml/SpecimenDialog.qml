@@ -41,7 +41,7 @@ Dialog {
             text: specieScientificName
             width: parent.width
             wrapMode: Label.Wrap
-            onLinkActivated: Qt.openUrlExternally(link)
+            onLinkActivated: function(link) { Qt.openUrlExternally(link) }
         }
 
         Label {
@@ -54,7 +54,7 @@ Dialog {
             text: specimenLocation
             width: parent.width
             wrapMode: Label.Wrap
-            onLinkActivated: Qt.openUrlExternally(link)
+            onLinkActivated: function(link) { Qt.openUrlExternally(link) }
         }
 
         Label {
