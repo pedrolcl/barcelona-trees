@@ -407,7 +407,17 @@ ApplicationWindow {
             anchors.fill: parent
             maximumZoomLevel: zlBr.maximum
             minimumZoomLevel: zlBr.minimum
-            plugin: Plugin { name: "osm" }
+            plugin: Plugin {
+                name: "osm"
+                PluginParameter {
+                    name: "osm.mapping.providersrepository.disabled"
+                    value: "true"
+                }
+                PluginParameter {
+                    name: "osm.mapping.providersrepository.address"
+                    value: "http://maps-redirect.qt.io/osm/5.8/"
+                }
+            }
             center: locationBarna
             zoomLevel: defaultZoom
 
