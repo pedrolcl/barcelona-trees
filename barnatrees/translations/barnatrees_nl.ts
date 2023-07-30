@@ -136,35 +136,35 @@
     <message>
         <location filename="../qml/MainWindow.qml" line="141"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitgang</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="329"/>
         <source>Current Location</source>
-        <translation type="unfinished">Huidige locatie</translation>
+        <translation>Huidige locatie</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="478"/>
         <source>Success!</source>
-        <translation type="unfinished">Voltooid!</translation>
+        <translation>Voltooid!</translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/MainWindow.qml" line="479"/>
         <source>Found %Ln tree(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%Ln bomen gevonden</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="485"/>
         <source>New Database</source>
-        <translation type="unfinished">Nieuwe databank</translation>
+        <translation>Nieuwe databank</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="486"/>
         <source>A new database file has been downloaded. It will become active the next time you start this program.</source>
-        <translation type="unfinished">Er is een nieuw databankbestand opgehaald. Dit bestand wordt in gebruik genomen zodra u het programma herstart.</translation>
+        <translation>Er is een nieuw databankbestand opgehaald. Dit bestand wordt in gebruik genomen zodra u het programma herstart.</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="537"/>

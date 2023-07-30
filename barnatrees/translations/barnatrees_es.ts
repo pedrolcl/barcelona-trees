@@ -163,22 +163,22 @@
     <message>
         <location filename="../qml/MainWindow.qml" line="141"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Salir</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="329"/>
         <source>Current Location</source>
-        <translation type="unfinished">Ubicación actual</translation>
+        <translation>Ubicación actual</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="478"/>
         <source>Success!</source>
-        <translation type="unfinished">¡Éxito!</translation>
+        <translation>¡Éxito!</translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/MainWindow.qml" line="479"/>
         <source>Found %Ln tree(s)</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>Encontrado %Ln árbol</numerusform>
             <numerusform>Encontrados %Ln árboles</numerusform>
         </translation>
@@ -186,12 +186,12 @@
     <message>
         <location filename="../qml/MainWindow.qml" line="485"/>
         <source>New Database</source>
-        <translation type="unfinished">Nueva base de datos</translation>
+        <translation>Nueva base de datos</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="486"/>
         <source>A new database file has been downloaded. It will become active the next time you start this program.</source>
-        <translation type="unfinished">Se ha descargado un nuevo archivo de base de datos. Se activará la próxima vez que se inicie este programa.</translation>
+        <translation>Se ha descargado un nuevo archivo de base de datos. Se activará la próxima vez que se inicie este programa.</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="537"/>

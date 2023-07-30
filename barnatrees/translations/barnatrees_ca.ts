@@ -163,22 +163,22 @@
     <message>
         <location filename="../qml/MainWindow.qml" line="141"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortir</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="329"/>
         <source>Current Location</source>
-        <translation type="unfinished">Ubicació actual</translation>
+        <translation>Ubicació actual</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="478"/>
         <source>Success!</source>
-        <translation type="unfinished">Èxit!</translation>
+        <translation>Èxit!</translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/MainWindow.qml" line="479"/>
         <source>Found %Ln tree(s)</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>Trobat %Ln arbre</numerusform>
             <numerusform>Trobats %Ln arbres</numerusform>
         </translation>
@@ -186,12 +186,12 @@
     <message>
         <location filename="../qml/MainWindow.qml" line="485"/>
         <source>New Database</source>
-        <translation type="unfinished">Nova base de dades</translation>
+        <translation>Nova base de dades</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="486"/>
         <source>A new database file has been downloaded. It will become active the next time you start this program.</source>
-        <translation type="unfinished">S&apos;ha descarregat un nou fitxer de base de dades. S’activarà la propera vegada que inicieu aquest programa.</translation>
+        <translation>S&apos;ha descarregat un nou fitxer de base de dades. S’activarà la propera vegada que inicieu aquest programa.</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="537"/>
