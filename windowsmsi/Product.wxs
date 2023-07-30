@@ -9,7 +9,7 @@
   <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
 <?endif ?>  
   
-  <Product Id="*" Name="BarcelonaTrees" Language="1033" Version="0.0.4.0" Manufacturer="Pedro Lopez-Cabanillas" UpgradeCode="760c2826-429c-43c0-b07a-3ce84b52adff">
+  <Product Id="*" Name="BarcelonaTrees" Language="1033" Version="0.0.5.0" Manufacturer="Pedro Lopez-Cabanillas" UpgradeCode="760c2826-429c-43c0-b07a-3ce84b52adff">
     <Package InstallerVersion="301" Compressed="yes" InstallScope="perMachine" />
     
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -23,7 +23,7 @@
       <ComponentRef Id="ApplicationShortcut" />
     </Feature>
     
-    <Feature Id="VCRedist" Title="Visual C++ 14.1 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+    <Feature Id="VCRedist" Title="Visual C++ 14.2 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
       <MergeRef Id="VCRedist"/>
     </Feature>
   </Product>
@@ -37,9 +37,9 @@
         <Directory Id="ApplicationProgramsFolder" Name="BarcelonaTrees"/>
       </Directory>
       <?if $(var.Platform) = x64 ?>
-        <Merge Id="VCRedist" SourceFile="Microsoft_VC141_CRT_x64.msm" DiskId="1" Language="0"/>
+        <Merge Id="VCRedist" SourceFile="Microsoft_VC142_CRT_x64.msm" DiskId="1" Language="0"/>
       <?else ?>
-        <Merge Id="VCRedist" SourceFile="Microsoft_VC141_CRT_x86.msm" DiskId="1" Language="0"/>
+        <Merge Id="VCRedist" SourceFile="Microsoft_VC142_CRT_x86.msm" DiskId="1" Language="0"/>
       <?endif ?>
     </Directory>
   </Fragment>

@@ -22,7 +22,7 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
-    <OutputName>barnatrees-beta2-windows-x64</OutputName>
+    <OutputName>barnatrees-beta3-windows-x64</OutputName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <OutputName>barnatrees-beta2-windows-x86</OutputName>
