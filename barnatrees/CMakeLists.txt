@@ -3,6 +3,26 @@ project ( barnatrees
     LANGUAGES CXX
 )
 
+include(FetchContent)
+
+if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/barnatrees.txt)
+    FetchContent_Declare ( barnatrees_timestamp
+        DOWNLOAD_NAME "barnatrees.txt"
+        DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}
+        DOWNLOAD_NO_EXTRACT true
+        URL "https://www.dropbox.com/s/e485ypwbdy113v9/barnatrees.txt?dl=1" )
+    FetchContent_MakeAvailable(barnatrees_timestamp)
+endif()
+
+if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/barnatrees.db.7z)
+    FetchContent_Declare ( barnatrees_database
+        DOWNLOAD_NAME "barnatrees.db.7z"
+        DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}
+        DOWNLOAD_NO_EXTRACT true
+        URL "https://www.dropbox.com/s/7o9aa8744mwjx7i/barnatrees.db.7z?dl=1" )
+    FetchContent_MakeAvailable(barnatrees_database)
+endif()
+
 set (HEADERS
     src/basemodel.h
     src/dropboxdownloader.h
