@@ -194,7 +194,7 @@ int main(int argc, char **argv)
     //QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setApplicationVersion(QT_STRINGIFY(APPVER));
     QGuiApplication app(argc,argv);
-    app.setWindowIcon(QIcon("qrc:/barnatrees_icon64.png"));
+    app.setWindowIcon(QIcon(":/barnatrees_icon64.png"));
     QIcon::setThemeName("example");
 
     qDebug()<<"version:" << QT_STRINGIFY(APPVER) << QT_STRINGIFY(GITVER);

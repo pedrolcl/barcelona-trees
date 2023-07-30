@@ -26,7 +26,7 @@ import Qt.labs.animation
 
 ApplicationWindow {
     id: window
-    flags:  Qt.FramelessWindowHint
+    flags:  Qt.FramelessWindowHint | Qt.Window
     visible: true
     width: 1000
     height: 800
