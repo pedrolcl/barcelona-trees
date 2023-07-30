@@ -332,10 +332,15 @@ ApplicationWindow {
                 spacing: 20
                 anchors.fill: parent
 
+                TapHandler {
+                    enabled: Qt.platform.os !== "android"
+                    onDoubleTapped: window.toggleMaximized()
+                }
+
                 DragHandler {
                     enabled: Qt.platform.os !== "android"
                     grabPermissions: TapHandler.CanTakeOverFromAnything
-                    onActiveChanged: if (active) { window.startSystemMove(); }
+                    onActiveChanged: if (active) { window.startSystemMove() }
                 }
 
                 ToolButton {

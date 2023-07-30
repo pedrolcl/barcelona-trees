@@ -1,0 +1,31 @@
+IDI_ICON1 ICON DISCARDABLE "@CMAKE_CURRENT_SOURCE_DIR@\images\barnatrees.ico"
+
+1 VERSIONINFO
+ FILEVERSION    @PROJECT_VERSION_MAJOR@, @PROJECT_VERSION_MINOR@, @PROJECT_VERSION_PATCH@
+ PRODUCTVERSION @PROJECT_VERSION_MAJOR@, @PROJECT_VERSION_MINOR@, @PROJECT_VERSION_PATCH@, 0
+ FILEOS         4 // VOS__WINDOWS32
+ FILETYPE       1 // VFT_APP         
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"
+    BEGIN
+      VALUE "CompanyName", "io.github.pedrolcl.barnatrees"
+      VALUE "FileDescription", "Barcelona Trees"
+      VALUE "FileVersion", "@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@"
+      VALUE "Full Version", "@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@.0"
+      VALUE "InternalName", "barnatrees"
+      VALUE "LegalCopyright", "Copyright \251 2019-2023 Pedro Lopez-Cabanillas. Licensed under the terms of the GPL v3 or later"
+      VALUE "OriginalFilename", "barnatrees.exe"
+      VALUE "ProductName", "Barcelona Trees"
+      VALUE "ProductVersion", "@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409, 1200, // U.S. English
+                     //  0x040A, 1200, // Castilian Spanish
+					 //  0x0403, 1200, // Catalan
+                     //  0x0413, 1200  // Dutch
+  END
+END
