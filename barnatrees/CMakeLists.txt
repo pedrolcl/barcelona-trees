@@ -48,14 +48,18 @@ set (SOURCES
     src/summarymodel.cpp
 )
 
-configure_file(barnatrees.rc.in barnatrees.rc @ONLY)
-
 set (RESOURCES
     data.qrc
     qml/qml.qrc
     images/images.qrc
-    ${CMAKE_CURRENT_BINARY_DIR}/barnatrees.rc
 )
+
+if (WIN32)
+    configure_file(barnatrees.rc.in barnatrees.rc @ONLY)
+    list ( APPEND RESOURCES
+        ${CMAKE_CURRENT_BINARY_DIR}/barnatrees.rc
+    )
+endif()
 
 set (TRANSLATIONS
     translations/barnatrees_ca.ts

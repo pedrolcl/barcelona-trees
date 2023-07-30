@@ -225,7 +225,7 @@ int main(int argc, char **argv)
         if (trq.load(locale, QLatin1String("qt"), QLatin1String("_"), QLatin1String(":/"))) {
             QCoreApplication::installTranslator(&trq);
         } else {
-            qWarning() << "Failure loading Qt5 translations for" << configuredLanguage;
+            qWarning() << "Failure loading Qt translations for" << configuredLanguage;
         }
         if (trp.load(locale, QLatin1String("barnatrees"), QLatin1String("_"), QLatin1String(":/"))) {
             QCoreApplication::installTranslator(&trp);
