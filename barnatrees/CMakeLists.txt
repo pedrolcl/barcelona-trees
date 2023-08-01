@@ -3,6 +3,7 @@ project ( barnatrees
     LANGUAGES CXX
 )
 
+include(TranslationUtils)
 include(FetchContent)
 
 if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/barnatrees.txt)
@@ -48,10 +49,13 @@ set (SOURCES
     src/summarymodel.cpp
 )
 
+add_qt_translations_resource(QT_RES ca en es nl)
+
 set (RESOURCES
     data.qrc
     qml/qml.qrc
     images/images.qrc
+    ${QT_RES}
 )
 
 if (WIN32)
@@ -114,6 +118,16 @@ install(TARGETS barnatrees
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
+
+if (UNIX AND NOT APPLE)
+    install( FILES barnatrees.desktop
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+    )
+    install( FILES images/barnatrees_icon128.png
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/icons
+        RENAME barnatrees.png
+    )
+endif()
 
 if(ANDROID)
     set_property(TARGET barnatrees APPEND PROPERTY
