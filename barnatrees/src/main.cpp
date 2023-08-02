@@ -74,7 +74,6 @@ int downloadFromCloud(QDir &destDir, QString current, bool& dbFileNew)
         newtimestamp = text;
     });
     QObject::connect(&dwnloader, &DropboxDownloader::readyForNext, &loop, [&]() {
-        qDebug() << "Next operation is ready";
         if (!newtimestamp.isEmpty() && (newtimestamp > current)) {
             QFileInfo finfo(destDir, "barnatrees.db.7z");
             dwnloader.downloadBinFile(dataurl, finfo.absoluteFilePath());
@@ -86,9 +85,7 @@ int downloadFromCloud(QDir &destDir, QString current, bool& dbFileNew)
         }
     });
     dwnloader.downloadText(texturl);
-    qDebug() << "entering loop";
     auto rc = loop.exec();
-    qDebug() << "exiting loop";
     return rc;
 }
 
@@ -142,7 +139,7 @@ QString localDatabaseFile(bool& dbFileNew)
 
         if (!cmpfileinfo.exists()) {
             QDateTime ts = QDateTime::fromString(currenttimestamp+'Z', Qt::ISODate);
-            if (ts.addDays(7) < QDateTime::currentDateTimeUtc()) {
+            if (ts.addDays(30) < QDateTime::currentDateTimeUtc()) {
                 qWarning() << "The database is old. Updating from the cloud.";
                 downloadFromCloud(destDir, currenttimestamp, dbFileNew);
             }

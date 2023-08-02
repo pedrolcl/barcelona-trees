@@ -20,6 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <QObject>
 #include <QSqlRelationalTableModel>
 #include <QGeoCoordinate>
+
 #include "basemodel.h"
 
 class PlantModel : public QSqlRelationalTableModel, public BaseModel

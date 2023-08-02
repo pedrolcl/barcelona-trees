@@ -18,11 +18,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <QDebug>
 #include <QGeoCoordinate>
-#include <QSqlError>
-#include <QSqlRecord>
 #include <QLocale>
 #include <QSettings>
-#include <cmath>
+#include <QSqlError>
+#include <QSqlRecord>
+#include <QtMath>
+
 #include "plantmodel.h"
 
 PlantModel::PlantModel(QObject *parent, QSqlDatabase db):
@@ -34,7 +35,7 @@ PlantModel::PlantModel(QObject *parent, QSqlDatabase db):
 	setRelation(fieldIndex("idSpecies"), QSqlRelation("species", "idSpecies", "scientificName, commonName1, commonName2"));
     if (select()) {
 		generateRoleNames(record());
-        qDebug() << "column: distance, role:" << m_lastRole+1;
+        //qDebug() << "column: distance, role:" << m_lastRole+1;
         m_roleNames.insert(m_lastRole+1, "distance");
         m_roleNames.insert(m_lastRole+2, "fmtDistance");
         m_roleNames.insert(m_lastRole+3, "fmtName");
@@ -57,12 +58,12 @@ QVariant PlantModel::data( const QModelIndex & index, int role ) const
     QVariant value;
     if (index.isValid()) {
         if (role < Qt::UserRole) {
-            value = QSqlQueryModel::data(index, role);
+            value = QSqlRelationalTableModel::data(index, role);
         } else {
             if (role <= m_lastRole) {
                 int columnIdx = role - Qt::UserRole - 1;
                 QModelIndex modelIndex = this->index(index.row(), columnIdx);
-                value = QSqlQueryModel::data(modelIndex, Qt::DisplayRole);
+                value = QSqlRelationalTableModel::data(modelIndex, Qt::DisplayRole);
             } else if (role == m_lastRole+1) {
                 value = QVariant::fromValue(plantDistance(index.row()));
             } else if (role == m_lastRole+2) {
@@ -106,8 +107,8 @@ bool PlantModel::select()
 			fetchMore();
 		}
         qDebug() << "plants.rows:" << rowCount();
-	}
-	return res;
+    }
+    return res;
 }
 
 void PlantModel::setGender(QString gen)
@@ -154,23 +155,26 @@ QString PlantModel::formattedDistance(int row) const
 
 QString PlantModel::formattedScientificName(int row) const
 {
-	QModelIndex sn_ix = this->index(row, record().indexOf("scientificName"));
-	QString scientificName = sn_ix.data().toString();
-	int p = -1;
-	if ((p = scientificName.indexOf(" x ")) > -1) {
-		p = scientificName.indexOf(" ", p+3);
-	} else if ((p = scientificName.indexOf(" ")) > -1) {
-		p = scientificName.indexOf(" ", p+1);
-	}
-	if (p > -1) {
-		return QString("<i>%1</i> %2").arg(scientificName.left(p)).arg(scientificName.mid(p+1));
-	} else {
-		return QString("<i>%1</i>").arg(scientificName);
-	}
+    QModelIndex sn_ix = this->index(row, record().indexOf("scientificName"));
+    QString scientificName = sn_ix.data().toString();
+    int p = -1;
+    if ((p = scientificName.indexOf(" x ")) > -1) {
+        p = scientificName.indexOf(" ", p + 3);
+    } else if ((p = scientificName.indexOf(" ")) > -1) {
+        p = scientificName.indexOf(" ", p + 1);
+    }
+    if (p > -1) {
+        return QString("<i>%1</i> %2").arg(scientificName.left(p), scientificName.mid(p + 1));
+    } else {
+        return QString("<i>%1</i>").arg(scientificName);
+    }
 }
 
 QString PlantModel::wikiLink(int row) const
 {
+    const QString wikipedia("<a href='https://%1.wikipedia.org/wiki/%2'>%3</a>");
+    const QString species("<a href='https://species.wikimedia.org/wiki/%1'>%2</a>");
+    const QString commons("<a href='https://commons.wikimedia.org/wiki/%1'>%2</a>");
     QSettings settings;
     QString txt = formattedScientificName(row);
 	QModelIndex sn_ix = this->index(row, record().indexOf("scientificName"));
@@ -185,24 +189,25 @@ QString PlantModel::wikiLink(int row) const
 	if ( p > -1) {
 		s = s.left(p);
 	}
-    QString linktype = settings.value("links", "Wikipedia").toString();
-    QString lang = settings.value("language", QLocale().name().left(2)).toString();
+    const QString linktype = settings.value("links", "Wikipedia").toString();
+    const QString lang = settings.value("language", QLocale().name().left(2)).toString();
     if (linktype == "Wikipedia") {
-        return QString("<a href='https://%1.wikipedia.org/wiki/%2'>%3</a>").arg(lang).arg(s).arg(txt);
+        return wikipedia.arg(lang, s, txt);
     } else if (linktype == "Species") {
-        return QString("<a href='https://species.wikimedia.org/wiki/%1'>%2</a>").arg(s).arg(txt);
+        return species.arg(s, txt);
     } else {
-        return QString("<a href='https://commons.wikimedia.org/wiki/%1'>%2</a>").arg(s).arg(txt);
+        return commons.arg(s, txt);
     }
 }
 
 QString PlantModel::streetLink(int row) const
 {
-	QModelIndex lat_ix = this->index(row, record().indexOf("latitude"));
-	QModelIndex lon_ix = this->index(row, record().indexOf("longitude"));
-	QModelIndex addr_ix = this->index(row, record().indexOf("plantAddress"));
-	auto pos = QString("viewpoint=%1,%2").arg(lat_ix.data().toReal()).arg(lon_ix.data().toReal());
-	return QString("<a href='https://www.google.com/maps/@?api=1&map_action=pano&%1'>%2</a>").arg(pos).arg(addr_ix.data().toString());
+    QModelIndex lat_ix = this->index(row, record().indexOf("latitude"));
+    QModelIndex lon_ix = this->index(row, record().indexOf("longitude"));
+    QModelIndex addr_ix = this->index(row, record().indexOf("plantAddress"));
+    auto pos = QString("viewpoint=%1,%2").arg(lat_ix.data().toReal()).arg(lon_ix.data().toReal());
+    return QString("<a href='https://www.google.com/maps/@?api=1&map_action=pano&%1'>%2</a>")
+        .arg(pos, addr_ix.data().toString());
 }
 
 void PlantModel::setCenter(QGeoCoordinate center)
@@ -219,22 +224,20 @@ void PlantModel::setCenter(QGeoCoordinate center)
     setFilter(filter);
 }
 
-static const double PI = 3.14159265358979323846, earthDiameterMeters = 6371.0 * 2 * 1000;
-static double degreeToRadian (const double degree) { return (degree * PI / 180); };
-static double radianToDegree (const double radian) { return (radian * 180 / PI); };
-
 QGeoCoordinate PlantModel::CoordinateToCoordinate (QGeoCoordinate center, double meters, double angle) const
 {
-  double latitude = degreeToRadian(center.latitude());
-  double longitude = degreeToRadian(center.longitude());
-  angle = degreeToRadian(angle);
-  meters *= 2 / earthDiameterMeters;
+    constexpr double earthDiameterMeters = 6371.0 * 2 * 1000;
+    const double latitude = qDegreesToRadians(center.latitude());
+    const double longitude = qDegreesToRadians(center.longitude());
+    angle = qDegreesToRadians(angle);
+    meters *= 2 / earthDiameterMeters;
 
-  using namespace std;
-  double lat = asin((sin(latitude) * cos(meters)) + (cos(latitude) * sin(meters) * cos(angle)));
-  double lon = longitude + atan2( (sin(angle) * sin(meters) * cos(latitude)),
-                                   cos(meters) - (sin(latitude) * sin(lat)) );
-  lat = radianToDegree(lat);
-  lon = radianToDegree(lon);
-  return QGeoCoordinate(lat, lon);
+    using namespace std;
+    double lat = asin((sin(latitude) * cos(meters)) + (cos(latitude) * sin(meters) * cos(angle)));
+    double lon = longitude
+                 + atan2((sin(angle) * sin(meters) * cos(latitude)),
+                         cos(meters) - (sin(latitude) * sin(lat)));
+    lat = qRadiansToDegrees(lat);
+    lon = qRadiansToDegrees(lon);
+    return QGeoCoordinate(lat, lon);
 }

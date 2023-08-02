@@ -22,7 +22,7 @@ import QtQuick.Layouts
 Dialog {
     x: Math.round((window.width - width) / 2)
     y: Math.round((window.height - height) / 2)
-    width: Math.round(Math.min(window.width, window.height) / 3 * 2)
+    width: Math.round(Math.min(window.width, window.height) / 2)
     modal: true
     focus: true
     title: qsTr("Settings")
@@ -48,9 +48,11 @@ Dialog {
 
         Label {
             text: qsTr("Style:")
+            Layout.fillWidth: true
         }
         ComboBox {
             id: styleBox
+            Layout.fillWidth: true
             property int styleIndex: -1
             model: availableStyles
             Component.onCompleted: {
@@ -62,9 +64,11 @@ Dialog {
 
         Label {
             text: qsTr("Language:")
+            Layout.fillWidth: true
         }
         ComboBox {
             id: langBox
+            Layout.fillWidth: true
             textRole: "key"
             property int langIndex: -1
             model:  ListModel {
@@ -87,9 +91,11 @@ Dialog {
 
         Label {
             text: qsTr("Wiki:")
+            Layout.fillWidth: true
         }
         ComboBox {
             id: linkBox
+            Layout.fillWidth: true
             property int linkIndex: -1
             model:  ListModel {
                 ListElement { text: "Wikipedia" }
