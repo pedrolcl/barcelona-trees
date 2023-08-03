@@ -425,6 +425,7 @@ ApplicationWindow {
             }
             center: locationBarna
             zoomLevel: defaultZoom
+            property geoCoordinate startCentroid
 
             onZoomLevelChanged: zlBr.returnToBounds()
             onCopyrightLinkActivated: (link)=> Qt.openUrlExternally(link)
@@ -524,14 +525,6 @@ ApplicationWindow {
                 }
             }
 
-            MouseArea {
-                anchors.fill: parent
-                propagateComposedEvents: true
-                onPressAndHold: (mouse)=> {
-                    homePage.changeGlobalCenter(map.toCoordinate(Qt.point(mouse.x, mouse.y)));
-                }
-            }
-
             Column {
                 anchors.top: parent.top
                 anchors.left: parent.left
@@ -550,6 +543,9 @@ ApplicationWindow {
                 }
             }
 
+            TapHandler {
+                onLongPressed: homePage.changeGlobalCenter(map.toCoordinate(point.position))
+            }
             PinchHandler {
                 id: pinch
                 target: null
@@ -568,6 +564,12 @@ ApplicationWindow {
             }
             WheelHandler {
                 id: wheel
+                // workaround for QTBUG-87646 / QTBUG-112394 / QTBUG-112432:
+                // Magic Mouse pretends to be a trackpad but doesn't work with PinchHandler
+                // and we don't yet distinguish mice and trackpads on Wayland either
+                acceptedDevices: Qt.platform.pluginName === "cocoa" || Qt.platform.pluginName === "wayland"
+                                 ? PointerDevice.Mouse | PointerDevice.TouchPad
+                                 : PointerDevice.Mouse
                 rotationScale: 1/120
                 property: "zoomLevel"
             }
