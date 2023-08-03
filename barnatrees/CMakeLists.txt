@@ -53,7 +53,6 @@ add_qt_translations_resource(QT_RES ca en es nl)
 
 set (RESOURCES
     data.qrc
-    qml/qml.qrc
     images/images.qrc
     ${QT_RES}
 )
@@ -86,6 +85,37 @@ qt_add_translations( barnatrees
 target_compile_definitions( barnatrees PRIVATE
     APPVER=${PROJECT_VERSION}
     GITVER=${PROJECT_WC_REVISION}
+)
+
+set_source_files_properties(qml/AboutDialog.qml PROPERTIES QT_RESOURCE_ALIAS AboutDialog.qml)
+set_source_files_properties(qml/BalloonTip.qml PROPERTIES QT_RESOURCE_ALIAS BalloonTip.qml)
+set_source_files_properties(qml/GenderSearchDialog.qml PROPERTIES QT_RESOURCE_ALIAS GenderSearchDialog.qml)
+set_source_files_properties(qml/MainWindow.qml PROPERTIES QT_RESOURCE_ALIAS MainWindow.qml)
+set_source_files_properties(qml/MsgDialog.qml PROPERTIES QT_RESOURCE_ALIAS MsgDialog.qml)
+set_source_files_properties(qml/ResultsPage.qml PROPERTIES QT_RESOURCE_ALIAS ResultsPage.qml)
+set_source_files_properties(qml/SettingsDialog.qml PROPERTIES QT_RESOURCE_ALIAS SettingsDialog.qml)
+set_source_files_properties(qml/SpecieSearchDialog.qml PROPERTIES QT_RESOURCE_ALIAS SpecieSearchDialog.qml)
+set_source_files_properties(qml/SpecimenDialog.qml PROPERTIES QT_RESOURCE_ALIAS SpecimenDialog.qml)
+set_source_files_properties(qml/StreetSearchDialog.qml PROPERTIES QT_RESOURCE_ALIAS StreetSearchDialog.qml)
+set_source_files_properties(qml/qtquickcontrols2.conf PROPERTIES QT_RESOURCE_ALIAS qtquickcontrols2.conf)
+
+qt_add_qml_module( barnatrees
+    URI "io.github.pedrolcl"
+    RESOURCE_PREFIX "/"
+    QML_FILES
+        qml/AboutDialog.qml
+        qml/BalloonTip.qml
+        qml/GenderSearchDialog.qml
+        qml/MainWindow.qml
+        qml/MsgDialog.qml
+        qml/ResultsPage.qml
+        qml/SettingsDialog.qml
+        qml/SpecieSearchDialog.qml
+        qml/SpecimenDialog.qml
+        qml/StreetSearchDialog.qml
+    RESOURCES
+        qml/qtquickcontrols2.conf
+    NO_RESOURCE_TARGET_PATH
 )
 
 set_target_properties( barnatrees PROPERTIES
