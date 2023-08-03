@@ -1,4 +1,4 @@
-IDI_ICON1 ICON DISCARDABLE "@CMAKE_CURRENT_SOURCE_DIR@\images\barnatrees.ico"
+IDI_ICON1 ICON DISCARDABLE "@CMAKE_CURRENT_SOURCE_DIR@/images/barnatrees.ico"
 
 1 VERSIONINFO
  FILEVERSION    @PROJECT_VERSION_MAJOR@, @PROJECT_VERSION_MINOR@, @PROJECT_VERSION_PATCH@
@@ -24,8 +24,8 @@ BEGIN
   BLOCK "VarFileInfo"
   BEGIN
     VALUE "Translation", 0x0409, 1200, // U.S. English
-                     //  0x040A, 1200, // Castilian Spanish
-					 //  0x0403, 1200, // Catalan
-                     //  0x0413, 1200  // Dutch
+                         0x040A, 1200, // Castilian Spanish
+                         0x0403, 1200, // Catalan
+                         0x0413, 1200  // Dutch
   END
 END
