@@ -19,6 +19,7 @@ import QtQuick
 import QtQuick.Controls
 
 Dialog {
+    id: root
     modal: true
     title: qsTr("About")
     x: Math.round((window.width - width) / 2)
@@ -29,7 +30,7 @@ Dialog {
 
     Flickable {
         anchors.fill: parent
-        contentWidth: parent.availableWidth
+        contentWidth: root.availableWidth
         contentHeight: col.height
         ScrollIndicator.vertical: ScrollIndicator {}
         clip: true
@@ -39,7 +40,7 @@ Dialog {
             spacing: 10
 
             Label {
-                width: parent.availableWidth
+                width: root.availableWidth
                 text: qsTr("<h1>Barcelona Trees</h1>A guide of the trees of Barcelona. "
                          + "version: %1 git: %2.<br/>Copyright © 2019-2023 Pedro López-Cabanillas.<br/>"
                          + "This program comes with ABSOLUTELY NO WARRANTY. "
@@ -47,12 +48,12 @@ Dialog {
                          + "under the terms of the license "
                          + "<a href='https://www.gnu.org/licenses/gpl-3.0.html'>GPLv3</a>")
                          .arg(Qt.application.version).arg(gitversion)
-                wrapMode: Label.Wrap
+                wrapMode: Label.WordWrap
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Label {
-                width: parent.availableWidth
+                width: root.availableWidth
                 text: qsTr("This program uses Qt version %1 (<a href='https://www.qt.io/'>www.qt.io</a>)<br/>"
                          + "This application includes software developed by the OpenSSL Project for use in "
                          + "the <a href='http://www.openssl.org/'>OpenSSL Toolkit</a>. This program is released under "
@@ -61,19 +62,19 @@ Dialog {
                          + "and <a href='http://p7zip.sourceforge.net'>p7zip</a> projects and some classes from the "
                          + "<a href='https://doc.qt.io/qtinstallerframework/'>Qt Installer Framework</a>.")
                         .arg(qtversion);
-                wrapMode: Label.Wrap
+                wrapMode: Label.WordWrap
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Image {
-                width: parent.availableWidth
+                width: root.availableWidth
                 horizontalAlignment: Image.AlignHCenter
                 fillMode: Image.PreserveAspectFit
                 source: "qrc:/barnatrees_icon64.png"
             }
 
             Label {
-                width: parent.availableWidth
+                width: root.availableWidth
                 text: qsTr("This application contains data provided by the Barcelona's city council: "
                     + "<a href='https://opendata-ajuntament.barcelona.cat/en/'>Open Data BCN</a> "
                     + "using the datasets <b>Zone trees of the city of Barcelona</b>, "
@@ -81,7 +82,7 @@ Dialog {
                     + "and <b>Trees in the parks of the city of Barcelona</b>, "
                     + "under the therms of the <a href='https://creativecommons.org/licenses/by/4.0/'>"
                     + "Creative Commons Attribution 4.0 International (CC BY 4.0)</a> license.");
-                wrapMode: Label.Wrap
+                wrapMode: Label.WordWrap
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
@@ -89,23 +90,23 @@ Dialog {
                 model: summaryModel
                 width: parent.availableWidth
                 delegate: Column {
-                    width: parent.width
+                    width: root.availableWidth
                     spacing: 4
                     Label {
-                        width: parent.width
+                        width: root.availableWidth
                         font.bold: true
                         text: name
                     }
                     Label {
-                        width: parent.width
+                        width: root.availableWidth
                         text: qsTr("Processed: %1").arg(description)
                     }
                     Label {
-                        width: parent.width
+                        width: root.availableWidth
                         text: qsTr("Trees: %L1").arg(specimens)
                     }
                     Label {
-                        width: parent.width
+                        width: root.availableWidth
                         text: qsTr("Species: %L1").arg(species)
                     }
                 }

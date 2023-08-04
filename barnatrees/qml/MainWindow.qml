@@ -644,16 +644,14 @@ ApplicationWindow {
             close()
             homePage.delayedBalloonTip(idx)
         }
+        onAboutToShow: { map.enabled = false }
+        onAboutToHide: { map.enabled = true }
     }
 
     AboutDialog {
         id: aboutDialog
-        onAboutToShow: {
-            map.enabled = false
-        }
-        onAboutToHide: {
-            map.enabled = true
-        }
+        onAboutToShow: { map.enabled = false }
+        onAboutToHide: { map.enabled = true }
     }
 
     GenderSearchDialog {
@@ -661,10 +659,14 @@ ApplicationWindow {
         onDialogAccepted: homePage.clearItems()
         onResultsFound: homePage.resultsFound()
         onResultsNotFound: resultsNotFoundDialog.open()
+        onAboutToShow: { map.enabled = false }
+        onAboutToHide: { map.enabled = true }
     }
 
     SettingsDialog {
         id: settingsDialog
+        onAboutToShow: { map.enabled = false }
+        onAboutToHide: { map.enabled = true }
     }
 
     SpecieSearchDialog {
@@ -672,10 +674,14 @@ ApplicationWindow {
         onDialogAccepted: homePage.clearItems()
         onResultsFound: homePage.resultsFound()
         onResultsNotFound: resultsNotFoundDialog.open()
+        onAboutToShow: { map.enabled = false }
+        onAboutToHide: { map.enabled = true }
     }
 
     SpecimenDialog {
         id: specimenDialog
+        onAboutToShow: { map.enabled = false }
+        onAboutToHide: { map.enabled = true }
     }
 
     StreetSearchDialog {
@@ -683,6 +689,8 @@ ApplicationWindow {
         onDialogAccepted: homePage.clearItems()
         onResultsFound: homePage.resultsFound()
         onResultsNotFound: resultsNotFoundDialog.open()
+        onAboutToShow: { map.enabled = false }
+        onAboutToHide: { map.enabled = true }
     }
 
     MsgDialog {
