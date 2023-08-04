@@ -564,7 +564,6 @@ ApplicationWindow {
             }
             WheelHandler {
                 id: wheel
-                target: null
                 // workaround for QTBUG-87646 / QTBUG-112394 / QTBUG-112432:
                 // Magic Mouse pretends to be a trackpad but doesn't work with PinchHandler
                 // and we don't yet distinguish mice and trackpads on Wayland either
