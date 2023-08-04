@@ -648,6 +648,12 @@ ApplicationWindow {
 
     AboutDialog {
         id: aboutDialog
+        onAboutToShow: {
+            map.enabled = false
+        }
+        onAboutToHide: {
+            map.enabled = true
+        }
     }
 
     GenderSearchDialog {

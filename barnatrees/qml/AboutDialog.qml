@@ -19,9 +19,7 @@ import QtQuick
 import QtQuick.Controls
 
 Dialog {
-    parent: Overlay.overlay
     modal: true
-    focus: true
     title: qsTr("About")
     x: Math.round((window.width - width) / 2)
     y: Math.round((window.height - height) / 2)
@@ -31,8 +29,9 @@ Dialog {
 
     Flickable {
         anchors.fill: parent
+        contentWidth: parent.availableWidth
         contentHeight: col.height
-        boundsBehavior: Flickable.StopAtBounds
+        ScrollIndicator.vertical: ScrollIndicator {}
         clip: true
 
         Column {
@@ -40,7 +39,7 @@ Dialog {
             spacing: 10
 
             Label {
-                width: aboutDialog.availableWidth
+                width: parent.availableWidth
                 text: qsTr("<h1>Barcelona Trees</h1>A guide of the trees of Barcelona. "
                          + "version: %1 git: %2.<br/>Copyright © 2019-2023 Pedro López-Cabanillas.<br/>"
                          + "This program comes with ABSOLUTELY NO WARRANTY. "
@@ -53,7 +52,7 @@ Dialog {
             }
 
             Label {
-                width: aboutDialog.availableWidth
+                width: parent.availableWidth
                 text: qsTr("This program uses Qt version %1 (<a href='https://www.qt.io/'>www.qt.io</a>)<br/>"
                          + "This application includes software developed by the OpenSSL Project for use in "
                          + "the <a href='http://www.openssl.org/'>OpenSSL Toolkit</a>. This program is released under "
@@ -67,14 +66,14 @@ Dialog {
             }
 
             Image {
-                width: aboutDialog.availableWidth
+                width: parent.availableWidth
                 horizontalAlignment: Image.AlignHCenter
                 fillMode: Image.PreserveAspectFit
                 source: "qrc:/barnatrees_icon64.png"
             }
 
             Label {
-                width: aboutDialog.availableWidth
+                width: parent.availableWidth
                 text: qsTr("This application contains data provided by the Barcelona's city council: "
                     + "<a href='https://opendata-ajuntament.barcelona.cat/en/'>Open Data BCN</a> "
                     + "using the datasets <b>Zone trees of the city of Barcelona</b>, "
@@ -88,7 +87,7 @@ Dialog {
 
             Repeater {
                 model: summaryModel
-                width: aboutDialog.availableWidth
+                width: parent.availableWidth
                 delegate: Column {
                     width: parent.width
                     spacing: 4
@@ -112,7 +111,5 @@ Dialog {
                 }
             }
         }
-
-        ScrollIndicator.vertical: ScrollIndicator {}
     }
 }
