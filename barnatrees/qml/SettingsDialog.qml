@@ -22,7 +22,7 @@ import QtQuick.Layouts
 Dialog {
     x: Math.round((window.width - width) / 2)
     y: Math.round((window.height - height) / 2)
-    width: Math.round(Math.min(window.width, window.height) / 2)
+    width: Qt.platform.os === "android" ? Screen.width : Math.round(Math.min(window.width, window.height) / 2)
     modal: true
     focus: true
     title: qsTr("Settings")

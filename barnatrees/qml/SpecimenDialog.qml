@@ -25,7 +25,7 @@ Dialog {
     title: qsTr("<h1>Specimen</h1>")
     x: Math.round((window.width - width) / 2)
     y: Math.round((window.height - height) / 2)
-    width: Math.round(Math.min(window.width, window.height) / 3 * 2)
+    width: Qt.platform.os === "android" ? Screen.width : Math.round(Math.min(window.width, window.height) / 3 * 2)
     standardButtons: Dialog.Close
 
     property string specieScientificName: ""

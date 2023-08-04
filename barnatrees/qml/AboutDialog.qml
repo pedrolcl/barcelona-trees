@@ -25,7 +25,7 @@ Dialog {
     title: qsTr("About")
     x: Math.round((window.width - width) / 2)
     y: Math.round((window.height - height) / 2)
-    width: Math.round(Math.min(window.width, window.height) / 5 * 4)
+    width: Qt.platform.os === "android" ? Screen.width : Math.round(Math.min(window.width, window.height) / 5 * 4)
     height: Math.round(window.height / 10 * 8)
     standardButtons: Dialog.Close
 
