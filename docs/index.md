@@ -23,18 +23,18 @@ Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages,
 <a name="downloads"/>
 ## downloads
 
-The current release is: **Beta2 v0.0.4**
+The current release is: **Beta3 v0.0.5**
 
 ![GitHub All Releases](https://img.shields.io/github/downloads/pedrolcl/barcelona-trees/total) 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
  Platform | arch  | files    
 :---------|:-----:|:----------
- android  | all   | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.4/barnatrees-beta2-android.apk) 
- linux    | x64   | [AppImage](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.4/barnatrees-beta2-linux-x64.AppImage)
- windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.4/barnatrees-beta2-windows-x64.msi)
- sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.4.zip)
- sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.4.tar.gz)
+ android  | all   | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.5/barnatrees-beta3-android.apk) 
+ linux    | x64   | [AppImage](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.5/barnatrees-beta3-x86_64.AppImage)
+ windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.5/barnatrees-beta3-windows-x64.msi)
+ sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.5.zip)
+ sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.5.tar.gz)
 
 
 ## treedbcreator
@@ -64,7 +64,7 @@ Configuration settings. The user may change some visualization options using the
 - Style: by default the program uses the &quot;Material&quot; style that is the norm on Android OS. There are several other styles that the user may prefer instead.
 - Language: the program is currently translated to English, Catalan and Spanish languages.
 - Wiki: when a single tree is selected in the map, the program opens a popup box with the scientific name pointing to a web link. This option allows the user to choose among the following destinations for this link:
-  - Wikipedia: [in English, Catalan and Spanish](https://www.wikipedia.org/)
+  - Wikipedia: [in English, Catalan, Spanish and Dutch](https://www.wikipedia.org/)
   - Species: [Wikispecies](https://species.wikimedia.org/wiki/Main_Page)
   - Commons: [Wikimedia Commons](https://commons.wikimedia.org/wiki/)
 
@@ -76,7 +76,7 @@ The first inspiration to make this program was the work of Juanjo Vidal [Arbrat 
 
 Copyright © 2019-2023 Pedro López-Cabanillas. These programs come with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
 
-This application uses [Qt5](https://www.qt.io/).
+This application uses [Qt6](https://www.qt.io/).
 
 This application includes software developed by the OpenSSL Project for use in the [OpenSSL Toolkit](http://www.openssl.org/).  This program is released under the GPL with the additional exemption that compiling, linking, and/or using OpenSSL is allowed.
 
