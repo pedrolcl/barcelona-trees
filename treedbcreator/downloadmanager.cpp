@@ -15,19 +15,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-#include <QFileInfo>
+#include <QCoreApplication>
+#include <QDateTime>
 #include <QDebug>
+#include <QFileInfo>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
 #include <QUrl>
-#include <QDateTime>
+
 #include "downloadmanager.h"
 
 DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
 {
     m_connection = connect(&m_manager, &QNetworkAccessManager::finished,
                            this, &DownloadManager::onManagerFinished);
+    connect(&m_extractor,
+            &QArchive::MemoryExtractor::finished,
+            this,
+            &DownloadManager::extractorFinished);
+    connect(&m_extractor, &QArchive::MemoryExtractor::error, this, &DownloadManager::extractorError);
 }
 
 void DownloadManager::startDownloads()
@@ -45,6 +52,7 @@ void DownloadManager::startDownloads()
 
 void DownloadManager::doDownload(const OpenDataset& res)
 {
+    //qDebug() << Q_FUNC_INFO << res.name;
     QUrl url = res.url;
     QNetworkRequest request(url);
 #if QT_VERSION < QT_VERSION_CHECK(6,0,0)
@@ -63,11 +71,9 @@ QString DownloadManager::saveFileName(const QUrl &url) const
 {
     QFileInfo pathInfo(url.path());
     QString basename = pathInfo.baseName();
-    QString suffix = pathInfo.suffix();
+    QString suffix = "json";
     if (basename.isEmpty())
         basename = "download";
-    if (suffix.isEmpty())
-        suffix = "json";
     QString completeBN = basename + '.' + suffix;
     if (QFile::exists(completeBN)) {
         // already exists, don't overwrite
@@ -78,16 +84,13 @@ QString DownloadManager::saveFileName(const QUrl &url) const
     return completeBN;
 }
 
-bool DownloadManager::saveToDisk(const QString &filename, QIODevice *data)
+void DownloadManager::saveToDisk(const QString &filename, QIODevice *data)
 {
-    QFile file(filename);
-    if (!file.open(QIODevice::WriteOnly)) {
-        qDebug() << "Could not open" << filename << "for writing:" << file.errorString();
-        return false;
-    }
-    file.write(data->readAll());
-    file.close();
-    return true;
+    //qDebug() << Q_FUNC_INFO << filename;
+    m_currentFileName = filename;
+    m_currentBuffer.setData(data->readAll());
+    m_extractor.setArchive(&m_currentBuffer);
+    m_extractor.start();
 }
 
 bool DownloadManager::isHttpRedirect(QNetworkReply *reply) const
@@ -114,38 +117,67 @@ void DownloadManager::sslErrors(const QList<QSslError> &sslErrors)
 {
 #if QT_CONFIG(ssl)
     for (const QSslError &error : sslErrors)
-        qDebug() << "SSL error:" << error.errorString();
+        qWarning() << "SSL error:" << error.errorString();
 #else
     Q_UNUSED(sslErrors)
 #endif
+}
+
+void DownloadManager::extractorFinished(QArchive::MemoryExtractorOutput *output)
+{
+    QFile file(m_currentFileName);
+    if (!file.open(QIODevice::WriteOnly)) {
+        qWarning() << "Could not open" << m_currentFileName << "for writing:" << file.errorString();
+    } else {
+        //qDebug() << "Extracting to" << m_currentFileName;
+        auto files = output->getFiles();
+        for (auto iter = files.begin(), end = files.end(); end != iter; ++iter) {
+            auto fileInfo = (*iter).fileInformation();
+            auto buffer = (*iter).buffer();
+            // Write contents to the json disk file
+            //qDebug() << "Filename:: " << fileInfo.value("FileName").toString();
+            if (QFileInfo(fileInfo.value("FileName").toString()).suffix() == "json") {
+                buffer->open(QIODevice::ReadOnly);
+                file.write(buffer->readAll());
+                file.close();
+                buffer->close();
+                m_currentDataset.fileName = m_currentFileName;
+                emit downloadReady(m_currentDataset);
+
+                if (m_pendingDownloads.isEmpty()) {
+                    emit done();
+                } else {
+                    doDownload(m_pendingDownloads.takeFirst());
+                }
+                break;
+            }
+        }
+    }
+    output->deleteLater();
+}
+
+void DownloadManager::extractorError(short code)
+{
+    qWarning() << "An error has occured ::" << QArchive::errorCodeToString(code);
 }
 
 void DownloadManager::downloadFinished(QNetworkReply *reply)
 {
     QUrl url = reply->url();
     if (reply->error()) {
-        qDebug() << "Download of" << url << "failed: " << reply->errorString();
+        qWarning() << "Download of" << url << "failed: " << reply->errorString();
     } else {
         if (isHttpRedirect(reply)) {
-            qDebug() << "Request was redirected but not followed.";
+            qWarning() << "Request was redirected but not followed.";
         } else {
             QString filename = saveFileName(url);
-            if (saveToDisk(filename, reply)) {
-                qDebug() << "Download of" << url << "succeeded, saved to:" << filename;
-                m_currentDataset.fileName = filename;
-                emit downloadReady(m_currentDataset);
-            }
+            //qDebug() << "Download of" << url << "succeeded, saving to:" << filename;
+            saveToDisk(filename, reply);
         }
     }
 
     reply->deleteLater();
     m_currentDownload = nullptr;
-
-    if (m_pendingDownloads.isEmpty()) {
-        emit done();
-    } else {
-        doDownload(m_pendingDownloads.takeFirst());
-    }
 }
 
 void DownloadManager::onManagerFinished(QNetworkReply *reply)
@@ -173,7 +205,8 @@ void DownloadManager::onManagerFinished(QNetworkReply *reply)
                                     dataset.contains("code") && dataset["code"].isString()) {
                                     QJsonArray resources = dataset["resources"].toArray();
                                     QString code = dataset["code"].toString();
-                                    //qDebug() << code << "resources:" << resources.count() << resources.size();
+                                    //qDebug() << code << "resources:" << resources.count()
+                                    //         << resources.size();
                                     if (code == "ARBRES_INTERES_LOCAL") {
                                         //qDebug() << "ignored";
                                         continue;
@@ -185,16 +218,18 @@ void DownloadManager::onManagerFinished(QNetworkReply *reply)
                                         QJsonObject resource = resources[j].toObject();
                                         if (resource.contains("format") && resource["format"].isString()) {
                                             QString format = resource["format"].toString();
-                                            if (format == "JSON") {
-                                                QDateTime dsTime = QDateTime::fromString(resource["created"].toString(), Qt::ISODate);
-                                                QString dsName = resource["name"].toString();
+                                            QString dsName = resource["name"].toString();
+                                            if (format == "ZIP" && dsName.endsWith(".json.zip")) {
+                                                QDateTime dsTime = QDateTime::fromString(
+                                                    resource["created"].toString(), Qt::ISODate);
                                                 QUrl dsUri = QUrl(resource["url"].toString());
-                                                //qDebug() << "------------- resource:" << j;
-                                                //qDebug() << "created:" << dsTime;
-                                                //qDebug() << "name:" << dsName;
-                                                //qDebug() << "url:" << dsUri;
+                                                // qDebug() << "------------- resource:" << j;
+                                                // qDebug() << "created:" << dsTime;
+                                                // qDebug() << "name:" << dsName;
+                                                // qDebug() << "format:" << format;
+                                                // qDebug() << "url:" << dsUri;
                                                 if (dsTime > lastTime) {
-                                                    //qDebug() << "latest";
+                                                    // qDebug() << "latest";
                                                     lastTime = dsTime;
                                                     lastName = dsName;
                                                     lastUri = dsUri;

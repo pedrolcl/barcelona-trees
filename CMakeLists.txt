@@ -25,6 +25,8 @@ endif()
 qt_standard_project_setup(REQUIRES 6.5)
 
 if (NOT ANDROID)
+    set(QARCHIVE_QT_VERSION_MAJOR 6)
+    add_subdirectory( QArchive )
     add_subdirectory ( treedbcreator )
 endif()
 

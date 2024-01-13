@@ -35,6 +35,7 @@ target_link_libraries( treedbcreator PRIVATE
     Qt6::Core
     Qt6::Sql
     Qt6::Network
+    QArchive
 )
 
 install(TARGETS treedbcreator

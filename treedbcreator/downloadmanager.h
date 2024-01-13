@@ -27,6 +27,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <QSslError>
 #include <QUrl>
 
+#include <QArchive>
+
 struct OpenDataset {
     QString name;
     QString fileName;
@@ -43,9 +45,12 @@ class DownloadManager : public QObject
 private:
     QNetworkAccessManager m_manager;
     QMetaObject::Connection m_connection;
-    QNetworkReply *m_currentDownload;
     OpenDataset m_currentDataset;
+    QString m_currentFileName;
     QList<OpenDataset> m_pendingDownloads;
+    QArchive::MemoryExtractor m_extractor;
+    QBuffer m_currentBuffer;
+    QNetworkReply *m_currentDownload;
 
 public:
     explicit DownloadManager(QObject *parent = nullptr);
@@ -53,13 +58,15 @@ public:
     void doDownload(const OpenDataset &res);
     QString saveFileName(const QUrl &url) const;
     bool isHttpRedirect(QNetworkReply *reply) const;
-    bool saveToDisk(const QString &filename, QIODevice *data);
+    void saveToDisk(const QString &filename, QIODevice *data);
 
 public slots:
     void execute();
     void downloadFinished(QNetworkReply *reply);
     void onManagerFinished(QNetworkReply *reply);
     void sslErrors(const QList<QSslError> &errors);
+    void extractorFinished(QArchive::MemoryExtractorOutput *output);
+    void extractorError(short code);
 
 signals:
     void done();

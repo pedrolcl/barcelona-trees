@@ -43,11 +43,13 @@ JsonParser::JsonParser(QObject *parent) : QObject(parent)
 
 void JsonParser::addDataset(OpenDataset ds)
 {
+    //qDebug() << Q_FUNC_INFO << ds.name;
     m_pendingDatasets.append(ds);
 }
 
 void JsonParser::execute()
 {
+    //qDebug() << Q_FUNC_INFO;
     for(OpenDataset& ds : m_pendingDatasets) {
         QString f = ds.fileName;
         qDebug() << "processing:" << f;
