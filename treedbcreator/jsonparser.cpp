@@ -52,7 +52,7 @@ void JsonParser::execute()
     //qDebug() << Q_FUNC_INFO;
     for(OpenDataset& ds : m_pendingDatasets) {
         QString f = ds.fileName;
-        qDebug() << "processing:" << f;
+        qInfo() << "processing:" << f;
         parse(ds);
     }
     updateDB();
@@ -74,7 +74,7 @@ void JsonParser::parse(OpenDataset& ds)
         ds.specimens = m_plantsDataset.count();
         update(ds);
         m_db.commit();
-        qDebug() << "number of trees:" << ds.specimens << "number of species:" << ds.species;
+        qInfo() << "number of trees:" << ds.specimens << "number of species:" << ds.species;
     } else {
         qWarning() << "file missing:" << ds.fileName;
     }
