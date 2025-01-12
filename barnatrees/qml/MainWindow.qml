@@ -399,7 +399,7 @@ ApplicationWindow {
                 var currentPosition = positionSource.position.coordinate
                 var distance1 = currentPosition.distanceTo(lastSearchPosition)
                 var distance2 = currentPosition.distanceTo(locationBarna)
-                //console.log("Position: " + currentPosition + " distance: " + distance1 + " enabled: " + positionEnabled.checked)
+                console.log("Position: " + currentPosition + " distance: " + distance1 + " enabled: " + positionEnabled.checked, " name: ", positionSource.name)
                 if (positionEnabled && positionEnabled.checked && distance1 > 250 && distance2 < 8000) { // 250 m from last location and 8 km from Glories
                     lastSearchPosition = currentPosition
                     homePage.changeGlobalCenter(currentPosition)
@@ -702,8 +702,8 @@ ApplicationWindow {
     Component.onCompleted: {
         if (Qt.platform.os === "android") {
             optionsMenu.removeItem(closeItem)
-        } else {
+        } /* else {
             optionsMenu.removeItem(positionEnabled)
-        }
+        }*/
     }
 }
