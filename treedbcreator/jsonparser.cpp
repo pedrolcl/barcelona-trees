@@ -99,9 +99,9 @@ void JsonParser::parseJson(const QByteArray& text)
                 QVariant lon = tree["longitud"].toVariant();
                 a.setLatitud( lat.toReal() );
                 a.setLongitud( lon.toReal() );
-                a.setNomCientific( tree["nom_cientific"].toString() );
-                a.setNomEsp( tree["nom_castella"].toString() );
-                a.setNomCat( tree["nom_catala"].toString() );
+                a.setNomCientific(tree["cat_nom_cientific"].toString());
+                a.setNomEsp(tree["cat_nom_castella"].toString());
+                a.setNomCat(tree["cat_nom_catala"].toString());
                 //qDebug() << a.codi() << a.adreca() << a.latitud() << a.longitud();
                 process(a);
             }

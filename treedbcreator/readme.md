@@ -11,3 +11,10 @@ processing: "2024_1T_OD_Arbrat_Zona_BCN.json"
 number of trees: 44121 number of species: 325
 processing: "2024_1T_OD_Arbrat_Viari_BCN.json"
 number of trees: 147246 number of species: 277
+
+processing: "2024_4T_OD_Arbrat_Parcs_BCN.json"
+number of trees: 34809 number of species: 400
+processing: "2024_4T_OD_Arbrat_Zona_BCN.json"
+number of trees: 43251 number of species: 334
+processing: "2024_4T_OD_Arbrat_Viari_BCN.json"
+number of trees: 146268 number of species: 297
