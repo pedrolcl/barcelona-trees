@@ -46,7 +46,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "dropboxdownloader.h"
 #include "splashwindow.h"
 
-int downloadFromCloud(QDir &destDir, QString current, bool& dbFileNew)
+/*int downloadFromCloud(QDir &destDir, QString current, bool& dbFileNew)
 {
     const QUrl texturl("https://www.dropbox.com/s/e485ypwbdy113v9/barnatrees.txt?dl=1");
     const QUrl dataurl("https://www.dropbox.com/s/7o9aa8744mwjx7i/barnatrees.db.7z?dl=1");
@@ -87,7 +87,7 @@ int downloadFromCloud(QDir &destDir, QString current, bool& dbFileNew)
     dwnloader.downloadText(texturl);
     auto rc = loop.exec();
     return rc;
-}
+}*/
 
 QString localDatabaseFile(bool& dbFileNew)
 {
@@ -137,13 +137,13 @@ QString localDatabaseFile(bool& dbFileNew)
         currenttimestamp = tsFile.readAll();
         tsFile.close();
 
-        if (!cmpfileinfo.exists()) {
+        /*if (!cmpfileinfo.exists()) {
             QDateTime ts = QDateTime::fromString(currenttimestamp+'Z', Qt::ISODate);
             if (ts.addDays(30) < QDateTime::currentDateTimeUtc()) {
                 qWarning() << "The database is old. Updating from the cloud.";
                 downloadFromCloud(destDir, currenttimestamp, dbFileNew);
             }
-        }
+        }*/
     }
 
     QFileInfo dbFileInfo(destDir, "barnatrees.db");
