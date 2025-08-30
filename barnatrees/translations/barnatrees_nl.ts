@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../qml/AboutDialog.qml" line="44"/>
-        <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. version: %1 git: %2.&lt;br/&gt;Copyright © 2019-2023 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
+        <source>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;A guide of the trees of Barcelona. version: %1 git: %2.&lt;br/&gt;Copyright © 2019-2025 Pedro López-Cabanillas.&lt;br/&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the license &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;</source>
         <translation>&lt;h1&gt;Barcelona Trees&lt;/h1&gt;Een bomengids voor Barcelona. Versie: %1 git: %2.&lt;br/&gt;Auteursrecht © 2019-2022 Pedro López-Cabanillas.&lt;br/&gt;Dit programma wordt ZONDER ENIGE VORM VAN GARANTIE VERSPREID. Het programma is vrije software en het staat u vrij om een heruitgave te doen onder de voorwaarden van de &lt;a href=&apos;https://www.gnu.org/licenses/gpl-3.0.html&apos;&gt;GPLv3&lt;/a&gt;-licentie</translation>
     </message>
     <message>
