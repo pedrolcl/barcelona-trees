@@ -4,7 +4,7 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="25"/>
+        <location filename="../qml/AboutDialog.qml" line="24"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
@@ -82,101 +82,100 @@
 <context>
     <name>HomePage</name>
     <message>
-        <location filename="../qml/HomePage.qml" line="25"/>
         <source>Barcelona Trees</source>
-        <translation>Árboles de Barcelona</translation>
+        <translation type="vanished">Árboles de Barcelona</translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="166"/>
         <source>Current Location</source>
-        <translation>Ubicación actual</translation>
+        <translation type="vanished">Ubicación actual</translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="314"/>
         <source>Success!</source>
-        <translation>¡Éxito!</translation>
+        <translation type="vanished">¡Éxito!</translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/HomePage.qml" line="315"/>
         <source>Found %Ln tree(s)</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>Encontrado %Ln árbol</numerusform>
             <numerusform>Encontrados %Ln árboles</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="321"/>
         <source>New Database</source>
-        <translation>Nueva base de datos</translation>
+        <translation type="vanished">Nueva base de datos</translation>
     </message>
     <message>
-        <location filename="../qml/HomePage.qml" line="322"/>
         <source>A new database file has been downloaded. It will become active the next time you start this program.</source>
-        <translation>Se ha descargado un nuevo archivo de base de datos. Se activará la próxima vez que se inicie este programa.</translation>
+        <translation type="vanished">Se ha descargado un nuevo archivo de base de datos. Se activará la próxima vez que se inicie este programa.</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../qml/MainWindow.qml" line="32"/>
-        <location filename="../qml/MainWindow.qml" line="148"/>
-        <location filename="../qml/MainWindow.qml" line="218"/>
-        <location filename="../qml/MainWindow.qml" line="493"/>
+        <location filename="../qml/MainWindow.qml" line="33"/>
+        <location filename="../qml/MainWindow.qml" line="261"/>
+        <location filename="../qml/MainWindow.qml" line="338"/>
+        <location filename="../qml/MainWindow.qml" line="653"/>
         <source>Barcelona Trees</source>
         <translation>Árboles de Barcelona</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="103"/>
+        <location filename="../qml/MainWindow.qml" line="210"/>
         <source>Update Position</source>
         <translation>Actualizar ubicación</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="110"/>
+        <location filename="../qml/MainWindow.qml" line="218"/>
+        <source>Save current position as default</source>
+        <translation>Guardar ubicación actual por omisión</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainWindow.qml" line="223"/>
         <source>Search by Street</source>
         <translation>Buscar por calle</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="115"/>
+        <location filename="../qml/MainWindow.qml" line="228"/>
         <source>Search by Gender/Name</source>
         <translation>Buscar por género/nombre</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="120"/>
+        <location filename="../qml/MainWindow.qml" line="233"/>
         <source>Search Species</source>
         <translation>Buscar especies</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="125"/>
+        <location filename="../qml/MainWindow.qml" line="238"/>
         <source>View Results List</source>
         <translation>Ver lista de resultados</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="130"/>
+        <location filename="../qml/MainWindow.qml" line="243"/>
         <source>Settings</source>
         <translation>Opciones</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="135"/>
+        <location filename="../qml/MainWindow.qml" line="248"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="141"/>
+        <location filename="../qml/MainWindow.qml" line="254"/>
         <source>Quit</source>
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="329"/>
+        <location filename="../qml/MainWindow.qml" line="490"/>
         <source>Current Location</source>
         <translation>Ubicación actual</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="478"/>
+        <location filename="../qml/MainWindow.qml" line="638"/>
         <source>Success!</source>
         <translation>¡Éxito!</translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/MainWindow.qml" line="479"/>
+        <location filename="../qml/MainWindow.qml" line="639"/>
         <source>Found %Ln tree(s)</source>
         <translation>
             <numerusform>Encontrado %Ln árbol</numerusform>
@@ -184,22 +183,22 @@
         </translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="485"/>
+        <location filename="../qml/MainWindow.qml" line="645"/>
         <source>New Database</source>
         <translation>Nueva base de datos</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="486"/>
+        <location filename="../qml/MainWindow.qml" line="646"/>
         <source>A new database file has been downloaded. It will become active the next time you start this program.</source>
         <translation>Se ha descargado un nuevo archivo de base de datos. Se activará la próxima vez que se inicie este programa.</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="537"/>
+        <location filename="../qml/MainWindow.qml" line="711"/>
         <source>Sorry!</source>
         <translation>¡Lo siento!</translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="538"/>
+        <location filename="../qml/MainWindow.qml" line="712"/>
         <source>Your search returned no results.</source>
         <translation>Su búsqueda no produjo resultados.</translation>
     </message>
@@ -228,32 +227,32 @@
         <translation>Estilo:</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="64"/>
+        <location filename="../qml/SettingsDialog.qml" line="66"/>
         <source>Language:</source>
         <translation>Idioma:</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="71"/>
+        <location filename="../qml/SettingsDialog.qml" line="75"/>
         <source>English</source>
         <translation>inglés</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="72"/>
+        <location filename="../qml/SettingsDialog.qml" line="76"/>
         <source>Catalan</source>
         <translation>catalán</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="73"/>
+        <location filename="../qml/SettingsDialog.qml" line="77"/>
         <source>Spanish</source>
         <translation>español</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="74"/>
+        <location filename="../qml/SettingsDialog.qml" line="78"/>
         <source>Dutch</source>
         <translation>Neerlandés</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="89"/>
+        <location filename="../qml/SettingsDialog.qml" line="93"/>
         <source>Wiki:</source>
         <translation>Wiki:</translation>
     </message>
@@ -270,7 +269,7 @@
         <translation type="vanished">WikiCommons</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="110"/>
+        <location filename="../qml/SettingsDialog.qml" line="116"/>
         <source>Restart required</source>
         <translation>Reinicio requerido</translation>
     </message>

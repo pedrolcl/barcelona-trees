@@ -4,7 +4,7 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../qml/AboutDialog.qml" line="25"/>
+        <location filename="../qml/AboutDialog.qml" line="24"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -54,102 +54,81 @@
 </context>
 <context>
     <name>HomePage</name>
-    <message>
-        <location filename="../qml/HomePage.qml" line="25"/>
-        <source>Barcelona Trees</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/HomePage.qml" line="166"/>
-        <source>Current Location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/HomePage.qml" line="314"/>
-        <source>Success!</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message numerus="yes">
-        <location filename="../qml/HomePage.qml" line="315"/>
         <source>Found %Ln tree(s)</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             <numerusform>Found %Ln tree</numerusform>
             <numerusform>Found %Ln trees</numerusform>
         </translation>
-    </message>
-    <message>
-        <location filename="../qml/HomePage.qml" line="321"/>
-        <source>New Database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/HomePage.qml" line="322"/>
-        <source>A new database file has been downloaded. It will become active the next time you start this program.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../qml/MainWindow.qml" line="32"/>
-        <location filename="../qml/MainWindow.qml" line="148"/>
-        <location filename="../qml/MainWindow.qml" line="218"/>
-        <location filename="../qml/MainWindow.qml" line="493"/>
+        <location filename="../qml/MainWindow.qml" line="33"/>
+        <location filename="../qml/MainWindow.qml" line="261"/>
+        <location filename="../qml/MainWindow.qml" line="338"/>
+        <location filename="../qml/MainWindow.qml" line="653"/>
         <source>Barcelona Trees</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="103"/>
+        <location filename="../qml/MainWindow.qml" line="210"/>
         <source>Update Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="110"/>
+        <location filename="../qml/MainWindow.qml" line="218"/>
+        <source>Save current position as default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainWindow.qml" line="223"/>
         <source>Search by Street</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="115"/>
+        <location filename="../qml/MainWindow.qml" line="228"/>
         <source>Search by Gender/Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="120"/>
+        <location filename="../qml/MainWindow.qml" line="233"/>
         <source>Search Species</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="125"/>
+        <location filename="../qml/MainWindow.qml" line="238"/>
         <source>View Results List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="130"/>
+        <location filename="../qml/MainWindow.qml" line="243"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="135"/>
+        <location filename="../qml/MainWindow.qml" line="248"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="141"/>
+        <location filename="../qml/MainWindow.qml" line="254"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="329"/>
+        <location filename="../qml/MainWindow.qml" line="490"/>
         <source>Current Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="478"/>
+        <location filename="../qml/MainWindow.qml" line="638"/>
         <source>Success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/MainWindow.qml" line="479"/>
+        <location filename="../qml/MainWindow.qml" line="639"/>
         <source>Found %Ln tree(s)</source>
         <translation type="unfinished">
             <numerusform>Found %Ln tree</numerusform>
@@ -157,22 +136,22 @@
         </translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="485"/>
+        <location filename="../qml/MainWindow.qml" line="645"/>
         <source>New Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="486"/>
+        <location filename="../qml/MainWindow.qml" line="646"/>
         <source>A new database file has been downloaded. It will become active the next time you start this program.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="537"/>
+        <location filename="../qml/MainWindow.qml" line="711"/>
         <source>Sorry!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainWindow.qml" line="538"/>
+        <location filename="../qml/MainWindow.qml" line="712"/>
         <source>Your search returned no results.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -201,37 +180,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="64"/>
+        <location filename="../qml/SettingsDialog.qml" line="66"/>
         <source>Language:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="71"/>
+        <location filename="../qml/SettingsDialog.qml" line="75"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="72"/>
+        <location filename="../qml/SettingsDialog.qml" line="76"/>
         <source>Catalan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="73"/>
+        <location filename="../qml/SettingsDialog.qml" line="77"/>
         <source>Spanish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="74"/>
+        <location filename="../qml/SettingsDialog.qml" line="78"/>
         <source>Dutch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="89"/>
+        <location filename="../qml/SettingsDialog.qml" line="93"/>
         <source>Wiki:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SettingsDialog.qml" line="110"/>
+        <location filename="../qml/SettingsDialog.qml" line="116"/>
         <source>Restart required</source>
         <translation type="unfinished"></translation>
     </message>
