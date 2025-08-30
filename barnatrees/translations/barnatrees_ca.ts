@@ -127,7 +127,7 @@
     <message>
         <location filename="../qml/MainWindow.qml" line="218"/>
         <source>Save current position as default</source>
-        <translation>Desa ubiucació actual com a predeterminada</translation>
+        <translation>Desa la ubicació actual com a predeterminada</translation>
     </message>
     <message>
         <location filename="../qml/MainWindow.qml" line="223"/>
