@@ -29,11 +29,12 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #=======================================================================
 
-if (NOT TARGET Qt${QT_VERSION_MAJOR}::lconvert)
-    message(FATAL_ERROR "The package \"Qt${QT_VERSION_MAJOR}LinguistTools\" is required.")
+if (NOT TARGET Qt6::lconvert)
+    message(FATAL_ERROR "The package \"Qt6LinguistTools\" is required.")
 endif()
 
-set(Qt_LCONVERT_EXECUTABLE Qt${QT_VERSION_MAJOR}::lconvert)
+set(Qt_LCONVERT_EXECUTABLE Qt6::lconvert)
+set(Qt_LUPDATE_EXECUTABLE Qt6::lupdate)
 
 function(ADD_APP_TRANSLATIONS_RESOURCE res_file)
     set(_qm_files ${ARGN})
@@ -52,7 +53,7 @@ function(ADD_QT_TRANSLATIONS_RESOURCE res_file)
     set(_languages ${ARGN})
     set(_res_file ${CMAKE_CURRENT_BINARY_DIR}/qt_translations.qrc)
     set(_patterns qtbase qtmultimedia)
-    get_filename_component(_srcdir "${Qt${QT_VERSION_MAJOR}_DIR}/../../../translations" ABSOLUTE)
+    get_filename_component(_srcdir "${Qt6_DIR}/../../../translations" ABSOLUTE)
     set(_outfiles)
     foreach(_lang ${_languages})
         set(_infiles)
@@ -84,7 +85,7 @@ endfunction()
 function(ADD_QT_TRANSLATIONS out_files)
     set(_languages ${ARGN})
     set(_patterns qtbase qtmultimedia qtscript qtxmlpatterns)
-    get_filename_component(_srcdir "${Qt${QT_VERSION_MAJOR}_DIR}/../../../translations" ABSOLUTE)
+    get_filename_component(_srcdir "${Qt6_DIR}/../../../translations" ABSOLUTE)
     set(_outfiles)
     foreach(_lang ${_languages})
         set(_infiles)
@@ -109,7 +110,7 @@ endfunction()
 
 file(GLOB TRANSLATION_FILES ${PROJECT_SOURCE_DIR}/translations/*.ts)
 add_custom_target(lupdate
-    COMMAND ${Qt${QT_VERSION_MAJOR}_LUPDATE_EXECUTABLE} -recursive ${PROJECT_SOURCE_DIR} -ts ${TRANSLATION_FILES}
+    COMMAND ${Qt_LUPDATE_EXECUTABLE} -recursive ${PROJECT_SOURCE_DIR} -ts ${TRANSLATION_FILES}
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     COMMENT "Updating translations"
     VERBATIM

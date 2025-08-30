@@ -247,9 +247,7 @@ int main(int argc, char **argv)
 
     SpeciesModel speciesModel;
     //qDebug() << "species.columns:" << speciesModel.columnCount();
-    QGeoCoordinate locationBarna = QGeoCoordinate( 41.403216, 2.186674 );
     PlantModel plantModel;
-    plantModel.setCenter(locationBarna);
     //qDebug() << "plants.columns:" << plantModel.columnCount();
     PlantProxyModel plantProxy(&plantModel);
 

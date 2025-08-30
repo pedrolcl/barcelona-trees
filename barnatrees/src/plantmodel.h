@@ -46,9 +46,10 @@ public:
     Q_INVOKABLE QString formattedScientificName(int row) const;
     Q_INVOKABLE QString wikiLink(int row) const;
     Q_INVOKABLE QString streetLink(int row) const;
+    Q_INVOKABLE QGeoCoordinate center() const { return m_center; }
 
-	int limit() const;
-	void setLimit(int limit);
+    int limit() const;
+    void setLimit(int limit);
 
 private:
 	QGeoCoordinate CoordinateToCoordinate(QGeoCoordinate point, double range, double bearing) const;

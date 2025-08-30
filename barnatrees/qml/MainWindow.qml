@@ -32,8 +32,9 @@ ApplicationWindow {
     height: 800
     title: qsTr("Barcelona Trees")
 
-    property var locationBarna: QtPositioning.coordinate( 41.403216, 2.186674 )
-    property var barnaRegion: QtPositioning.rectangle(QtPositioning.coordinate(41.45,2.09), QtPositioning.coordinate(41.33, 2.23))
+    readonly property geoCoordinate locationBarna: QtPositioning.coordinate( 41.403216, 2.186674 )
+    readonly property var barnaRegion: QtPositioning.rectangle(QtPositioning.coordinate(41.45,2.09), QtPositioning.coordinate(41.33, 2.23))
+    property geoCoordinate defaultPosition: locationBarna
     property double defaultZoom: map.maximumZoomLevel - 2.0
     property var globalItems: []
     property int numberOfRows: 0
@@ -169,6 +170,7 @@ ApplicationWindow {
         property string language: "en"
         property string links: "Wikipedia"
         property string style: "Material"
+        property string savedPosition: `${locationBarna.latitude},${locationBarna.longitude},${locationBarna.altitude || 0}`
         property alias window_x: window.x
         property alias window_y: window.y
         property alias window_width: window.width
@@ -209,6 +211,12 @@ ApplicationWindow {
             checkable: true
             checked: false
             onToggled: homePage.togglePositioning(checked)
+        }
+
+        MenuItem {
+            id: savePosition
+            text: qsTr("Save current position as default")
+            onTriggered: homePage.savePosition()
         }
 
         MenuItem {
@@ -269,6 +277,10 @@ ApplicationWindow {
             }
         }
 
+        function savePosition() {
+            settings.savedPosition = `${map.center.latitude},${map.center.longitude},${map.center.altitude || 0}`
+        }
+
         function changeMapCenter(newcenter) {
             map.center = newcenter
             map.zoomLevel = map.maximumZoomLevel
@@ -277,6 +289,7 @@ ApplicationWindow {
         function changeGlobalCenter(coordinate) {
             if (barnaRegion.contains(coordinate)) {
                 clearItems()
+                window.defaultPosition = coordinate
                 map.zoomLevel = defaultZoom
                 map.center = coordinate
                 locationCircle.coordinate = coordinate
@@ -394,12 +407,12 @@ ApplicationWindow {
             id: positionSource
             active: true
             updateInterval: 60000 // 1 min
-            property variant lastSearchPosition: locationBarna
+            property variant lastSearchPosition: window.defaultPosition
             onPositionChanged:  {
                 var currentPosition = positionSource.position.coordinate
                 var distance1 = currentPosition.distanceTo(lastSearchPosition)
-                var distance2 = currentPosition.distanceTo(locationBarna)
-                console.log("Position: " + currentPosition + " distance: " + distance1 + " enabled: " + positionEnabled.checked, " name: ", positionSource.name)
+                var distance2 = currentPosition.distanceTo(window.defaultPosition)
+                //console.log("Position: " + currentPosition + " distance: " + distance1 + " enabled: " + positionEnabled.checked, " name: ", positionSource.name)
                 if (positionEnabled && positionEnabled.checked && distance1 > 250 && distance2 < 8000) { // 250 m from last location and 8 km from Glories
                     lastSearchPosition = currentPosition
                     homePage.changeGlobalCenter(currentPosition)
@@ -423,7 +436,7 @@ ApplicationWindow {
                     value: "http://maps-redirect.qt.io/osm/5.8/"
                 }
             }
-            center: locationBarna
+            center: window.defaultPosition
             zoomLevel: defaultZoom
             property geoCoordinate startCentroid
 
@@ -452,7 +465,7 @@ ApplicationWindow {
 
             MapQuickItem {
                 id: locationCircle
-                coordinate: locationBarna
+                coordinate: window.defaultPosition
                 opacity: 1.0
                 anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
                 function showTip() {
@@ -705,5 +718,13 @@ ApplicationWindow {
         } /* else {
             optionsMenu.removeItem(positionEnabled)
         }*/
+        let parts = settings.savedPosition.split(",")
+        if (parts.length >= 2) {
+            let currentPosition = QtPositioning.coordinate(parseFloat(parts[0]), parseFloat(parts[1]), parseFloat(parts[2] || 0))
+            homePage.changeGlobalCenter(currentPosition)
+        } else {
+            console.warn("No valid coordinate saved.")
+            homePage.changeGlobalCenter(locationBarna)
+        }
     }
 }
