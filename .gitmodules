@@ -4,7 +4,7 @@
 [submodule "android_openssl"]
 	path = android_openssl
 	url = git@github.com:pedrolcl/android_openssl.git
-	branch = qt_6.5
+	branch = master
 [submodule "QArchive"]
 	path = QArchive
 	url = https://github.com/antony-jr/QArchive
