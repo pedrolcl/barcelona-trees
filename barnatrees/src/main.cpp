@@ -155,8 +155,10 @@ QString localDatabaseFile(bool& dbFileNew)
         currenttimestamp = tsFile.readAll();
         tsFile.close();
 
+        currenttimestamp.remove(QChar::LineFeed);
+
         if (!cmpfileinfo.exists()) {
-            QDateTime ts = QDateTime::fromString(currenttimestamp+'Z', Qt::ISODate);
+            QDateTime ts = QDateTime::fromString(currenttimestamp, Qt::ISODate);
             if (ts.addDays(30) < QDateTime::currentDateTimeUtc()) {
                 qWarning() << "The database is old. Updating from the cloud.";
                 downloadFromWeb(destDir, currenttimestamp, dbFileNew);
