@@ -42,7 +42,7 @@ Dialog {
             Label {
                 width: root.availableWidth
                 text: qsTr("<h1>Barcelona Trees</h1>A guide of the trees of Barcelona. "
-                         + "version: %1 git: %2.<br/>Copyright © 2019-2025 Pedro López-Cabanillas.<br/>"
+                         + "version: %1 git: %2.<br/>Copyright © 2019-2026 Pedro López-Cabanillas.<br/>"
                          + "This program comes with ABSOLUTELY NO WARRANTY. "
                          + "This is free software, and you are welcome to redistribute it "
                          + "under the terms of the license "
