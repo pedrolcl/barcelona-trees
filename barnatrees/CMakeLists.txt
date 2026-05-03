@@ -15,7 +15,6 @@ endif()
 
 set (HEADERS
     src/basemodel.h
-    # src/dropboxdownloader.h
     src/gendermodel.h
     src/plantmodel.h
     src/plantproxymodel.h
@@ -23,11 +22,11 @@ set (HEADERS
     src/splashwindow.h
     src/streetlistmodel.h
     src/summarymodel.h
+    src/webdownloader.h
 )
 
 set (SOURCES
     src/basemodel.cpp
-    # src/dropboxdownloader.cpp
     src/gendermodel.cpp
     src/main.cpp
     src/plantmodel.cpp
@@ -36,6 +35,7 @@ set (SOURCES
     src/splashwindow.cpp
     src/streetlistmodel.cpp
     src/summarymodel.cpp
+    src/webdownloader.cpp
 )
 
 add_qt_translations_resource(QT_RES ca en es nl)

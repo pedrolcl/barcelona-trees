@@ -1,9 +1,9 @@
-#ifndef DROPBOXDOWNLOADER_H
-#define DROPBOXDOWNLOADER_H
+#ifndef WEBDOWNLOADER_H
+#define WEBDOWNLOADER_H
 
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2025 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2026 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,12 +25,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <QNetworkReply>
 #include <QPointer>
 
-class DropboxDownloader : public QObject
+class WebDownloader : public QObject
 {
     Q_OBJECT
 public:
-    explicit DropboxDownloader(QObject* parent= nullptr);
-    ~DropboxDownloader();
+    explicit WebDownloader(QObject *parent = nullptr);
+    ~WebDownloader();
 
     void downloadText(QUrl url);
     void downloadBinFile(QUrl url, QString fileName);
@@ -56,4 +56,4 @@ private:
     QPointer<QNetworkReply> m_networkReply;
 };
 
-#endif // DROPBOXDOWNLOADER_H
+#endif // WEBDOWNLOADER_H

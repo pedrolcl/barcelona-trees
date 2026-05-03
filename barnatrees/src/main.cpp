@@ -16,64 +16,71 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <QGuiApplication>
-#include <QQuickView>
-#include <QSslSocket>
 #include <QDebug>
+#include <QDir>
+#include <QFileInfo>
+#include <QGeoCoordinate>
+#include <QGuiApplication>
+#include <QIcon>
+#include <QLibraryInfo>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickStyle>
+#include <QQuickView>
+#include <QSettings>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlRecord>
-#include <QGeoCoordinate>
+#include <QSslSocket>
 #include <QStandardPaths>
-#include <QFileInfo>
-#include <QDir>
-#include <QSettings>
-#include <QQuickStyle>
-#include <QTranslator>
-#include <QLibraryInfo>
-#include <QIcon>
 #include <QTimer>
+#include <QTranslator>
+#include "gendermodel.h"
 #include "plantmodel.h"
 #include "plantproxymodel.h"
-#include "speciesmodel.h"
-#include "summarymodel.h"
-#include "gendermodel.h"
-#include "streetlistmodel.h"
-#include "q7z_facade.h"
 #include "q7z_extract.h"
-#include "dropboxdownloader.h"
+#include "q7z_facade.h"
+#include "speciesmodel.h"
 #include "splashwindow.h"
+#include "streetlistmodel.h"
+#include "summarymodel.h"
+#include "webdownloader.h"
 
-/*int downloadFromCloud(QDir &destDir, QString current, bool& dbFileNew)
+int downloadFromWeb(QDir &destDir, QString current, bool &dbFileNew)
 {
-    const QUrl texturl("https://www.dropbox.com/s/e485ypwbdy113v9/barnatrees.txt?dl=1");
-    const QUrl dataurl("https://www.dropbox.com/s/7o9aa8744mwjx7i/barnatrees.db.7z?dl=1");
+    const QUrl texturl("https://pedrolcl.github.io/barcelona-trees/barnatrees.txt");
+    const QUrl dataurl("https://pedrolcl.github.io/barcelona-trees/barnatrees.db.7z");
     QEventLoop loop;
 
     QString newtimestamp;
-    DropboxDownloader dwnloader;
-    QObject::connect(&dwnloader, &DropboxDownloader::downloadProgress, &loop, [&](qint64 received, qint64 total) {
-        qDebug() << "%" << (1.0 * received / total) * 100.0;
-    });
-    QObject::connect(&dwnloader, &DropboxDownloader::downloadError, &loop, [&](QString msg) {
+    WebDownloader dwnloader;
+    QObject::connect(&dwnloader,
+                     &WebDownloader::downloadProgress,
+                     &loop,
+                     [&](qint64 received, qint64 total) {
+                         qDebug() << "%" << (1.0 * received / total) * 100.0;
+                     });
+    QObject::connect(&dwnloader, &WebDownloader::downloadError, &loop, [&](QString msg) {
         qWarning() << "download error: " << msg;
         loop.exit(-1);
     });
-    QObject::connect(&dwnloader, &DropboxDownloader::downloadSuccessful, &loop, [&]() {
+    QObject::connect(&dwnloader, &WebDownloader::downloadSuccessful, &loop, [&]() {
         qDebug() << "download finished";
         QFile tsfile(destDir.absoluteFilePath("barnatrees.txt.remote"));
-        tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
-        tsfile.write(newtimestamp.toUtf8());
-        tsfile.close();
+        bool ok = tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
+        if (ok) {
+            tsfile.write(newtimestamp.toUtf8());
+            tsfile.close();
+        } else {
+            qWarning() << "Error opening output file" << tsfile.fileName();
+        }
         loop.exit();
     });
-    QObject::connect(&dwnloader, &DropboxDownloader::downloadTextReady, &loop, [&](QString text) {
+    QObject::connect(&dwnloader, &WebDownloader::downloadTextReady, &loop, [&](QString text) {
         qDebug() << "text download finished:" << text;
         newtimestamp = text;
     });
-    QObject::connect(&dwnloader, &DropboxDownloader::readyForNext, &loop, [&]() {
+    QObject::connect(&dwnloader, &WebDownloader::readyForNext, &loop, [&]() {
         if (!newtimestamp.isEmpty() && (newtimestamp > current)) {
             QFileInfo finfo(destDir, "barnatrees.db.7z");
             dwnloader.downloadBinFile(dataurl, finfo.absoluteFilePath());
@@ -87,7 +94,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     dwnloader.downloadText(texturl);
     auto rc = loop.exec();
     return rc;
-}*/
+}
 
 QString localDatabaseFile(bool& dbFileNew)
 {
@@ -127,6 +134,7 @@ QString localDatabaseFile(bool& dbFileNew)
         } catch (const Q7z::SevenZipException &e) {
             qWarning() << e.message();
             cmpfile.close();
+            QFile::remove(cmpfileinfo.absoluteFilePath());
         }
         if (QFile::exists(destDir.absoluteFilePath("barnatrees.txt"))) {
             QFile::remove(destDir.absoluteFilePath("barnatrees.txt"));
@@ -147,13 +155,13 @@ QString localDatabaseFile(bool& dbFileNew)
         currenttimestamp = tsFile.readAll();
         tsFile.close();
 
-        /*if (!cmpfileinfo.exists()) {
+        if (!cmpfileinfo.exists()) {
             QDateTime ts = QDateTime::fromString(currenttimestamp+'Z', Qt::ISODate);
             if (ts.addDays(30) < QDateTime::currentDateTimeUtc()) {
                 qWarning() << "The database is old. Updating from the cloud.";
-                downloadFromCloud(destDir, currenttimestamp, dbFileNew);
+                downloadFromWeb(destDir, currenttimestamp, dbFileNew);
             }
-        }*/
+        }
     }
 
     QFileInfo dbFileInfo(destDir, "barnatrees.db");

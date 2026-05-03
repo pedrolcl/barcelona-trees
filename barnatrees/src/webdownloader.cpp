@@ -1,6 +1,6 @@
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2025 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2026 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,16 +16,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#include "webdownloader.h"
 #include <QDebug>
-#include "dropboxdownloader.h"
 
-DropboxDownloader::DropboxDownloader(QObject* parent) :QObject(parent)
+WebDownloader::WebDownloader(QObject *parent)
+    : QObject(parent)
 { }
 
-DropboxDownloader::~DropboxDownloader()
-{ }
+WebDownloader::~WebDownloader() {}
 
-void DropboxDownloader::downloadText(QUrl url)
+void WebDownloader::downloadText(QUrl url)
 {
     if (m_networkReply) {
         qWarning() << "Error: another download is running";
@@ -36,7 +36,7 @@ void DropboxDownloader::downloadText(QUrl url)
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
 #endif
     m_networkReply = m_nam.get(request);
-    connect(m_networkReply, &QObject::destroyed, this, &DropboxDownloader::readyForNext);
+    connect(m_networkReply, &QObject::destroyed, this, &WebDownloader::readyForNext);
     connect(m_networkReply, &QNetworkReply::finished, this, [&]() {
         if (m_networkReply->error() == QNetworkReply::NoError) {
             int status = m_networkReply->attribute( QNetworkRequest::HttpStatusCodeAttribute ).toInt();
@@ -52,7 +52,7 @@ void DropboxDownloader::downloadText(QUrl url)
     });
 }
 
-void DropboxDownloader::downloadBinFile(QUrl url, QString fileName)
+void WebDownloader::downloadBinFile(QUrl url, QString fileName)
 {
     if (m_networkReply) {
         qWarning() << "Error: another download is running";
@@ -68,26 +68,29 @@ void DropboxDownloader::downloadBinFile(QUrl url, QString fileName)
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
 #endif
     m_networkReply = m_nam.get(request);
-    connect(m_networkReply, &QIODevice::readyRead, this, &DropboxDownloader::readData);
-    connect(m_networkReply, &QNetworkReply::downloadProgress, this, &DropboxDownloader::downloadProgress);
-    connect(m_networkReply, &QNetworkReply::finished, this, &DropboxDownloader::finishDownload);
-    //connect(m_networkReply, &QObject::destroyed, this, &DropboxDownloader::readyForNext);
+    connect(m_networkReply, &QIODevice::readyRead, this, &WebDownloader::readData);
+    connect(m_networkReply,
+            &QNetworkReply::downloadProgress,
+            this,
+            &WebDownloader::downloadProgress);
+    connect(m_networkReply, &QNetworkReply::finished, this, &WebDownloader::finishDownload);
+    //connect(m_networkReply, &QObject::destroyed, this, &WebDownloader::readyForNext);
 }
 
-void DropboxDownloader::cancelDownload()
+void WebDownloader::cancelDownload()
 {
     if (m_networkReply) {
         abortDownloadPrivate();
     }
 }
 
-void DropboxDownloader::readData()
+void WebDownloader::readData()
 {
     QByteArray data = m_networkReply->readAll();
     m_destinationFile.write(data);
 }
 
-void DropboxDownloader::finishDownload()
+void WebDownloader::finishDownload()
 {
     if (m_networkReply->error() == QNetworkReply::NoError) {
         int status = m_networkReply->attribute( QNetworkRequest::HttpStatusCodeAttribute ).toInt();
@@ -104,7 +107,7 @@ void DropboxDownloader::finishDownload()
     }
 }
 
-void DropboxDownloader::abortDownloadPrivate()
+void WebDownloader::abortDownloadPrivate()
 {
     m_networkReply->abort();
     m_networkReply->deleteLater();
