@@ -16,10 +16,6 @@ This repository contains code to produce two related programs:
 
 - **treedbcreator**. This command line program downloads and parses three complementary JSON datasets from the Open Data BCN catalog: Zone trees of the city of Barcelona, Street trees of the city of Barcelona, and Trees in the parks of the city of Barcelona, containing the names of the species and geolocation of the trees of the city of Barcelona located on public roads. The information contains, among other data, the scientific name, the common names and the addresses. This data is used to create a relational SQLite database used by the next program.
 
-Latest resources:
-- [barnatrees.txt](https://pedrolcl.github.io/barcelona-trees/barnatrees.txt)
-- [barnatrees.db.7z](https://pedrolcl.github.io/barcelona-trees/barnatrees.db.7z)
-
 - **barnatrees**. This graphic program is a data visualization and navigation tool using the database created by the other program over a map of the city of Barcelona.
 
 Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages, and can be built (using a suitable modern compiler) for the most common targets: Windows, macOS, Linux and Android operating systems.
@@ -44,6 +40,10 @@ The current release is: **Beta3 v0.0.5**
 ## treedbcreator
 
 The program does not have any command line arguments. It simply outputs at the same working directory the JSON files &quot;arbrat_viari&quot;, &quot;arbrat_zona&quot;, &quot;arbrat_parcs&quot; and &quot;barnatrees.db&quot;.
+
+Latest resources:
+- [barnatrees.txt](https://pedrolcl.github.io/barcelona-trees/barnatrees.txt)
+- [barnatrees.db.7z](https://pedrolcl.github.io/barcelona-trees/barnatrees.db.7z)
 
 <a name="barnatrees"/>
 ## barnatrees
