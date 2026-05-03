@@ -4,29 +4,18 @@ project ( barnatrees
 )
 
 include(TranslationUtils)
-include(FetchContent)
 
 if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/barnatrees.txt)
-    FetchContent_Declare ( barnatrees_timestamp
-        DOWNLOAD_NAME "barnatrees.txt"
-        DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-        DOWNLOAD_NO_EXTRACT true
-        URL "https://www.dropbox.com/s/e485ypwbdy113v9/barnatrees.txt?dl=1" )
-    FetchContent_MakeAvailable(barnatrees_timestamp)
+    file(DOWNLOAD "https://pedrolcl.github.io/barcelona-trees/barnatrees.txt" "${CMAKE_CURRENT_SOURCE_DIR}/barnatrees.txt" )
 endif()
 
 if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/barnatrees.db.7z)
-    FetchContent_Declare ( barnatrees_database
-        DOWNLOAD_NAME "barnatrees.db.7z"
-        DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-        DOWNLOAD_NO_EXTRACT true
-        URL "https://www.dropbox.com/s/7o9aa8744mwjx7i/barnatrees.db.7z?dl=1" )
-    FetchContent_MakeAvailable(barnatrees_database)
+    file(DOWNLOAD "https://pedrolcl.github.io/barcelona-trees/barnatrees.db.7z" "${CMAKE_CURRENT_SOURCE_DIR}/barnatrees.db.7z" )
 endif()
 
 set (HEADERS
     src/basemodel.h
-    src/dropboxdownloader.h
+    # src/dropboxdownloader.h
     src/gendermodel.h
     src/plantmodel.h
     src/plantproxymodel.h
@@ -38,7 +27,7 @@ set (HEADERS
 
 set (SOURCES
     src/basemodel.cpp
-    src/dropboxdownloader.cpp
+    # src/dropboxdownloader.cpp
     src/gendermodel.cpp
     src/main.cpp
     src/plantmodel.cpp

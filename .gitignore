@@ -17,6 +17,9 @@ barnatrees.txt
 *.db3
 *.7z
 
+!/docs/barnatrees.txt
+!/docs/barnatrees.db.7z
+
 # Qt-es
 object_script.*.Release
 object_script.*.Debug

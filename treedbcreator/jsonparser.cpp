@@ -1,6 +1,6 @@
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2025 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2026 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -65,7 +65,10 @@ void JsonParser::parse(OpenDataset& ds)
     m_speciesDataset.clear();
     QFile file(ds.fileName);
     if (file.exists()) {
-        file.open(QIODevice::ReadOnly);
+        bool ok = file.open(QIODevice::ReadOnly);
+        if (!ok) {
+            qFatal() << "Error opening local file:" << file.fileName();
+        }
         QByteArray data = file.readAll();
         file.close();
         m_db.transaction();

@@ -1,6 +1,6 @@
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2025 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2026 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -91,10 +91,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 QString localDatabaseFile(bool& dbFileNew)
 {
+    bool ok{false};
     QString currenttimestamp;
 
     QFile embeddedFile(":/barnatrees.txt");
-    embeddedFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    ok = embeddedFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    if (!ok) {
+        qFatal() << "Error opening embedded resource" << embeddedFile.fileName();
+    }
     QString embedded_timestamp = embeddedFile.readAll();
     embeddedFile.close();
 
@@ -113,7 +117,10 @@ QString localDatabaseFile(bool& dbFileNew)
         }
         QFile cmpfile(cmpfileinfo.absoluteFilePath());
         try {
-            cmpfile.open(QIODevice::ReadOnly);
+            ok = cmpfile.open(QIODevice::ReadOnly);
+            if (!ok) {
+                qFatal() << "Error opening compressed database" << cmpfile.fileName();
+            }
             Q7z::extractArchive(&cmpfile, destDir.absolutePath());
             cmpfile.close();
             cmpfile.remove();
@@ -133,7 +140,10 @@ QString localDatabaseFile(bool& dbFileNew)
     QFileInfo tsFileInfo(destDir, "barnatrees.txt");
     if (tsFileInfo.exists()) {
         QFile tsFile(tsFileInfo.absoluteFilePath());
-        tsFile.open(QIODevice::ReadOnly | QIODevice::Text);
+        ok = tsFile.open(QIODevice::ReadOnly | QIODevice::Text);
+        if (!ok) {
+            qFatal() << "Error opening local file" << tsFileInfo.fileName();
+        }
         currenttimestamp = tsFile.readAll();
         tsFile.close();
 
@@ -157,7 +167,10 @@ QString localDatabaseFile(bool& dbFileNew)
             QFile::remove(dbFileInfo.absoluteFilePath());
         }
         try {
-            orig.open(QIODevice::ReadOnly);
+            ok = orig.open(QIODevice::ReadOnly);
+            if (!ok) {
+                qFatal() << "Error opening compressed resource" << orig.fileName();
+            }
             Q7z::extractArchive(&orig, destDir.absolutePath());
             orig.close();
         }
@@ -176,7 +189,10 @@ QString localDatabaseFile(bool& dbFileNew)
             return QString();
         }
         QFile tsfile(tsFileInfo.absoluteFilePath());
-        tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
+        ok = tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
+        if (!ok) {
+            qFatal() << "Error opening compressed resource" << tsfile.fileName();
+        }
         tsfile.write(embedded_timestamp.toUtf8());
         tsfile.close();
     }

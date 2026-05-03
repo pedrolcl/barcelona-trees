@@ -1,6 +1,6 @@
 /*
 Barcelona Trees; a guide of the trees of Barcelona
-Copyright (C) 2019-2025 Pedro Lopez-Cabanillas <plcl@users.sf.net>
+Copyright (C) 2019-2026 Pedro Lopez-Cabanillas <plcl@users.sf.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -592,11 +592,11 @@ ApplicationWindow {
                 onTranslationChanged: (delta) => map.pan(-delta.x, -delta.y)
             }
             Shortcut {
-                sequence: StandardKey.ZoomIn
+                sequence: [ StandardKey.ZoomIn ]
                 onActivated: map.zoomLevel += 1
             }
             Shortcut {
-                sequence: StandardKey.ZoomOut
+                sequence: [ StandardKey.ZoomOut ]
                 onActivated: map.zoomLevel -= 1
             }
         }
