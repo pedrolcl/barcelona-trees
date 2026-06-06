@@ -28,7 +28,7 @@ WebDownloader::~WebDownloader() {}
 void WebDownloader::downloadText(QUrl url)
 {
     if (m_networkReply) {
-        qWarning() << "Error: another download is running";
+        qWarning() << Q_FUNC_INFO << "Error: another download is running";
         return;
     }
     QNetworkRequest request(url);
@@ -55,7 +55,7 @@ void WebDownloader::downloadText(QUrl url)
 void WebDownloader::downloadBinFile(QUrl url, QString fileName)
 {
     if (m_networkReply) {
-        qWarning() << "Error: another download is running";
+        qWarning() << Q_FUNC_INFO << "Error: another download is running";
         return;
     }
     m_destinationFile.setFileName(fileName);
@@ -74,7 +74,6 @@ void WebDownloader::downloadBinFile(QUrl url, QString fileName)
             this,
             &WebDownloader::downloadProgress);
     connect(m_networkReply, &QNetworkReply::finished, this, &WebDownloader::finishDownload);
-    //connect(m_networkReply, &QObject::destroyed, this, &WebDownloader::readyForNext);
 }
 
 void WebDownloader::cancelDownload()

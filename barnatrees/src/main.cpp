@@ -58,7 +58,7 @@ int downloadFromWeb(QDir &destDir, QString current, bool &dbFileNew)
                      &WebDownloader::downloadProgress,
                      &loop,
                      [&](qint64 received, qint64 total) {
-                         qDebug() << "%" << (1.0 * received / total) * 100.0;
+                         qDebug() << "download progress: %" << (1.0 * received / total) * 100.0;
                      });
     QObject::connect(&dwnloader, &WebDownloader::downloadError, &loop, [&](QString msg) {
         qWarning() << "download error: " << msg;
@@ -77,16 +77,18 @@ int downloadFromWeb(QDir &destDir, QString current, bool &dbFileNew)
         loop.exit();
     });
     QObject::connect(&dwnloader, &WebDownloader::downloadTextReady, &loop, [&](QString text) {
-        qDebug() << "text download finished:" << text;
         newtimestamp = text;
+        newtimestamp.remove(QChar::LineFeed);
+        qDebug() << "text download finished:" << newtimestamp;
     });
     QObject::connect(&dwnloader, &WebDownloader::readyForNext, &loop, [&]() {
         if (!newtimestamp.isEmpty() && (newtimestamp > current)) {
+            qDebug() << "downloading from the cloud:" << newtimestamp << ">" << current;
             QFileInfo finfo(destDir, "barnatrees.db.7z");
             dwnloader.downloadBinFile(dataurl, finfo.absoluteFilePath());
             dbFileNew = true;
         } else {
-            qDebug() << "Nothing newer from the cloud";
+            qDebug() << "Nothing newer from the cloud:" << newtimestamp << "<=" << current;
             dbFileNew = false;
             loop.exit();
         }
@@ -104,15 +106,17 @@ QString localDatabaseFile(bool& dbFileNew)
     QFile embeddedFile(":/barnatrees.txt");
     ok = embeddedFile.open(QIODevice::ReadOnly | QIODevice::Text);
     if (!ok) {
-        qFatal() << "Error opening embedded resource" << embeddedFile.fileName();
+        qFatal() << Q_FUNC_INFO << "Error opening embedded resource" << embeddedFile.fileName();
     }
     QString embedded_timestamp = embeddedFile.readAll();
+    embedded_timestamp.remove(QChar::LineFeed);
+    qDebug() << Q_FUNC_INFO << "embedded timestamp:" << embedded_timestamp;
     embeddedFile.close();
 
     QDir destDir = QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
     if (!destDir.exists()) {
         if (!destDir.mkpath(".")) {
-            qWarning() << "Error creating the database path";
+            qWarning() << Q_FUNC_INFO << "Error creating the database path";
             return QString();
         }
     }
@@ -126,7 +130,8 @@ QString localDatabaseFile(bool& dbFileNew)
         try {
             ok = cmpfile.open(QIODevice::ReadOnly);
             if (!ok) {
-                qFatal() << "Error opening compressed database" << cmpfile.fileName();
+                qFatal() << Q_FUNC_INFO << "Error opening compressed database"
+                         << cmpfile.fileName();
             }
             Q7z::extractArchive(&cmpfile, destDir.absolutePath());
             cmpfile.close();
@@ -150,17 +155,21 @@ QString localDatabaseFile(bool& dbFileNew)
         QFile tsFile(tsFileInfo.absoluteFilePath());
         ok = tsFile.open(QIODevice::ReadOnly | QIODevice::Text);
         if (!ok) {
-            qFatal() << "Error opening local file" << tsFileInfo.fileName();
+            qFatal() << Q_FUNC_INFO << "Error opening local file" << tsFileInfo.fileName();
         }
         currenttimestamp = tsFile.readAll();
         tsFile.close();
-
         currenttimestamp.remove(QChar::LineFeed);
+        QDateTime ts = QDateTime::fromString(currenttimestamp, Qt::ISODate);
+        if (!ts.isValid()) {
+            qFatal() << Q_FUNC_INFO
+                     << "current barnatrees.txt timestamp is invalid:" << currenttimestamp;
+        }
+        qDebug() << Q_FUNC_INFO << "current barnatrees.txt timestamp:" << currenttimestamp;
 
         if (!cmpfileinfo.exists()) {
-            QDateTime ts = QDateTime::fromString(currenttimestamp, Qt::ISODate);
             if (ts.addDays(30) < QDateTime::currentDateTimeUtc()) {
-                qWarning() << "The database is old. Updating from the cloud.";
+                qWarning() << Q_FUNC_INFO << "The database is old. Updating from the cloud.";
                 downloadFromWeb(destDir, currenttimestamp, dbFileNew);
             }
         }
@@ -170,7 +179,7 @@ QString localDatabaseFile(bool& dbFileNew)
     if (!dbFileInfo.exists() || currenttimestamp < embedded_timestamp) {
         QFile orig(":/barnatrees.db.7z");
         if (!orig.exists()) {
-            qCritical() << "barnatrees.db.7z resource is missing! aborting";
+            qCritical() << Q_FUNC_INFO << "barnatrees.db.7z resource is missing! aborting";
             return QString();
         }
         if (dbFileInfo.exists()) {
@@ -179,34 +188,34 @@ QString localDatabaseFile(bool& dbFileNew)
         try {
             ok = orig.open(QIODevice::ReadOnly);
             if (!ok) {
-                qFatal() << "Error opening compressed resource" << orig.fileName();
+                qFatal() << Q_FUNC_INFO << "Error opening compressed resource" << orig.fileName();
             }
             Q7z::extractArchive(&orig, destDir.absolutePath());
             orig.close();
         }
         catch (const Q7z::SevenZipException& e)
         {
-            qWarning() << "extract database:" << e.message();
+            qWarning() << Q_FUNC_INFO << "extract database:" << e.message();
             orig.close();
             return QString();
         }
         if(!QFile::exists(dbFileInfo.absoluteFilePath())) {
-            qWarning() << "copy database: extraction failed";
+            qWarning() << Q_FUNC_INFO << "copy database: extraction failed";
             return QString();
         }
         if (!QFile::setPermissions(dbFileInfo.absoluteFilePath(), QFile::WriteOwner | QFile::ReadOwner)) {
-            qWarning() << "database file setPermissions() failed!";
+            qWarning() << Q_FUNC_INFO << "database file setPermissions() failed!";
             return QString();
         }
         QFile tsfile(tsFileInfo.absoluteFilePath());
         ok = tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
         if (!ok) {
-            qFatal() << "Error opening compressed resource" << tsfile.fileName();
+            qFatal() << Q_FUNC_INFO << "Error opening compressed resource" << tsfile.fileName();
         }
         tsfile.write(embedded_timestamp.toUtf8());
         tsfile.close();
     }
-    qDebug() << "Database file:" << dbFileInfo.absoluteFilePath();
+    qDebug() << Q_FUNC_INFO << "Database file:" << dbFileInfo.absoluteFilePath();
     return dbFileInfo.absoluteFilePath();
 }
 
@@ -214,21 +223,24 @@ int main(int argc, char **argv)
 {
     QGuiApplication::setApplicationName("barnatrees");
     QGuiApplication::setOrganizationName("BarcelonaTrees");
-    //QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setApplicationVersion(QT_STRINGIFY(APPVER));
+    QGuiApplication::setDesktopFileName("barnatrees");
     QGuiApplication app(argc,argv);
     app.setWindowIcon(QIcon(":/barnatrees_icon64.png"));
     QIcon::setThemeName("example");
 
-    qDebug()<<"version:" << QT_STRINGIFY(APPVER) << QT_STRINGIFY(GITVER);
-    //qDebug()<<"SSL version use for build: "<<QSslSocket::sslLibraryBuildVersionString();
-    //qDebug()<<"SSL version use for run-time: "<<QSslSocket::sslLibraryVersionString();
+    qDebug() << Q_FUNC_INFO << "version:" << QT_STRINGIFY(APPVER) << QT_STRINGIFY(GITVER);
+    qDebug() << Q_FUNC_INFO
+             << "SSL version for build: " << QSslSocket::sslLibraryBuildVersionString();
+    qDebug() << Q_FUNC_INFO
+             << "SSL version for run-time: " << QSslSocket::sslLibraryVersionString();
 
 #if !defined(Q_OS_ANDROID)
     SplashWindow splash;
     splash.setMessage("Barcelona Trees v" QT_STRINGIFY(APPVER));
     splash.show();
     QCoreApplication::processEvents();
+    qDebug() << "Barcelona Trees v" << QT_STRINGIFY(APPVER);
 #endif
 
     QSettings settings;
@@ -243,17 +255,19 @@ int main(int argc, char **argv)
     QTranslator trq;
     QTranslator trp;
     QLocale locale(configuredLanguage);
-    //qDebug() << "locale:" << locale;
+    qDebug() << "locale:" << locale << configuredLanguage;
     if ((locale.language() != QLocale::C) && (locale.language() != QLocale::English)) {
         if (trq.load(locale, QLatin1String("qt"), QLatin1String("_"), QLatin1String(":/"))) {
             QCoreApplication::installTranslator(&trq);
         } else {
-            qWarning() << "Failure loading Qt translations for" << configuredLanguage;
+            qWarning() << Q_FUNC_INFO << "Failure loading Qt translations for"
+                       << configuredLanguage;
         }
         if (trp.load(locale, QLatin1String("barnatrees"), QLatin1String("_"), QLatin1String(":/"))) {
             QCoreApplication::installTranslator(&trp);
         } else {
-            qWarning() << "Failure loading program translations for" << configuredLanguage;
+            qWarning() << Q_FUNC_INFO << "Failure loading program translations for"
+                       << configuredLanguage;
         }
         QLocale::setDefault(locale);
     }
