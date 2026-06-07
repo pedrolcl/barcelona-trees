@@ -58,37 +58,39 @@ int downloadFromWeb(QDir &destDir, QString current, bool &dbFileNew)
                      &WebDownloader::downloadProgress,
                      &loop,
                      [&](qint64 received, qint64 total) {
-                         qDebug() << "download progress: %" << (1.0 * received / total) * 100.0;
+                         qDebug() << "downloadFromWeb progress: %"
+                                  << (1.0 * received / total) * 100.0;
                      });
     QObject::connect(&dwnloader, &WebDownloader::downloadError, &loop, [&](QString msg) {
-        qWarning() << "download error: " << msg;
+        qWarning() << "downloadFromWeb error: " << msg;
         loop.exit(-1);
     });
     QObject::connect(&dwnloader, &WebDownloader::downloadSuccessful, &loop, [&]() {
-        qDebug() << "download finished";
+        qDebug() << "downloadFromWeb finished";
         QFile tsfile(destDir.absoluteFilePath("barnatrees.txt.remote"));
         bool ok = tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
         if (ok) {
             tsfile.write(newtimestamp.toUtf8());
             tsfile.close();
         } else {
-            qWarning() << "Error opening output file" << tsfile.fileName();
+            qWarning() << "downloadFromWeb Error opening output file" << tsfile.fileName();
         }
         loop.exit();
     });
     QObject::connect(&dwnloader, &WebDownloader::downloadTextReady, &loop, [&](QString text) {
         newtimestamp = text;
         newtimestamp.remove(QChar::LineFeed);
-        qDebug() << "text download finished:" << newtimestamp;
+        qDebug() << "downloadFromWeb text finished:" << newtimestamp;
     });
     QObject::connect(&dwnloader, &WebDownloader::readyForNext, &loop, [&]() {
         if (!newtimestamp.isEmpty() && (newtimestamp > current)) {
-            qDebug() << "downloading from the cloud:" << newtimestamp << ">" << current;
+            qDebug() << "downloadFromWeb from the cloud:" << newtimestamp << ">" << current;
             QFileInfo finfo(destDir, "barnatrees.db.7z");
             dwnloader.downloadBinFile(dataurl, finfo.absoluteFilePath());
             dbFileNew = true;
         } else {
-            qDebug() << "Nothing newer from the cloud:" << newtimestamp << "<=" << current;
+            qDebug() << "downloadFromWeb Nothing newer from the cloud:" << newtimestamp
+                     << "<=" << current;
             dbFileNew = false;
             loop.exit();
         }
@@ -116,14 +118,19 @@ QString localDatabaseFile(bool& dbFileNew)
     QDir destDir = QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
     if (!destDir.exists()) {
         if (!destDir.mkpath(".")) {
-            qWarning() << Q_FUNC_INFO << "Error creating the database path";
+            qWarning() << Q_FUNC_INFO << "Error creating the database path"
+                       << destDir.absolutePath();
             return QString();
         }
     }
+    qDebug() << Q_FUNC_INFO << "using destdir:" << destDir.absolutePath();
 
     QFileInfo cmpfileinfo(destDir, "barnatrees.db.7z");
+    qDebug() << Q_FUNC_INFO << cmpfileinfo.fileName() << "exists:" << cmpfileinfo.exists();
+
     if (cmpfileinfo.exists()) {
         if (QFile::exists(destDir.absoluteFilePath("barnatrees.db"))) {
+            qDebug() << Q_FUNC_INFO << "removing old barnatrees.db";
             QFile::remove(destDir.absoluteFilePath("barnatrees.db"));
         }
         QFile cmpfile(cmpfileinfo.absoluteFilePath());
@@ -136,21 +143,26 @@ QString localDatabaseFile(bool& dbFileNew)
             Q7z::extractArchive(&cmpfile, destDir.absolutePath());
             cmpfile.close();
             cmpfile.remove();
+            qDebug() << Q_FUNC_INFO << "new remote barnatrees.db";
         } catch (const Q7z::SevenZipException &e) {
-            qWarning() << e.message();
+            qWarning() << Q_FUNC_INFO << e.message();
             cmpfile.close();
             QFile::remove(cmpfileinfo.absoluteFilePath());
         }
         if (QFile::exists(destDir.absoluteFilePath("barnatrees.txt"))) {
+            qDebug() << Q_FUNC_INFO << "removing old barnatrees.txt";
             QFile::remove(destDir.absoluteFilePath("barnatrees.txt"));
         }
         if (QFile::exists(destDir.absoluteFilePath("barnatrees.txt.remote"))) {
             QFile::rename(destDir.absoluteFilePath("barnatrees.txt.remote"),
                           destDir.absoluteFilePath("barnatrees.txt"));
+            qDebug() << Q_FUNC_INFO << "new remote barnatrees.txt";
         }
     }
 
     QFileInfo tsFileInfo(destDir, "barnatrees.txt");
+    qDebug() << Q_FUNC_INFO << tsFileInfo.fileName() << "exists:" << tsFileInfo.exists();
+
     if (tsFileInfo.exists()) {
         QFile tsFile(tsFileInfo.absoluteFilePath());
         ok = tsFile.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -176,13 +188,16 @@ QString localDatabaseFile(bool& dbFileNew)
     }
 
     QFileInfo dbFileInfo(destDir, "barnatrees.db");
-    if (!dbFileInfo.exists() || currenttimestamp < embedded_timestamp) {
+    qDebug() << Q_FUNC_INFO << dbFileInfo.fileName() << "exists:" << dbFileInfo.exists();
+
+    if (!dbFileInfo.exists()) {
         QFile orig(":/barnatrees.db.7z");
         if (!orig.exists()) {
             qCritical() << Q_FUNC_INFO << "barnatrees.db.7z resource is missing! aborting";
             return QString();
         }
         if (dbFileInfo.exists()) {
+            qDebug() << Q_FUNC_INFO << "removing old" << dbFileInfo.fileName();
             QFile::remove(dbFileInfo.absoluteFilePath());
         }
         try {
@@ -192,6 +207,7 @@ QString localDatabaseFile(bool& dbFileNew)
             }
             Q7z::extractArchive(&orig, destDir.absolutePath());
             orig.close();
+            qDebug() << Q_FUNC_INFO << dbFileInfo.fileName() << "extracted";
         }
         catch (const Q7z::SevenZipException& e)
         {
@@ -207,13 +223,18 @@ QString localDatabaseFile(bool& dbFileNew)
             qWarning() << Q_FUNC_INFO << "database file setPermissions() failed!";
             return QString();
         }
-        QFile tsfile(tsFileInfo.absoluteFilePath());
-        ok = tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
-        if (!ok) {
-            qFatal() << Q_FUNC_INFO << "Error opening compressed resource" << tsfile.fileName();
+
+        if (!tsFileInfo.exists()) {
+            qDebug() << Q_FUNC_INFO << "writting" << tsFileInfo.fileName();
+            QFile tsfile(tsFileInfo.absoluteFilePath());
+            ok = tsfile.open(QIODevice::WriteOnly | QIODevice::Text);
+            if (!ok) {
+                qFatal() << Q_FUNC_INFO << "Error opening output file" << tsfile.fileName();
+            }
+            tsfile.write(embedded_timestamp.toUtf8());
+            tsfile.close();
+            qDebug() << Q_FUNC_INFO << tsFileInfo.fileName() << "created";
         }
-        tsfile.write(embedded_timestamp.toUtf8());
-        tsfile.close();
     }
     qDebug() << Q_FUNC_INFO << "Database file:" << dbFileInfo.absoluteFilePath();
     return dbFileInfo.absoluteFilePath();
