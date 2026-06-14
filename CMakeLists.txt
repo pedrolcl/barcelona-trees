@@ -31,3 +31,38 @@ if (NOT ANDROID)
 endif()
 
 add_subdirectory ( barnatrees )
+
+if(MSVC)
+    qt_generate_deploy_qml_app_script(
+        TARGET barnatrees
+        OUTPUT_SCRIPT deploy_script
+        NO_UNSUPPORTED_PLATFORM_ERROR
+        NO_COMPILER_RUNTIME
+    )
+    include ( InstallRequiredSystemLibraries )
+else()
+    qt_generate_deploy_qml_app_script(
+        TARGET barnatrees
+        OUTPUT_SCRIPT deploy_script
+        NO_UNSUPPORTED_PLATFORM_ERROR
+    )
+endif()
+install(SCRIPT ${deploy_script})
+
+if (CMAKE_SYSTEM_NAME MATCHES "Linux" AND DEFINED ENV{DESTDIR})
+    # AppDir symlinks
+    string(REPLACE "/" "" RELPREF ${CMAKE_INSTALL_PREFIX})
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_BINDIR}/barnatrees $ENV{DESTDIR}/AppRun)"
+        COMPONENT sonivoxeas_runtime)
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_DATAROOTDIR}/applications/barnatrees.desktop $ENV{DESTDIR}/barnatrees.desktop)"
+        COMPONENT sonivoxeas_runtime)
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_DATAROOTDIR}/icons/barnatrees.png $ENV{DESTDIR}/barnatrees.png)"
+        COMPONENT sonivoxeas_runtime)
+endif()
+
+if (DEFINED ENV{GITHUB_OUTPUT})
+    file(APPEND
+        "$ENV{GITHUB_OUTPUT}"
+        "config_version=${PROJECT_VERSION}\n"
+    )
+endif()
