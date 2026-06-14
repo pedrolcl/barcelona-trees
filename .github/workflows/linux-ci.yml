@@ -44,12 +44,12 @@ jobs:
         cmake --install ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Compress AppDir
-      run: tar -cvf barcelona-trees-v0.0.6-x86_64.tar.gz ${{env.DESTDIR}}
+      run: tar -cvzf -C ${{github.workspace}} barcelona-trees-v0.0.6-x86_64.AppDir.tar.gz barcelona-trees-v0.0.6-x86_64.AppDir
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v7
       with:
-        path: barcelona-trees-v0.0.6-x86_64.tar.gz
+        path: barcelona-trees-v0.0.6-x86_64.AppDir.tar.gz
         archive: false
         retention-days: 90
         overwrite: true
