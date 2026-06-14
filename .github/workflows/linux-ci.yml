@@ -29,6 +29,9 @@ jobs:
         # Core Sql Network Gui Quick QuickControls2 Qml Positioning Location LinguistTools
         modules: 'qtlocation qtpositioning'
 
+    - name: Dependencies
+      run: sudo apt-get update && sudo apt-get install -yq libarchive-dev
+
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
