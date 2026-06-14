@@ -9,7 +9,7 @@ on:
 
 env:
   BUILD_TYPE: RelWithDebInfo
-  DESTDIR: barcelona-trees-v0.0.6-x86_64.AppDir
+  DESTDIR: ${{github.workspace}}/barcelona-trees-v0.0.6-x86_64.AppDir
 
 jobs:
   build:
@@ -27,7 +27,6 @@ jobs:
         host: 'linux'
         target: 'desktop'
         arch: 'linux_gcc_64'
-        # Core Sql Network Gui Quick QuickControls2 Qml Positioning Location LinguistTools
         modules: 'qtlocation qtpositioning'
 
     - name: Dependencies
