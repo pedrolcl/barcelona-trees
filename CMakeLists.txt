@@ -38,6 +38,7 @@ if(MSVC)
         OUTPUT_SCRIPT deploy_script
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_COMPILER_RUNTIME
+        NO_TRANSLATIONS
     )
     include ( InstallRequiredSystemLibraries )
 else()
@@ -45,19 +46,19 @@ else()
         TARGET barnatrees
         OUTPUT_SCRIPT deploy_script
         NO_UNSUPPORTED_PLATFORM_ERROR
+        NO_TRANSLATIONS
     )
 endif()
 install(SCRIPT ${deploy_script})
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux" AND DEFINED ENV{DESTDIR})
+    message("DESTDIR: $ENV{DESTDIR}")
+    file(MAKE_DIRECTORY $ENV{DESTDIR})
     # AppDir symlinks
     string(REPLACE "/" "" RELPREF ${CMAKE_INSTALL_PREFIX})
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_BINDIR}/barnatrees $ENV{DESTDIR}/AppRun)"
-        COMPONENT sonivoxeas_runtime)
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_DATAROOTDIR}/applications/barnatrees.desktop $ENV{DESTDIR}/barnatrees.desktop)"
-        COMPONENT sonivoxeas_runtime)
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_DATAROOTDIR}/icons/barnatrees.png $ENV{DESTDIR}/barnatrees.png)"
-        COMPONENT sonivoxeas_runtime)
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_BINDIR}/barnatrees $ENV{DESTDIR}/AppRun)")
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_DATAROOTDIR}/applications/barnatrees.desktop $ENV{DESTDIR}/barnatrees.desktop)")
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_DATAROOTDIR}/icons/barnatrees.png $ENV{DESTDIR}/barnatrees.png)")
 endif()
 
 if (DEFINED ENV{GITHUB_OUTPUT})
@@ -66,3 +67,35 @@ if (DEFINED ENV{GITHUB_OUTPUT})
         "config_version=${PROJECT_VERSION}\n"
     )
 endif()
+
+# CPack support
+set ( CPACK_SYSTEM_NAME ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR} )
+set ( CPACK_PACKAGE_DESCRIPTION_SUMMARY "Barcelona Trees" )
+set ( CPACK_PACKAGE_VENDOR "https://pedrolcl.github.io/barcelona-trees" )
+set ( CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/README.md" )
+set ( CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE" )
+set ( CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR} )
+set ( CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR} )
+set ( CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH} )
+set ( CPACK_PACKAGE_EXECUTABLES "barnatrees" "treedbcreator" )
+
+# source packages
+set ( CPACK_SOURCE_IGNORE_FILES "/.git/;/build/;~$;${CPACK_SOURCE_IGNORE_FILES}" )
+set ( CPACK_SOURCE_PACKAGE_FILE_NAME "${PROJECT-NAME}-${PROJECT_VERSION}" )
+set ( CPACK_SOURCE_STRIP_FILES OFF )
+
+# binary packages
+set ( CPACK_PACKAGE_NAME ${PROJECT-NAME} )
+set ( CPACK_STRIP_FILES ON )
+
+# Windows NSIS setup package
+if (WIN32)
+    set (CPACK_NSIS_DISPLAY_NAME "Barcelona Trees")
+    set (CPACK_NSIS_WELCOME_TITLE_3LINES ON)
+    set (CPACK_NSIS_FINISH_TITLE_3LINES ON)
+    set (CPACK_NSIS_HELP_LINK "https://github.com/pedrolcl/barcelona-trees")
+    set (CPACK_NSIS_URL_INFO_ABOUT "https://pedrolcl.github.io/barcelona-trees")
+    set (CPACK_NSIS_CONTACT "plcl@users.sf.net")
+endif ()
+
+include ( CPack )
