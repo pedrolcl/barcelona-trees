@@ -30,7 +30,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.11.*'
+        version: '6.10.*'
         target: 'desktop'
         use-official: true
         modules: 'qtlocation qtpositioning'
@@ -84,6 +84,6 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: BarcelonaTrees-msvc-installer-${{matrix.arch}}
-        path: ${{github.workspace}}/build/barnatrees-${{steps.configuration.outputs.config_version}}-Windows-*.exe
+        path: ${{github.workspace}}/build/barcelona-trees-${{steps.configuration.outputs.config_version}}-Windows-*.exe
         retention-days: 90
         overwrite: true
