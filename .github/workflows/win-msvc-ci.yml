@@ -46,10 +46,10 @@ jobs:
       with:
         nsis-version: '3.11'
 
-    - name: '${{ matrix.icon }} Setup MSVC'
-      uses: ilammy/msvc-dev-cmd@v1
-      with:
-        arch: ${{ matrix.arch }}
+    # - name: '${{ matrix.icon }} Setup MSVC'
+    #   uses: ilammy/msvc-dev-cmd@v1
+    #   with:
+    #     arch: ${{ matrix.arch }}
 
     - name: '${{ matrix.icon }} Configure CMake'
       id: configuration
@@ -82,6 +82,6 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: BarcelonaTrees-msvc-installer-${{matrix.arch}}
-        path: ${{github.workspace}}/build/barnatrees-${{steps.configuration.outputs.config_version}}-${{matrix.arch}}.exe
+        path: ${{github.workspace}}/build/barnatrees-${{steps.configuration.outputs.config_version}}-Windows-*.exe
         retention-days: 90
         overwrite: true
