@@ -2,10 +2,10 @@ name: Windows MSVC CI
 
 on:
   workflow_dispatch:
-# push:
-#   branches: [ "master", "develop" ]
-# pull_request:
-#   branches: [ "master", "develop" ]
+  push:
+    branches: [ "master", "develop" ]
+  pull_request:
+    branches: [ "master", "develop" ]
 
 env:
   BUILD_TYPE: RelWithDebInfo
@@ -23,12 +23,12 @@ jobs:
     name: 🚧${{ matrix.icon }} msvc ${{ matrix.arch }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         submodules: true
 
     - name: '${{ matrix.icon }} Build vcpkg'
-      uses: johnwason/vcpkg-action@v7
+      uses: johnwason/vcpkg-action@v8
       id: vcpkg
       with:
         pkgs: libarchive qtbase qttools qttranslations qtlocation qtpositioning
@@ -36,7 +36,7 @@ jobs:
         token: ${{ github.token }}
 
     - name: '${{ matrix.icon }} Install NSIS'
-      uses: repolevedavaj/install-nsis@v1.1.0
+      uses: repolevedavaj/install-nsis@v1.2.1
       with:
         nsis-version: '3.11'
 
@@ -65,7 +65,7 @@ jobs:
       run: cmake --install ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: '${{ matrix.icon }} Upload Artifacts'
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: BarcelonaTrees-msvc-${{matrix.arch}}
         path: ${{env.INSTALL_LOCATION}}
@@ -73,7 +73,7 @@ jobs:
         overwrite: true
 
     - name: '${{ matrix.icon }} Upload Installer'
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: BarcelonaTrees-msvc-installer-${{matrix.arch}}
         path: ${{github.workspace}}/build/barnatrees-${{steps.configuration.outputs.config_version}}-${{matrix.arch}}.exe

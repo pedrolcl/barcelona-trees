@@ -2,10 +2,10 @@ name: Windows MSYS2 CI
 
 on:
   workflow_dispatch:
-# push:
-#   branches: [ "develop", "master" ]
-# pull_request:
-#   branches: [ "develop", "master" ]
+  push:
+    branches: [ "develop", "master" ]
+  pull_request:
+    branches: [ "develop", "master" ]
 
 env:
   BUILD_TYPE: RelWithDebInfo
@@ -17,7 +17,6 @@ jobs:
         fail-fast: false
         matrix:
           include:
-            # { icon: '⬛', sys: mingw32 } # There are no 32 bit packages for Qt6 in msys2 anymore
             - { icon: '🟦', sys: mingw64,    os: windows-latest }
             - { icon: '🟨', sys: ucrt64,     os: windows-latest }
             - { icon: '🟧', sys: clang64,    os: windows-latest }
@@ -49,42 +48,22 @@ jobs:
           qt6-positioning:p
 
     - name: '${{ matrix.icon }} Install NSIS'
-      uses: repolevedavaj/install-nsis@v1.1.0
+      uses: repolevedavaj/install-nsis@v1.2.1
       with:
         nsis-version: '3.11'
 
     - name: '${{ matrix.icon }} Checkout'
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         submodules: true
-
-    - name: '${{ matrix.icon }} Download Drumstick'
-      uses: dawidd6/action-download-artifact@v11
-      with:
-        name: ${{env.DRUMSTICK}}-${{matrix.sys}}
-        github_token: ${{secrets.GH_PAT}}
-        repo: pedrolcl/drumstick
-        allow_forks: false
-        workflow: cmake-win.yml
-        branch: devel
-
-    - name: '${{ matrix.icon }} Convert Drumstick location'
-      id: cnv
-      run: echo "dependencies=$(cygpath -m $MSYSTEM_PREFIX/bin);$(cygpath -m '${{github.workspace}}/${{env.DRUMSTICK}}/bin')" >> $GITHUB_OUTPUT
-
-    - name: '${{ matrix.icon }} Extract Drumstick'
-      run: tar xvf ${{env.DRUMSTICK}}.tar
 
     - name: '${{ matrix.icon }} Configure CMake'
       id: configuration
       run: >
         cmake -B build
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-        -DCMAKE_PREFIX_PATH="${{env.DRUMSTICK}}"
         -DCMAKE_INSTALL_PREFIX=${{env.INSTALL_LOCATION}}
         -DCPACK_SYSTEM_NAME=${{matrix.sys}}
-        -DDEPENDENCY_DIRS="${{steps.cnv.outputs.dependencies}}"
-        -DINSTALL_DEPENDENCIES=ON
 
     - name: '${{ matrix.icon }} Build'
       run: cmake --build build --config ${{env.BUILD_TYPE}}
@@ -99,7 +78,7 @@ jobs:
       run: tar cvf ${{env.INSTALL_LOCATION}}.tar ${{env.INSTALL_LOCATION}}
 
     - name: '${{ matrix.icon }} Upload Artifacts'
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: ${{env.INSTALL_LOCATION}}-msys2-${{matrix.sys}}
         path: ${{env.INSTALL_LOCATION}}.tar
@@ -107,7 +86,7 @@ jobs:
         overwrite: true
 
     - name: '${{ matrix.icon }} Upload Installer'
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: BarcelonaTrees-installer-${{matrix.sys}}
         path: ${{github.workspace}}/build/barnatrees-${{steps.configuration.outputs.config_version}}-${{matrix.sys}}.exe
