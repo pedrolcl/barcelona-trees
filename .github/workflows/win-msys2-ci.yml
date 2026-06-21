@@ -2,10 +2,10 @@ name: Windows MSYS2 CI
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "develop", "master" ]
-  pull_request:
-    branches: [ "develop", "master" ]
+  # push:
+  #   branches: [ "develop", "master" ]
+  # pull_request:
+  #   branches: [ "develop", "master" ]
 
 env:
   BUILD_TYPE: RelWithDebInfo

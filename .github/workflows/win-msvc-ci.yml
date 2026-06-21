@@ -27,11 +27,17 @@ jobs:
       with:
         submodules: true
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.11.*'
+        modules: 'qtlocation qtpositioning'
+
     - name: '${{ matrix.icon }} Build vcpkg'
       uses: johnwason/vcpkg-action@v8
       id: vcpkg
       with:
-        pkgs: libarchive qtbase qttools qttranslations qtlocation qtpositioning
+        pkgs: libarchive #qtbase qttools qttranslations qtlocation qtpositioning
         triplet: ${{ matrix.triplet }}
         token: ${{ github.token }}
 
