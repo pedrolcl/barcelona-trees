@@ -9,11 +9,10 @@ on:
 
 env:
   BUILD_TYPE: RelWithDebInfo
-  DESTDIR: ${{github.workspace}}/barcelona-trees-v0.0.6-x86_64.AppDir
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v6
@@ -33,12 +32,15 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -yq libarchive-dev
 
     - name: Configure CMake
+      id: configuration
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Install
+      env:
+        DESTDIR: ${{github.workspace}}/barcelona-trees-v${{steps.configuration.outputs.config_version}}-x86_64.AppDir
       run: |
         mkdir -p ${{env.DESTDIR}}
         cmake --install ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
@@ -46,12 +48,12 @@ jobs:
     - name: Compress AppDir
       run: |
         cd ${{github.workspace}}
-        tar -cvzf barcelona-trees-v0.0.6-x86_64.AppDir.tar.gz barcelona-trees-v0.0.6-x86_64.AppDir
+        tar -cvzf barcelona-trees-v${{steps.configuration.outputs.config_version}}-x86_64.AppDir.tar.gz barcelona-trees-v${{steps.configuration.outputs.config_version}}-x86_64.AppDir
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v7
       with:
-        path: barcelona-trees-v0.0.6-x86_64.AppDir.tar.gz
+        path: barcelona-trees-v${{steps.configuration.outputs.config_version}}-x86_64.AppDir.tar.gz
         archive: false
         retention-days: 90
         overwrite: true
