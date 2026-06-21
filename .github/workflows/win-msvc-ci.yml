@@ -31,6 +31,8 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         version: '6.11.*'
+        target: 'desktop'
+        use-official: true
         modules: 'qtlocation qtpositioning'
 
     - name: '${{ matrix.icon }} Build vcpkg'
@@ -46,10 +48,10 @@ jobs:
       with:
         nsis-version: '3.11'
 
-    # - name: '${{ matrix.icon }} Setup MSVC'
-    #   uses: ilammy/msvc-dev-cmd@v1
-    #   with:
-    #     arch: ${{ matrix.arch }}
+    - name: '${{ matrix.icon }} Setup MSVC'
+      uses: TheMrMilchmann/setup-msvc-dev@v4
+      with:
+        arch: ${{ matrix.arch }}
 
     - name: '${{ matrix.icon }} Configure CMake'
       id: configuration
