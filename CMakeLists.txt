@@ -39,6 +39,7 @@ if(MSVC)
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_COMPILER_RUNTIME
         NO_TRANSLATIONS
+        EXCLUDE_PLUGINS qtposition_nmea
     )
     include ( InstallRequiredSystemLibraries )
 else()
@@ -47,6 +48,7 @@ else()
         OUTPUT_SCRIPT deploy_script
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_TRANSLATIONS
+        EXCLUDE_PLUGINS qtposition_nmea
     )
 endif()
 install(SCRIPT ${deploy_script})

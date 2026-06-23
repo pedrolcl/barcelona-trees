@@ -24,11 +24,8 @@ target_compile_definitions( treedbcreator PRIVATE
 )
 
 set_target_properties( treedbcreator PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
+    MACOSX_BUNDLE FALSE
+    WIN32_EXECUTABLE FALSE
 )
 
 target_link_libraries( treedbcreator PRIVATE
@@ -39,7 +36,16 @@ target_link_libraries( treedbcreator PRIVATE
 )
 
 install(TARGETS treedbcreator
+    RUNTIME_DEPENDENCY_SET treedbcreator-dependencies
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     BUNDLE DESTINATION .
 )
+
+if (DEFINED DEPENDENCY_DIRS AND WIN32)
+    install(RUNTIME_DEPENDENCY_SET treedbcreator-dependencies
+        PRE_INCLUDE_REGEXES "archive.*" "z.*" "bz2.*" "liblzma.*" "libcrypto-.*" "lz4.*" "zstd.*"
+        PRE_EXCLUDE_REGEXES ".*"
+        DIRECTORIES ${DEPENDENCY_DIRS}
+    )
+endif()
