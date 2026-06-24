@@ -146,6 +146,9 @@ if (UNIX AND NOT APPLE)
         DESTINATION ${CMAKE_INSTALL_DATADIR}/icons
         RENAME barnatrees.png
     )
+    install( FILES io.github.pedrolcl.barnatrees.metainfo.xml
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
+    )
 endif()
 
 if(ANDROID)

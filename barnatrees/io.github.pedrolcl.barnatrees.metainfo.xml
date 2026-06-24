@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.pedrolcl.barnatrees</id>
+
+  <name>Barcelona Trees</name>
+  <summary>A Guide of the trees of Barcelona city</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <description>
+    <p>
+    This program is a data visualization and navigation tool using a database created from datasets provided by the Barcelona city council over a map of the city of Barcelona.
+    </p>
+    <p>
+    The motivation of this program is to help answering questions such as:
+    </p>
+    <ul>
+    <li>What trees are nearby? (from manual location or GPS)</li>
+    <li>What trees are on a given street?</li>
+    <li>Where can I find specimens of a certain genus/species?</li>
+    <li>For each specimen, obtain more information about its species from existing data on Wikipedia and public images.</li>
+    </ul>
+  </description>
+  <content_rating type="oars-1.1" />
+  <launchable type="desktop-id">barnatrees.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://github.com/pedrolcl/barcelona-trees/blob/develop/docs/screenshot.png</image>
+      <caption>Main window</caption>
+    </screenshot>
+  </screenshots>
+  <developer_name>Pedro López-Cabanillas</developer_name>
+  <update_contact>plcl_AT_users.sourceforge.net</update_contact>
+  <url type="homepage">https://pedrolcl.github.io/barcelona-trees</url>
+  <url type="bugtracker">https://github.com/pedrolcl/barcelona-trees/issues</url>
+  <url type="vcs-browser">https://github.com/pedrolcl/barcelona-trees</url>
+  <url type="contact">https://github.com/pedrolcl/barcelona-trees/discussions</url>
+  <releases>
+   <release type="development" version="0.0.6" date="2026-06-24"/>
+   <release type="development" version="0.0.5" date="2023-08-05"/>
+   <release type="development" version="0.0.4" date="2022-03-17"/>
+   <release type="development" version="0.0.3" date="2020-02-17"/>
+ </releases>
+</component>
