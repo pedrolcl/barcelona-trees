@@ -26,18 +26,19 @@ Both programs use the [Qt framework](https://www.qt.io/), C++ and QML languages,
 
 ## downloads
 
-The current release is: **Beta3 v0.0.5**
+The current release is: **Beta4 v0.0.6**
 
-![GitHub All Releases](https://img.shields.io/github/downloads/pedrolcl/barcelona-trees/total) 
+[![Download Barcelona Trees](https://img.shields.io/sourceforge/dt/barcelona-trees.svg)](https://sourceforge.net/projects/barcelona-trees/files/latest/download) 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
  Platform | arch  | files    
 ----------|-------|----------
- android  | all   | [apk](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.5/barnatrees-beta3-android.apk) 
- linux    | x64   | [AppImage](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.5/barnatrees-beta3-x86_64.AppImage)
- windows  | x64   | [msi](https://github.com/pedrolcl/barcelona-trees/releases/download/v0.0.5/barnatrees-beta3-windows-x64.msi)
- sources  | all   | [zip](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.5.zip)
- sources  | all   | [tar.gz](https://github.com/pedrolcl/barcelona-trees/archive/v0.0.5.tar.gz)
+ android  | all   | [apk](https://sourceforge.net/projects/barcelona-trees/files/v0.0.6/barcelona-trees-0.0.6-android.apk/download)
+ linux    | x64   | [AppImage](https://sourceforge.net/projects/barcelona-trees/files/v0.0.6/barcelona-trees-v0.0.6-x86_64.AppImage/download)
+ windows  | arm64 | [exe](https://sourceforge.net/projects/barcelona-trees/files/v0.0.6/barcelona-trees-0.0.6-Windows-ARM64.exe/download)
+ windows  | x64   | [exe](https://sourceforge.net/projects/barcelona-trees/files/v0.0.6/barcelona-trees-0.0.6-Windows-AMD64.exe/download)
+ sources  | all   | [zip](https://sourceforge.net/projects/barcelona-trees/files/v0.0.6/barcelona-trees-0.0.6.zip/download)
+ sources  | all   | [tar.gz](https://sourceforge.net/projects/barcelona-trees/files/v0.0.6/barcelona-trees-0.0.6.tar.gz/download)
 
 ## treedbcreator
 
