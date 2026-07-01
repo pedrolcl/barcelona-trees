@@ -39,9 +39,11 @@ signals:
     void done();
 
 private:
-    void parseJson(const QByteArray& text);
-    void parse(OpenDataset& ds);
-    void process(const TreeData& data);
+    void parseJsonTrees(const QByteArray& text);
+    void parseJsonSpecies(const QByteArray& text);
+    void parseTreesDataset(OpenDataset& ds);
+    void parseSpeciesDataset(OpenDataset& ds);
+    void processTreeData(const TreeData& data);
     void update(OpenDataset& ds);
     void updateDB();
 

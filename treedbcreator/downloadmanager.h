@@ -59,6 +59,7 @@ public:
     QString saveFileName(const QUrl &url) const;
     bool isHttpRedirect(QNetworkReply *reply) const;
     void saveToDisk(const QString &filename, QIODevice *data);
+    void extractToDisk(const QString &filename, QIODevice *data);
 
 public slots:
     void execute();

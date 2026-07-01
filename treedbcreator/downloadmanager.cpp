@@ -87,6 +87,29 @@ QString DownloadManager::saveFileName(const QUrl &url) const
 void DownloadManager::saveToDisk(const QString &filename, QIODevice *data)
 {
     //qDebug() << Q_FUNC_INFO << filename;
+	m_currentFileName = filename;
+	
+    QFile file(m_currentFileName);
+    if (!file.open(QIODevice::WriteOnly)) {
+        qWarning() << "Could not open" << m_currentFileName << "for writing:" << file.errorString();
+    } else {
+		file.write(data->readAll());
+		file.close();
+		data->close();
+		m_currentDataset.fileName = m_currentFileName;
+		emit downloadReady(m_currentDataset);
+
+		if (m_pendingDownloads.isEmpty()) {
+			emit done();
+		} else {
+			doDownload(m_pendingDownloads.takeFirst());
+		}
+	}
+}
+
+void DownloadManager::extractToDisk(const QString &filename, QIODevice *data)
+{
+    //qDebug() << Q_FUNC_INFO << filename;
     m_currentFileName = filename;
     m_currentBuffer.setData(data->readAll());
     m_extractor.setArchive(&m_currentBuffer);
@@ -172,10 +195,13 @@ void DownloadManager::downloadFinished(QNetworkReply *reply)
         } else {
             QString filename = saveFileName(url);
             //qDebug() << "Download of" << url << "succeeded, saving to:" << filename;
-            saveToDisk(filename, reply);
+			if (url.toString().endsWith(".zip")) {
+				extractToDisk(filename, reply);
+			} else {
+				saveToDisk(filename, reply);
+			}
         }
     }
-
     reply->deleteLater();
     m_currentDownload = nullptr;
 }
@@ -205,9 +231,11 @@ void DownloadManager::onManagerFinished(QNetworkReply *reply)
                                     dataset.contains("code") && dataset["code"].isString()) {
                                     QJsonArray resources = dataset["resources"].toArray();
                                     QString code = dataset["code"].toString();
-                                    //qDebug() << code << "resources:" << resources.count()
-                                    //         << resources.size();
-                                    if (code == "ARBRES_INTERES_LOCAL") {
+                                    // qDebug() << code << "resources:" << resources.count()
+                                    //          << resources.size();
+                                    if (code == "ARBRES_INTERES_LOCAL" ||
+										code == "atles-biodiversitat-arbrat-rel-geometria-especie" ||
+										code == "atles-biodiversitat-arbrat-geometries") {
                                         //qDebug() << "ignored";
                                         continue;
                                     }
@@ -233,8 +261,21 @@ void DownloadManager::onManagerFinished(QNetworkReply *reply)
                                                     lastTime = dsTime;
                                                     lastName = dsName;
                                                     lastUri = dsUri;
+													break;
                                                 }
-                                            }
+                                            } else if (format == "JSON" && dsName.endsWith(".json")) {
+                                                QDateTime dsTime = QDateTime::fromString(
+                                                    resource["created"].toString(), Qt::ISODate);
+                                                QUrl dsUri = QUrl(resource["url"].toString());
+                                                // qDebug() << "------------- resource:" << j;
+                                                // qDebug() << "created:" << dsTime;
+                                                // qDebug() << "name:" << dsName;
+                                                // qDebug() << "format:" << format;
+                                                // qDebug() << "url:" << dsUri;
+												lastTime = dsTime;
+												lastName = dsName;
+												lastUri = dsUri;
+											}
                                         }
                                     }
                                     if (!lastName.isEmpty() && lastUri.isValid()) {

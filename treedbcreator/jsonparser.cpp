@@ -51,15 +51,18 @@ void JsonParser::execute()
 {
     //qDebug() << Q_FUNC_INFO;
     for(OpenDataset& ds : m_pendingDatasets) {
-        QString f = ds.fileName;
-        qInfo() << "processing:" << f;
-        parse(ds);
+        qInfo() << "processing:" << ds.fileName;
+        if (ds.name.endsWith(".zip")) {
+            parseTreesDataset(ds);
+        } else {
+            parseSpeciesDataset(ds);
+        }
     }
     updateDB();
     emit done();
 }
 
-void JsonParser::parse(OpenDataset& ds)
+void JsonParser::parseTreesDataset(OpenDataset& ds)
 {
     m_plantsDataset.clear();
     m_speciesDataset.clear();
@@ -72,7 +75,7 @@ void JsonParser::parse(OpenDataset& ds)
         QByteArray data = file.readAll();
         file.close();
         m_db.transaction();
-        parseJson(data);
+        parseJsonTrees(data);
         ds.species = m_speciesDataset.count();
         ds.specimens = m_plantsDataset.count();
         update(ds);
@@ -83,7 +86,25 @@ void JsonParser::parse(OpenDataset& ds)
     }
 }
 
-void JsonParser::parseJson(const QByteArray& text)
+void JsonParser::parseSpeciesDataset(OpenDataset &ds)
+{
+    QFile file(ds.fileName);
+    if (file.exists()) {
+        bool ok = file.open(QIODevice::ReadOnly);
+        if (!ok) {
+            qFatal() << "Error opening local file:" << file.fileName();
+        }
+        QByteArray data = file.readAll();
+        file.close();
+        m_db.transaction();
+        parseJsonSpecies(data);
+        m_db.commit();
+    } else {
+        qWarning() << "file missing:" << ds.fileName;
+    }
+}
+
+void JsonParser::parseJsonTrees(const QByteArray& text)
 {
     QJsonDocument doc = QJsonDocument::fromJson(text);
     //qDebug() << Q_FUNC_INFO << doc.isEmpty() << doc.isNull() << doc.isObject() << doc.isArray();
@@ -106,13 +127,45 @@ void JsonParser::parseJson(const QByteArray& text)
                 a.setNomEsp(tree["cat_nom_castella"].toString());
                 a.setNomCat(tree["cat_nom_catala"].toString());
                 //qDebug() << a.codi() << a.adreca() << a.latitud() << a.longitud();
-                process(a);
+                processTreeData(a);
             }
         }
     }
 }
 
-void JsonParser::process(const TreeData& data)
+void JsonParser::parseJsonSpecies(const QByteArray &text)
+{
+    QJsonDocument doc = QJsonDocument::fromJson(text);
+    //qDebug() << Q_FUNC_INFO << doc.isEmpty() << doc.isNull() << doc.isObject() << doc.isArray();
+    if (doc.isArray()) {
+        QJsonArray results = doc.array();
+        int resCount = results.count();
+        if (!results.isEmpty()) {
+            //qDebug() << "results:" << resCount;
+            for(int i=0; i<resCount; ++i) {
+                QJsonObject esp = results[i].toObject();
+                QSqlQuery q;
+                if (!q.prepare("insert or ignore into species_ext(idSpecies,nom_ctf,nom_cat,nom_cas,nom_eng,desc_cat,desc_cas,desc_eng) values(:id,:sn,:cn1,:cn2,:cn3,:d1,:d2,:d3)")) {
+                    qWarning() << q.lastError();
+                } else {
+                    q.bindValue(":id", esp["especie_id"].toInt());
+                    q.bindValue(":sn", esp["nom_ctf"].toString());
+                    q.bindValue(":cn1", esp["nom_cat"].toString());
+                    q.bindValue(":cn2", esp["nom_cas"].toString());
+                    q.bindValue(":cn3", esp["nom_eng"].toString());
+                    q.bindValue(":d1", esp["desc_cat"].toString());
+                    q.bindValue(":d2", esp["desc_cas"].toString());
+                    q.bindValue(":d3", esp["desc_eng"].toString());
+                    if (!q.exec()) {
+                        qWarning() << q.lastError();
+                    }
+                }
+            }
+        }
+    }
+}
+
+void JsonParser::processTreeData(const TreeData& data)
 {
     QSqlQuery q;
 
@@ -217,6 +270,12 @@ void JsonParser::initDB()
         qWarning() << q.lastError();
         return;
     }
+	
+    if (!q.exec(QLatin1String("CREATE TABLE species_ext (idSpecies INTEGER NOT NULL UNIQUE, nom_ctf TEXT, nom_cas TEXT, nom_cat	TEXT, nom_eng TEXT, desc_cat TEXT, desc_cas TEXT, desc_eng TEXT, PRIMARY KEY(idSpecies))")))
+	{
+        qWarning() << q.lastError();
+        return;
+	}
 }
 
 void JsonParser::updateDB()
