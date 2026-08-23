@@ -142,8 +142,8 @@ if (UNIX AND NOT APPLE)
     install( FILES barnatrees.desktop
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
     )
-    install( FILES images/barnatrees_icon128.png
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/icons
+    install( FILES images/barnatrees_icon256.png
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps
         RENAME barnatrees.png
     )
     install( FILES io.github.pedrolcl.barnatrees.metainfo.xml

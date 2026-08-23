@@ -46,6 +46,7 @@ else()
     qt_generate_deploy_qml_app_script(
         TARGET barnatrees
         OUTPUT_SCRIPT deploy_script
+        INCLUDE_PLUGINS xcb wayland
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_TRANSLATIONS
         EXCLUDE_PLUGINS qtposition_nmea
@@ -53,14 +54,18 @@ else()
 endif()
 install(SCRIPT ${deploy_script})
 
-if (CMAKE_SYSTEM_NAME MATCHES "Linux" AND DEFINED ENV{DESTDIR})
-    message("DESTDIR: $ENV{DESTDIR}")
-    file(MAKE_DIRECTORY $ENV{DESTDIR})
-    # AppDir symlinks
-    string(REPLACE "/" "" RELPREF ${CMAKE_INSTALL_PREFIX})
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_BINDIR}/barnatrees $ENV{DESTDIR}/AppRun)")
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_DATAROOTDIR}/applications/barnatrees.desktop $ENV{DESTDIR}/barnatrees.desktop)")
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${RELPREF}/${CMAKE_INSTALL_DATAROOTDIR}/icons/barnatrees.png $ENV{DESTDIR}/barnatrees.png)")
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+    install( CODE
+      "include(${CMAKE_SOURCE_DIR}/cmake/CreateAppImage.cmake)
+       create_appimage(
+            EXE \"barnatrees\"
+            ICON \"barnatrees.png\"
+            DESKTOP \"barnatrees.desktop\"
+            WORKDIR \"${CMAKE_BINARY_DIR}\"
+            APPDIR \"${PROJECT_NAME}-v${PROJECT_VERSION}-${CMAKE_SYSTEM_PROCESSOR}.AppDir\"
+            ARCH \"${CMAKE_SYSTEM_PROCESSOR}\"
+       )"
+    )
 endif()
 
 if (DEFINED ENV{GITHUB_OUTPUT})
