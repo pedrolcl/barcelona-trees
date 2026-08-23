@@ -16,8 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { icon: '🟥', arch: "x86_64",  os: "ubuntu-22.04" }
-          - { icon: '🟩', arch: "aarch64", os: "ubuntu-24.04-arm" }
+          - { icon: '🟥', arch: "x86_64",  os: "ubuntu-22.04", host: "linux" }
+          - { icon: '🟩', arch: "aarch64", os: "ubuntu-24.04-arm", host: "linux_arm64" }
     runs-on: ${{ matrix.os }}
     name: 🚧${{ matrix.icon }} ${{ matrix.arch }}
 
@@ -28,13 +28,13 @@ jobs:
         submodules: true
 
     - name: '${{ matrix.icon }} Install Dependencies'
-      run: sudo apt-get update && sudo apt-get install -yq libarchive-dev libvulkan-dev
+      run: sudo apt-get update && sudo apt-get install -yq libarchive-dev libgl-dev libvulkan-dev
 
     - name: '${{ matrix.icon }} Install Qt'
       uses: jurplel/install-qt-action@v4
       with:
         version: '6.11.1'
-        host: 'linux'
+        host: ${{ matrix.host }}
         target: 'desktop'
         modules: 'qtlocation qtpositioning qttasktree'
 
