@@ -22,7 +22,7 @@ jobs:
     name: 🚧${{ matrix.icon }} ${{ matrix.arch }}
 
     steps:
-    - name '{{ matrix.icon }} Checkout recursive'
+    - name: '{{ matrix.icon }} Checkout recursive'
       uses: actions/checkout@v7
       with:
         submodules: true
