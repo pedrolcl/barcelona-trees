@@ -22,23 +22,23 @@ jobs:
     name: 🚧${{ matrix.icon }} ${{ matrix.arch }}
 
     steps:
-    - name: '{{ matrix.icon }} Checkout recursive'
+    - name: '${{ matrix.icon }} Checkout recursive'
       uses: actions/checkout@v7
       with:
         submodules: true
 
-    - name: '{{ matrix.icon }} Install Qt'
+    - name: '${{ matrix.icon }} Install Dependencies'
+      run: sudo apt-get update && sudo apt-get install -yq libarchive-dev libvulkan-dev
+
+    - name: '${{ matrix.icon }} Install Qt'
       uses: jurplel/install-qt-action@v4
       with:
         version: '6.11.1'
         host: 'linux'
         target: 'desktop'
-        modules: 'qtlocation qtpositioning'
+        modules: 'qtlocation qtpositioning qttasktree'
 
-    - name: '{{ matrix.icon }} Install Dependencies'
-      run: sudo apt-get update && sudo apt-get install -yq libarchive-dev
-
-    - name: '{{ matrix.icon }} Configure CMake'
+    - name: '${{ matrix.icon }} Configure CMake'
       id: configuration
       run: cmake -B ${{github.workspace}}/build
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
@@ -46,30 +46,30 @@ jobs:
         -DCMAKE_INSTALL_LIBDIR=lib
         -DCMAKE_INSTALL_RPATH="\$ORIGIN/../lib"
 
-    - name: '{{ matrix.icon }} Build'
+    - name: '${{ matrix.icon }} Build'
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: '{{ matrix.icon }} Install'
+    - name: '${{ matrix.icon }} Install'
       env:
-        DESTDIR: ${{github.workspace}}/barcelona-trees-v${{steps.configuration.outputs.config_version}}-${{ matrix.arch }}.AppDir
+        DESTDIR: ${{github.workspace}}/build/barcelona-trees-v${{steps.configuration.outputs.config_version}}-${{ matrix.arch }}.AppDir
       run: |
         mkdir -p ${{env.DESTDIR}}
         cmake --install ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: '{{ matrix.icon }} Compress AppDir'
+    - name: '${{ matrix.icon }} Compress AppDir'
       run: |
-        cd ${{github.workspace}}
+        cd ${{github.workspace}}/build
         tar cvzf barcelona-trees-v${{steps.configuration.outputs.config_version}}-${{ matrix.arch }}.AppDir.tar.gz barcelona-trees-v${{steps.configuration.outputs.config_version}}-${{ matrix.arch }}.AppDir
 
-    - name: '{{ matrix.icon }} Upload Artifact'
+    - name: '${{ matrix.icon }} Upload Artifact'
       uses: actions/upload-artifact@v7
       with:
-        path: barcelona-trees-v${{steps.configuration.outputs.config_version}}-${{ matrix.arch }}.AppDir.tar.gz
+        path: ${{github.workspace}}/build/barcelona-trees-v${{steps.configuration.outputs.config_version}}-${{ matrix.arch }}.AppDir.tar.gz
         archive: false
         retention-days: 90
         overwrite: true
 
-    - name: '{{ matrix.icon }} Upload AppImage'
+    - name: '${{ matrix.icon }} Upload AppImage'
       uses: actions/upload-artifact@v7
       with:
         path: ${{github.workspace}}/build/barcelona-trees-v${{steps.configuration.outputs.config_version}}-${{ matrix.arch }}.AppImage
