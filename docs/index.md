@@ -41,7 +41,7 @@ The current release is: **Beta4 v0.0.6**
 
 The program does not have any command line arguments. It simply outputs at the same working directory the JSON files &quot;arbrat_viari&quot;, &quot;arbrat_zona&quot;, &quot;arbrat_parcs&quot; and &quot;barnatrees.db&quot;.
 
-Latest resources:
+Latest resources, 2026_3T (2026-10-1):
 - [barnatrees.txt](https://pedrolcl.github.io/barcelona-trees/barnatrees.txt)
 - [barnatrees.db.7z](https://pedrolcl.github.io/barcelona-trees/barnatrees.db.7z)
 
