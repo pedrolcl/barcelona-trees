@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 project ( barcelona-trees
-    VERSION 0.0.6
+    VERSION 0.0.7
     LANGUAGES CXX
 )
 
@@ -14,17 +14,23 @@ list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake )
 include( SCMRevision )
 include( GNUInstallDirs )
 
+option(BUILD_TREEDBCREATOR "Build the treedbcreator program" ON)
+
 find_package( QT NAMES Qt6 REQUIRED)
 find_package( Qt6 6.5 COMPONENTS Core Sql Network Gui Quick QuickControls2 Qml Positioning Location LinguistTools REQUIRED )
 find_package( Q7Zip CONFIG )
 if ( NOT Q7Zip_FOUND )
     message(STATUS "Using the libq7zip git submodule")
+    set( BUILD_TESTING OFF )
     add_subdirectory( libq7zip )
+else()
+    install( IMPORTED_RUNTIME_ARTIFACTS Q7Zip::q7z
+             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} )
 endif()
 
 qt_standard_project_setup(REQUIRES 6.5)
 
-if (NOT ANDROID)
+if (BUILD_TREEDBCREATOR AND NOT ANDROID AND NOT APPLE)
     set(QARCHIVE_QT_VERSION_MAJOR 6)
     add_subdirectory( QArchive )
     add_subdirectory ( treedbcreator )

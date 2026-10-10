@@ -8,7 +8,7 @@ on:
     branches: [ "master", "develop" ]
 
 env:
-  BUILD_TYPE: RelWithDebInfo
+  BUILD_TYPE: Release
   INSTALL_LOCATION: ${{github.workspace}}/BarcelonaTrees
 
 jobs:
@@ -59,6 +59,7 @@ jobs:
         cmake ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
         -G Ninja -B ${{github.workspace}}/build
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        -DBUILD_TREEDBCREATOR=OFF
         -DCMAKE_PREFIX_PATH=${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}
         -DCMAKE_INSTALL_PREFIX=${{env.INSTALL_LOCATION}}
         -DCPACK_SYSTEM_NAME=${{matrix.arch}}

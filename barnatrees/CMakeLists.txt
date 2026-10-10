@@ -1,5 +1,5 @@
 project ( barnatrees
-    VERSION 0.0.6
+    VERSION 0.0.7
     LANGUAGES CXX
 )
 
@@ -107,13 +107,11 @@ qt_add_qml_module( barnatrees
     NO_RESOURCE_TARGET_PATH
 )
 
-set_target_properties( barnatrees PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER io.github.pedrolcl.barnatrees
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
-)
+if(WIN32)
+    set_target_properties( barnatrees PROPERTIES
+        WIN32_EXECUTABLE TRUE
+    )
+endif()
 
 target_link_libraries( barnatrees PRIVATE
     Qt6::Sql

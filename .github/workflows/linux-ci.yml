@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  BUILD_TYPE: RelWithDebInfo
+  BUILD_TYPE: Release
 
 jobs:
   build:
@@ -42,6 +42,7 @@ jobs:
       id: configuration
       run: cmake -B ${{github.workspace}}/build
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        -DBUILD_TREEDBCREATOR=OFF
         -DCMAKE_INSTALL_PREFIX=/usr
         -DCMAKE_INSTALL_LIBDIR=lib
         -DCMAKE_INSTALL_RPATH="\$ORIGIN/../lib"

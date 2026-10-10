@@ -61,6 +61,8 @@ jobs:
       run: >
         cmake ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
         -B ${{github.workspace}}/build
+        -DBUILD_TREEDBCREATOR=OFF
+        -DCMAKE_INSTALL_LIBDIR=Frameworks
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_OSX_DEPLOYMENT_TARGET="12.0"
         -DCMAKE_INSTALL_RPATH="@executable_path/../Frameworks"
