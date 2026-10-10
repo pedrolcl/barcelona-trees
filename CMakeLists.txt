@@ -42,7 +42,7 @@ if(MSVC)
         EXCLUDE_PLUGINS qtposition_nmea
     )
     include ( InstallRequiredSystemLibraries )
-else()
+elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
     qt_generate_deploy_qml_app_script(
         TARGET barnatrees
         OUTPUT_SCRIPT deploy_script
@@ -51,8 +51,18 @@ else()
         NO_TRANSLATIONS
         EXCLUDE_PLUGINS qtposition_nmea
     )
+else()
+    qt_generate_deploy_qml_app_script(
+        TARGET barnatrees
+        OUTPUT_SCRIPT deploy_script
+        NO_UNSUPPORTED_PLATFORM_ERROR
+        NO_TRANSLATIONS
+        EXCLUDE_PLUGINS qtposition_nmea
+    )
 endif()
-install(SCRIPT ${deploy_script})
+if(DEFINED deploy_script)
+    install(SCRIPT ${deploy_script})
+endif()
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     install( CODE
@@ -104,5 +114,14 @@ if (WIN32)
     set (CPACK_NSIS_URL_INFO_ABOUT "https://pedrolcl.github.io/barcelona-trees")
     set (CPACK_NSIS_CONTACT "plcl@users.sf.net")
 endif ()
+
+if(APPLE)
+    set (CPACK_SYSTEM_NAME "macOS")
+    set (CPACK_PRE_BUILD_SCRIPTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/ThinFrameworks.cmake")
+    set (CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-v${PROJECT_VERSION}-macOS-${CMAKE_SYSTEM_PROCESSOR}")
+    set (CPACK_BINARY_ZIP ON)
+    set (CPACK_BINARY_TGZ OFF)
+    set (CPACK_BINARY_STGZ OFF)
+endif()
 
 include ( CPack )

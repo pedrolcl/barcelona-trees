@@ -162,3 +162,21 @@ if(ANDROID)
     )
     set ( QT_ANDROID_BUILD_ALL_ABIS TRUE )
 endif()
+
+if (APPLE)
+    set(MACOSX_BUNDLE_ICON_FILE "barnatrees.icns")
+    set(APP_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/images/RiffTree.icns")
+    set_source_files_properties( ${APP_ICON_PATH} PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources" )
+    target_sources( barnatrees PUBLIC ${APP_ICON_PATH} )
+    set_target_properties( barnatrees PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_ICON_FILE ${MACOSX_BUNDLE_ICON_FILE}
+        MACOSX_BUNDLE_GUI_IDENTIFIER "io.github.pedrolcl.barnatrees"
+        MACOSX_BUNDLE_BUNDLE_NAME "barnatrees"
+        MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
+        MACOSX_BUNDLE_COPYRIGHT "Copyright © 2019-2026 Pedro López-Cabanillas"
+        MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_VERSION}"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
+    )
+endif()

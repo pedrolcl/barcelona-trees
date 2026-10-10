@@ -1,0 +1,63 @@
+name: macOS CI
+
+on:
+  push:
+    branches: [ "devel", "master" ]
+  pull_request:
+    branches: [ "devel", "master" ]
+  workflow_dispatch:
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: ["x86_64", "arm64"]
+        include:
+          - { arch: "x86_64", os: "macos-15-intel"  }
+          - { arch: "arm64", os: "macos-15" }
+    runs-on: ${{ matrix.os }}
+    name: 'macOS CI ${{ matrix.arch }}'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+      with:
+        submodules: true
+
+    - name: 'Install Qt'
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.8.3'
+        host: 'mac'
+        target: 'desktop'
+        arch: 'clang_64'
+        modules: 'qtlocation qtpositioning qtsensors'
+        # using: Core Sql Network Gui Quick QuickControls2 Qml Positioning Location LinguistTools
+
+    - name: 'Configure CMake'
+      id: configuration
+      run: >
+        cmake -B ${{github.workspace}}/build
+        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        -DCMAKE_OSX_DEPLOYMENT_TARGET="12.0"
+        -DCMAKE_INSTALL_RPATH="@executable_path/../Frameworks"
+        -DINSTALL_DEPENDENCIES=ON
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: Package
+      run: cmake --build ${{github.workspace}}/build --target package
+
+    - name: 'Upload Artifacts'
+      uses: actions/upload-artifact@v7
+      with:
+        name: barcelona-trees-macOS-${{matrix.arch}}
+        path: ${{github.workspace}}/build/barcelona-trees-v${{steps.configuration.outputs.config_version}}-macOS-${{matrix.arch}}.zip
+        retention-days: 90
+        overwrite: true
+        archive: false
