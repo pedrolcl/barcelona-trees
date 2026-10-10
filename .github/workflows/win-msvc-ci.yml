@@ -88,3 +88,4 @@ jobs:
         path: ${{github.workspace}}/build/barcelona-trees-${{steps.configuration.outputs.config_version}}-Windows-*.exe
         retention-days: 90
         overwrite: true
+        archive: false

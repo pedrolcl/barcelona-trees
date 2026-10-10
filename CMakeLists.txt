@@ -57,7 +57,6 @@ else()
         OUTPUT_SCRIPT deploy_script
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_TRANSLATIONS
-        EXCLUDE_PLUGINS qtposition_nmea
     )
 endif()
 if(DEFINED deploy_script)
