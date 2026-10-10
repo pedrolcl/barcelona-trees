@@ -23,9 +23,6 @@ if ( NOT Q7Zip_FOUND )
     message(STATUS "Using the libq7zip git submodule")
     set( BUILD_TESTING OFF )
     add_subdirectory( libq7zip )
-else()
-    install( IMPORTED_RUNTIME_ARTIFACTS Q7Zip::q7z
-             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} )
 endif()
 
 qt_standard_project_setup(REQUIRES 6.5)

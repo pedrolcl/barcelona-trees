@@ -113,40 +113,11 @@ if(WIN32)
     )
 endif()
 
-target_link_libraries( barnatrees PRIVATE
-    Qt6::Sql
-    Qt6::Network
-    Qt6::Quick
-    Qt6::Positioning
-    Qt6::Location
-    Qt6::QuickControls2
-    Q7Zip::q7z
-)
-
 if (ANDROID)
     include( ../android_openssl/android_openssl.cmake )
     #if( QT_VERSION VERSION_GREATER_EQUAL 6.5 )
         add_android_openssl_libraries( barnatrees )
     #endif()
-endif()
-
-install(TARGETS barnatrees
-    BUNDLE DESTINATION .
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
-
-if (UNIX AND NOT APPLE)
-    install( FILES barnatrees.desktop
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
-    )
-    install( FILES images/barnatrees_icon256.png
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps
-        RENAME barnatrees.png
-    )
-    install( FILES io.github.pedrolcl.barnatrees.metainfo.xml
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
-    )
 endif()
 
 if(ANDROID)
@@ -168,6 +139,7 @@ if (APPLE)
         MACOSX_PACKAGE_LOCATION "Resources" )
     target_sources( barnatrees PUBLIC ${APP_ICON_PATH} )
     set_target_properties( barnatrees PROPERTIES
+        BUNDLE TRUE
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_ICON_FILE ${MACOSX_BUNDLE_ICON_FILE}
         MACOSX_BUNDLE_GUI_IDENTIFIER "io.github.pedrolcl.barnatrees"
@@ -176,5 +148,44 @@ if (APPLE)
         MACOSX_BUNDLE_COPYRIGHT "Copyright © 2019-2026 Pedro López-Cabanillas"
         MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_VERSION}"
         MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
+    )
+endif()
+
+target_link_libraries( barnatrees PRIVATE
+    Qt6::Sql
+    Qt6::Network
+    Qt6::Quick
+    Qt6::Positioning
+    Qt6::Location
+    Qt6::QuickControls2
+    Q7Zip::q7z
+)
+
+install( TARGETS barnatrees
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    BUNDLE DESTINATION .
+)
+
+if (APPLE)
+    if(TARGET q7z)
+        install( TARGETS q7z
+                 LIBRARY DESTINATION barnatrees.app/Contents/Frameworks )
+    else()
+        install( IMPORTED_RUNTIME_ARTIFACTS Q7Zip::q7z
+                 LIBRARY DESTINATION barnatrees.app/Contents/Frameworks )
+    endif()
+endif()
+
+if (UNIX AND NOT APPLE)
+    install( FILES barnatrees.desktop
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+    )
+    install( FILES images/barnatrees_icon256.png
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps
+        RENAME barnatrees.png
+    )
+    install( FILES io.github.pedrolcl.barnatrees.metainfo.xml
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
     )
 endif()
