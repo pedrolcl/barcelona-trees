@@ -165,7 +165,7 @@ endif()
 
 if (APPLE)
     set(MACOSX_BUNDLE_ICON_FILE "barnatrees.icns")
-    set(APP_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/images/RiffTree.icns")
+    set(APP_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/images/barnatrees.icns")
     set_source_files_properties( ${APP_ICON_PATH} PROPERTIES
         MACOSX_PACKAGE_LOCATION "Resources" )
     target_sources( barnatrees PUBLIC ${APP_ICON_PATH} )
