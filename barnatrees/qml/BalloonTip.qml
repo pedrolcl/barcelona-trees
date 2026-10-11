@@ -25,12 +25,12 @@ ToolTip {
 
     contentItem: Text {
         text: control.text
-        color: palette.toolTipText
+        color: "white"
     }
 
     background: Rectangle {
-        color: palette.toolTipBase
-        border.color: palette.toolTipBase
+        color: "navy"
+        border.color: "navy"
         radius: 6
         Rectangle {
             x: -control.x
@@ -38,8 +38,8 @@ ToolTip {
             width: 10
             height: 10
             rotation: 45
-            color: palette.toolTipBase
-            border.color: palette.toolTipBase
+            color: "navy"
+            border.color: "navy"
             anchors.verticalCenter: (control.y < 0) ? parent.bottom : parent.top
         }
     }
