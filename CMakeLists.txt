@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.19)
 
 project ( barcelona-trees
     VERSION 0.0.7
@@ -42,7 +42,7 @@ if(MSVC)
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_COMPILER_RUNTIME
         NO_TRANSLATIONS
-        EXCLUDE_PLUGINS qtposition_nmea
+        EXCLUDE_PLUGINS "qtposition_nmea;libqsqlodbc;libqsqlpsql;libqsqlmimer;libqsqlibase;libqsqlmysql;libqsqloci"
     )
     include ( InstallRequiredSystemLibraries )
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
@@ -52,7 +52,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
         INCLUDE_PLUGINS xcb wayland
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_TRANSLATIONS
-        EXCLUDE_PLUGINS qtposition_nmea
+        EXCLUDE_PLUGINS "qtposition_nmea;libqsqlodbc;libqsqlpsql;libqsqlmimer;libqsqlibase;libqsqlmysql;libqsqloci"
     )
 else()
     qt_generate_deploy_qml_app_script(
