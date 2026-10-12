@@ -165,16 +165,6 @@ install( TARGETS barnatrees
     BUNDLE DESTINATION .
 )
 
-if (APPLE)
-    if(TARGET q7z)
-        install( TARGETS q7z
-                 LIBRARY DESTINATION barnatrees.app/Contents/Frameworks )
-    else()
-        install( IMPORTED_RUNTIME_ARTIFACTS Q7Zip::q7z
-                 LIBRARY DESTINATION barnatrees.app/Contents/Frameworks )
-    endif()
-endif()
-
 if (UNIX AND NOT APPLE)
     install( FILES barnatrees.desktop
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications

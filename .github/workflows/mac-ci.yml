@@ -66,6 +66,7 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_OSX_DEPLOYMENT_TARGET="12.0"
         -DCMAKE_INSTALL_RPATH="@executable_path/../Frameworks"
+        -DLIBARCHIVE_PKG_CONFIG=${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}/lib/pkgconfig
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
