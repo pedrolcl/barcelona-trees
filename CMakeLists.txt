@@ -18,22 +18,29 @@ option(BUILD_TREEDBCREATOR "Build the treedbcreator program" ON)
 
 find_package( QT NAMES Qt6 REQUIRED)
 find_package( Qt6 6.5 COMPONENTS Core Sql Network Gui Quick QuickControls2 Qml Positioning Location LinguistTools REQUIRED )
-find_package( Q7Zip CONFIG )
-if ( NOT Q7Zip_FOUND )
-    message(STATUS "Using the libq7zip git submodule")
-    set( BUILD_TESTING OFF )
-    add_subdirectory( libq7zip )
-endif()
+
+message(STATUS "Using the QArchive git submodule")
+set(QARCHIVE_QT_VERSION_MAJOR 6)
+add_subdirectory( QArchive )
 
 qt_standard_project_setup(REQUIRES 6.5)
 
 if (BUILD_TREEDBCREATOR AND NOT ANDROID AND NOT APPLE)
-    set(QARCHIVE_QT_VERSION_MAJOR 6)
-    add_subdirectory( QArchive )
     add_subdirectory ( treedbcreator )
 endif()
 
 add_subdirectory ( barnatrees )
+
+if (APPLE)
+    message(STATUS "LIBARCHIVE_LINK_LIBRARIES: ${LIBARCHIVE_LINK_LIBRARIES}")
+else()
+    find_package(LibArchive)
+    message(STATUS "LibArchive_LIBRARY: ${LibArchive_LIBRARY}")
+endif()
+if (LIBARCHIVE_LINK_LIBRARIES OR LibArchive_LIBRARY)
+    install ( FILES ${LibArchive_LIBRARY} ${LIBARCHIVE_LINK_LIBRARIES}
+        DESTINATION $<IF:$<BOOL:${WIN32}>,${CMAKE_INSTALL_BINDIR},${CMAKE_INSTALL_LIBDIR}> )
+endif()
 
 if(MSVC)
     qt_generate_deploy_qml_app_script(
@@ -42,7 +49,7 @@ if(MSVC)
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_COMPILER_RUNTIME
         NO_TRANSLATIONS
-        EXCLUDE_PLUGINS "qtposition_nmea;libqsqlodbc;libqsqlpsql;libqsqlmimer;libqsqlibase;libqsqlmysql;libqsqloci"
+        EXCLUDE_PLUGINS "qtposition_nmea;qsqlodbc;qsqlpsql;qsqlmimer;qsqlibase;qsqlmysql;qsqloci"
     )
     include ( InstallRequiredSystemLibraries )
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")

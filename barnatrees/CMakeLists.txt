@@ -115,9 +115,7 @@ endif()
 
 if (ANDROID)
     include( ../android_openssl/android_openssl.cmake )
-    #if( QT_VERSION VERSION_GREATER_EQUAL 6.5 )
-        add_android_openssl_libraries( barnatrees )
-    #endif()
+    add_android_openssl_libraries( barnatrees )
 endif()
 
 if(ANDROID)
@@ -158,7 +156,7 @@ target_link_libraries( barnatrees PRIVATE
     Qt6::Positioning
     Qt6::Location
     Qt6::QuickControls2
-    Q7Zip::q7z
+    QArchive
 )
 
 install( TARGETS barnatrees
@@ -166,16 +164,6 @@ install( TARGETS barnatrees
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     BUNDLE DESTINATION .
 )
-
-if (APPLE)
-    if(TARGET q7z)
-        install( TARGETS q7z
-                 LIBRARY DESTINATION barnatrees.app/Contents/Frameworks )
-    else()
-        install( IMPORTED_RUNTIME_ARTIFACTS Q7Zip::q7z
-                 LIBRARY DESTINATION barnatrees.app/Contents/Frameworks )
-    endif()
-endif()
 
 if (UNIX AND NOT APPLE)
     install( FILES barnatrees.desktop
