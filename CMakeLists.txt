@@ -18,22 +18,43 @@ option(BUILD_TREEDBCREATOR "Build the treedbcreator program" ON)
 
 find_package( QT NAMES Qt6 REQUIRED)
 find_package( Qt6 6.5 COMPONENTS Core Sql Network Gui Quick QuickControls2 Qml Positioning Location LinguistTools REQUIRED )
-find_package( Q7Zip CONFIG )
-if ( NOT Q7Zip_FOUND )
-    message(STATUS "Using the libq7zip git submodule")
-    set( BUILD_TESTING OFF )
-    add_subdirectory( libq7zip )
-endif()
+
+message(STATUS "Using the QArchive git submodule")
+set(QARCHIVE_QT_VERSION_MAJOR 6)
+add_subdirectory( QArchive )
 
 qt_standard_project_setup(REQUIRES 6.5)
 
 if (BUILD_TREEDBCREATOR AND NOT ANDROID AND NOT APPLE)
-    set(QARCHIVE_QT_VERSION_MAJOR 6)
-    add_subdirectory( QArchive )
     add_subdirectory ( treedbcreator )
 endif()
 
 add_subdirectory ( barnatrees )
+
+find_package(LibArchive CONFIG)
+message(STATUS "LibArchive_FOUND: ${LibArchive_FOUND}")
+if (LibArchive_FOUND)
+    install( IMPORTED_RUNTIME_ARTIFACTS LibArchive::LibArchive
+        RUNTIME_DEPENDENCY_SET libarchive_dependencies
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    if(WIN32)
+      set(_pre_exclude api-ms ext-ms wpaxholder hvsi azureattest pdmutilities
+                       vcruntime msvcp concrt vccorlib ucrtbase )
+      set(_post_exclude [[.*(\\|/)system32(\\|/).*\.dll]])
+    elseif(APPLE)
+      set(_pre_exclude "/usr/lib" "/System/")
+      set(_post_exclude "")
+    else()
+      set(_pre_exclude "")
+      set(_post_exclude ".*/ld-linux-.*" ".*/linux-vdso.*" ".*/libm\\..*" ".*/libc\\..*" ".*/libpthread\\..*" ".*/libdl\\..*" ".*/libstdc\\+\\+\\..*" ".*/libgcc_s.*" ".*/libgomp\\..*" ".*/libQt.*")
+    endif()
+    install(RUNTIME_DEPENDENCY_SET libarchive_dependencies
+            PRE_EXCLUDE_REGEXES ${_pre_exclude}
+            POST_EXCLUDE_REGEXES ${_post_exclude}
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+endif()
 
 if(MSVC)
     qt_generate_deploy_qml_app_script(
@@ -42,7 +63,7 @@ if(MSVC)
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_COMPILER_RUNTIME
         NO_TRANSLATIONS
-        EXCLUDE_PLUGINS "qtposition_nmea;libqsqlodbc;libqsqlpsql;libqsqlmimer;libqsqlibase;libqsqlmysql;libqsqloci"
+        EXCLUDE_PLUGINS "qtposition_nmea;qsqlodbc;qsqlpsql;qsqlmimer;qsqlibase;qsqlmysql;qsqloci"
     )
     include ( InstallRequiredSystemLibraries )
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
