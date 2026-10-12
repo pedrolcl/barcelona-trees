@@ -31,29 +31,15 @@ endif()
 
 add_subdirectory ( barnatrees )
 
-find_package(LibArchive CONFIG)
-message(STATUS "LibArchive_FOUND: ${LibArchive_FOUND}")
-if (LibArchive_FOUND)
-    install( IMPORTED_RUNTIME_ARTIFACTS LibArchive::LibArchive
-        RUNTIME_DEPENDENCY_SET libarchive_dependencies
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-    if(WIN32)
-      set(_pre_exclude api-ms ext-ms wpaxholder hvsi azureattest pdmutilities
-                       vcruntime msvcp concrt vccorlib ucrtbase )
-      set(_post_exclude [[.*(\\|/)system32(\\|/).*\.dll]])
-    elseif(APPLE)
-      set(_pre_exclude "/usr/lib" "/System/")
-      set(_post_exclude "")
-    else()
-      set(_pre_exclude "")
-      set(_post_exclude ".*/ld-linux-.*" ".*/linux-vdso.*" ".*/libm\\..*" ".*/libc\\..*" ".*/libpthread\\..*" ".*/libdl\\..*" ".*/libstdc\\+\\+\\..*" ".*/libgcc_s.*" ".*/libgomp\\..*" ".*/libQt.*")
-    endif()
-    install(RUNTIME_DEPENDENCY_SET libarchive_dependencies
-            PRE_EXCLUDE_REGEXES ${_pre_exclude}
-            POST_EXCLUDE_REGEXES ${_post_exclude}
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+if (APPLE)
+    message(STATUS "LIBARCHIVE_LINK_LIBRARIES: ${LIBARCHIVE_LINK_LIBRARIES}")
+else()
+    find_package(LibArchive)
+    message(STATUS "LibArchive_LIBRARY: ${LibArchive_LIBRARY}")
+endif()
+if (LIBARCHIVE_LINK_LIBRARIES OR LibArchive_LIBRARY)
+    install ( FILES ${LibArchive_LIBRARY} ${LIBARCHIVE_LINK_LIBRARIES}
+        DESTINATION $<IF:$<BOOL:${WIN32}>,${CMAKE_INSTALL_BINDIR},${CMAKE_INSTALL_LIBDIR}> )
 endif()
 
 if(MSVC)
