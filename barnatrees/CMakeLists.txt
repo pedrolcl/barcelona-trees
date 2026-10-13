@@ -1,3 +1,7 @@
+if(QT_KNOWN_POLICY_QTP0002)
+    qt_policy(SET QTP0002 NEW)
+endif()
+
 project ( barnatrees
     VERSION 0.0.7
     LANGUAGES CXX
@@ -119,7 +123,7 @@ if (ANDROID)
 endif()
 
 if(ANDROID)
-    set_target_properties(barnatrees PROPERTIES
+    set_target_properties( barnatrees PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android"
         QT_ANDROID_VERSION_CODE "${PROJECT_VERSION_MAJOR}${PROJECT_VERSION_MINOR}${PROJECT_VERSION_PATCH}"
         QT_ANDROID_VERSION_NAME "v${PROJECT_VERSION}"
@@ -127,7 +131,6 @@ if(ANDROID)
         QT_ANDROID_APP_ICON "@drawable/icon"
         QT_ANDROID_APP_NAME "Barcelona Trees for Android"
     )
-    set ( QT_ANDROID_BUILD_ALL_ABIS TRUE )
 endif()
 
 if (APPLE)
@@ -158,6 +161,10 @@ target_link_libraries( barnatrees PRIVATE
     Qt6::QuickControls2
     QArchive
 )
+
+if (LIBARCHIVE_LINK_LIBRARIES)
+    target_link_libraries( barnatrees PRIVATE ${LIBARCHIVE_LINK_LIBRARIES})
+endif()
 
 install( TARGETS barnatrees
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

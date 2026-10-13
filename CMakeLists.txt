@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.19)
 
+if(QT_KNOWN_POLICY_QTP0002)
+    qt_policy(SET QTP0002 NEW)
+endif()
+
 project ( barcelona-trees
     VERSION 0.0.7
     LANGUAGES CXX
@@ -23,6 +27,15 @@ message(STATUS "Using the QArchive git submodule")
 set(QARCHIVE_QT_VERSION_MAJOR 6)
 add_subdirectory( QArchive )
 
+if (NOT LIBARCHIVE_LINK_LIBRARIES)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(LIBARCHIVE libarchive)
+    message(STATUS "LIBARCHIVE_LINK_LIBRARIES: ${LIBARCHIVE_LINK_LIBRARIES}")
+    if (LIBARCHIVE_CFLAGS MATCHES "STATIC")
+        message(STATUS "Building with static LibArchive")
+    endif()
+endif()
+
 qt_standard_project_setup(REQUIRES 6.5)
 
 if (BUILD_TREEDBCREATOR AND NOT ANDROID AND NOT APPLE)
@@ -31,14 +44,8 @@ endif()
 
 add_subdirectory ( barnatrees )
 
-if (APPLE)
-    message(STATUS "LIBARCHIVE_LINK_LIBRARIES: ${LIBARCHIVE_LINK_LIBRARIES}")
-else()
-    find_package(LibArchive)
-    message(STATUS "LibArchive_LIBRARY: ${LibArchive_LIBRARY}")
-endif()
-if (LIBARCHIVE_LINK_LIBRARIES OR LibArchive_LIBRARY)
-    install ( FILES ${LibArchive_LIBRARY} ${LIBARCHIVE_LINK_LIBRARIES}
+if (LIBARCHIVE_LINK_LIBRARIES AND NOT LIBARCHIVE_CFLAGS MATCHES "STATIC")
+    install ( FILES ${LIBARCHIVE_LINK_LIBRARIES}
         DESTINATION $<IF:$<BOOL:${WIN32}>,${CMAKE_INSTALL_BINDIR},${CMAKE_INSTALL_LIBDIR}> )
 endif()
 

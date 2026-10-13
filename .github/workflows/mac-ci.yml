@@ -17,8 +17,8 @@ jobs:
       matrix:
         arch: ["x86_64", "arm64"]
         include:
-          - { arch: "x86_64", os: "macos-15-intel", triplet: "x64-osx" }
-          - { arch: "arm64", os: "macos-15", triplet: "arm64-osx" }
+          - { arch: "x86_64", os: "macos-15-intel", triplet: "x64-osx-release" }
+          - { arch: "arm64", os: "macos-15", triplet: "arm64-osx-release" }
     runs-on: ${{ matrix.os }}
     name: 'macOS CI ${{ matrix.arch }}'
 

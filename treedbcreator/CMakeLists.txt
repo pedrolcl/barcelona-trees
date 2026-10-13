@@ -35,6 +35,10 @@ target_link_libraries( treedbcreator PRIVATE
     QArchive
 )
 
+if (LIBARCHIVE_LINK_LIBRARIES)
+    target_link_libraries( treedbcreator PRIVATE ${LIBARCHIVE_LINK_LIBRARIES})
+endif()
+
 install(TARGETS treedbcreator
     RUNTIME_DEPENDENCY_SET treedbcreator-dependencies
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
