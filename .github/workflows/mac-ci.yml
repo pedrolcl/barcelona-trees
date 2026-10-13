@@ -40,7 +40,7 @@ jobs:
       uses: johnwason/vcpkg-action@v8
       id: vcpkg
       with:
-        pkgs: libarchive #qtbase qttools qttranslations qtlocation qtpositioning
+        pkgs: libarchive
         triplet: ${{ matrix.triplet }}
         token: ${{ github.token }}
         revision: master
