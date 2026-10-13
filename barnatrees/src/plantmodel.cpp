@@ -32,9 +32,15 @@ PlantModel::PlantModel(QObject *parent, QSqlDatabase db):
 {
     setEditStrategy(QSqlTableModel::OnManualSubmit);
 	setTable("plants");
-	setRelation(fieldIndex("idSpecies"), QSqlRelation("species", "idSpecies", "scientificName, commonName1, commonName2"));
-    if (select()) {
-		generateRoleNames(record());
+    setJoinMode(JoinMode::LeftJoin);
+    // setRelation(fieldIndex("idSpecies"),
+    //             QSqlRelation("species", "idSpecies", "scientificName, commonName1, commonName2"));
+    setRelation(fieldIndex("idSpecies"),
+                QSqlRelation("species_ext",
+                             "idSpecies",
+                             "nom_ctf, nom_cas, nom_cat, nom_eng, desc_cas, desc_cat, desc_eng"));
+    if (PlantModel::select()) {
+        generateRoleNames(record());
         //qDebug() << "column: distance, role:" << m_lastRole+1;
         m_roleNames.insert(m_lastRole+1, "distance");
         m_roleNames.insert(m_lastRole+2, "fmtDistance");
@@ -113,7 +119,7 @@ bool PlantModel::select()
 
 void PlantModel::setGender(QString gen)
 {
-    QString filter = "scientificName like '%" + gen +  "%'";
+    QString filter = "nom_ctf like '%" + gen + "%'";
     setFilter(filter);
 }
 
@@ -155,7 +161,7 @@ QString PlantModel::formattedDistance(int row) const
 
 QString PlantModel::formattedScientificName(int row) const
 {
-    QModelIndex sn_ix = this->index(row, record().indexOf("scientificName"));
+    QModelIndex sn_ix = this->index(row, record().indexOf("nom_ctf"));
     QString scientificName = sn_ix.data().toString();
     int p = -1;
     if ((p = scientificName.indexOf(" x ")) > -1) {
@@ -177,8 +183,8 @@ QString PlantModel::wikiLink(int row) const
     const QString commons("<a href='https://commons.wikimedia.org/wiki/%1'>%2</a>");
     QSettings settings;
     QString txt = formattedScientificName(row);
-	QModelIndex sn_ix = this->index(row, record().indexOf("scientificName"));
-	QString s = sn_ix.data().toString();
+    QModelIndex sn_ix = this->index(row, record().indexOf("nom_ctf"));
+    QString s = sn_ix.data().toString();
 	int p = -1;
 	if ((p = s.indexOf(" x ")) > -1) {
 		s = s.replace(p, 3, "_x_");

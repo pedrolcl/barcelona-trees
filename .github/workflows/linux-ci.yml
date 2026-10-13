@@ -16,8 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { icon: '🟥', arch: "x86_64",  os: "ubuntu-22.04", host: "linux" }
-          - { icon: '🟩', arch: "aarch64", os: "ubuntu-24.04-arm", host: "linux_arm64" }
+          - { icon: '🟥', arch: "x86_64",  os: "ubuntu-22.04", host: "linux", triplet: "x64-linux-dynamic" }
+          - { icon: '🟩', arch: "aarch64", os: "ubuntu-24.04-arm", host: "linux_arm64", triplet: "arm64-linux-dynamic" }
     runs-on: ${{ matrix.os }}
     name: 🚧${{ matrix.icon }} ${{ matrix.arch }}
 
@@ -28,7 +28,7 @@ jobs:
         submodules: true
 
     - name: '${{ matrix.icon }} Install Dependencies'
-      run: sudo apt-get update && sudo apt-get install -yq libarchive-dev libgl-dev libvulkan-dev
+      run: sudo apt-get update && sudo apt-get install -yq libgl-dev libvulkan-dev
 
     - name: '${{ matrix.icon }} Install Qt'
       uses: jurplel/install-qt-action@v4
@@ -38,9 +38,20 @@ jobs:
         target: 'desktop'
         modules: 'qtlocation qtpositioning qttasktree'
 
+    - name: '${{ matrix.icon }} Build vcpkg'
+      uses: johnwason/vcpkg-action@v8
+      id: vcpkg
+      with:
+        pkgs: libarchive
+        triplet: ${{ matrix.triplet }}
+        token: ${{ github.token }}
+        revision: master
+
     - name: '${{ matrix.icon }} Configure CMake'
       id: configuration
-      run: cmake -B ${{github.workspace}}/build
+      run: >
+        cmake ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
+        -B ${{github.workspace}}/build
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DBUILD_TREEDBCREATOR=OFF
         -DCMAKE_INSTALL_PREFIX=/usr

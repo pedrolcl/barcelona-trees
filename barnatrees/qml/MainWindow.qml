@@ -521,7 +521,12 @@ ApplicationWindow {
                             hoverEnabled: true
                             onClicked: {
                                 specimenDialog.specieScientificName = plantModel.wikiLink(index)
-                                specimenDialog.specieCommonNames = model.commonName1 + '\n' + model.commonName2
+                                if (settings.language === "ca")
+                                    specimenDialog.specieCommonNames = "<b>" + model.nom_cat + "</b><br/><br/>" + model.desc_cat
+                                else if (settings.language === "es")
+                                    specimenDialog.specieCommonNames = "<b>" + model.nom_cas + "</b><br/><br/>" + model.desc_cas
+                                else
+                                     specimenDialog.specieCommonNames = "<b>" + model.nom_eng + "</b><br/><br/>" + model.desc_eng;
                                 specimenDialog.specimenLocation = plantModel.streetLink(index)
                                 specimenDialog.specimenDistance = plantModel.formattedDistance(index)
                                 specimenDialog.open()

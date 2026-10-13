@@ -3,9 +3,9 @@
 
 ![icon](barnatrees/images/barnatrees_icon256.png)
 
-[![Linux CI](https://github.com/pedrolcl/barcelona-trees/actions/workflows/linux-ci.yml/badge.svg)](https://github.com/pedrolcl/barcelona-trees/actions/workflows/linux-ci.yml)
-
-[![Windows MSVC CI](https://github.com/pedrolcl/barcelona-trees/actions/workflows/win-msvc-ci.yml/badge.svg)](https://github.com/pedrolcl/barcelona-trees/actions/workflows/win-msvc-ci.yml)
+[![Linux CI](https://github.com/pedrolcl/barcelona-trees/actions/workflows/linux-ci.yml/badge.svg)](https://github.com/pedrolcl/barcelona-trees/actions/workflows/linux-ci.yml)  
+[![Windows MSVC CI](https://github.com/pedrolcl/barcelona-trees/actions/workflows/win-msvc-ci.yml/badge.svg)](https://github.com/pedrolcl/barcelona-trees/actions/workflows/win-msvc-ci.yml)  
+[![macOS CI](https://github.com/pedrolcl/barcelona-trees/actions/workflows/mac-ci.yml/badge.svg)](https://github.com/pedrolcl/barcelona-trees/actions/workflows/mac-ci.yml)  
 
 ## summary
 
