@@ -20,7 +20,7 @@ jobs:
           - { arch: "x86_64", os: "macos-15-intel", triplet: "x64-osx-release" }
           - { arch: "arm64", os: "macos-15", triplet: "arm64-osx-release" }
     runs-on: ${{ matrix.os }}
-    name: 'macOS CI ${{ matrix.arch }}'
+    name: 'macOS ${{ matrix.arch }}'
 
     steps:
     - name: Checkout
