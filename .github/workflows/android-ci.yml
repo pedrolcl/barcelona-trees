@@ -60,7 +60,7 @@ jobs:
       run: >
         cmake --debug-find-pkg=LibArchive -B ${{github.workspace}}/build
         -DCMAKE_BUILD_TYPE=Debug
-        -DCMAKE_PREFIX_PATH=${QT_ROOT_DIR};${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}
+        "-DCMAKE_PREFIX_PATH=${QT_ROOT_DIR};${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}"
         -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake
         -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake
         -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
