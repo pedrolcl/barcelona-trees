@@ -47,6 +47,8 @@ jobs:
         echo "ANDROID_NDK: ${ANDROID_NDK}"
         echo "ANDROID_NDK_HOME: ${ANDROID_NDK_HOME}"
         echo "ANDROID_NDK_ROOT: ${ANDROID_NDK_ROOT}"
+        ls -la ${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}/include
+        ls -la ${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}/lib
 
     - name: 'Configure CMake'
       id: configuration
