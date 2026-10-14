@@ -1,0 +1,70 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main", "devel" ]
+  pull_request:
+    branches: [ "main", "devel" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: "android_x86_64", abi:"x86_64", triplet: "x64-android" }
+          - { arch: "android_arm64_v8a", abi:"arm64_v8a", triplet: "arm64-android" }
+    runs-on: ubuntu-26.04
+    name: Android ${{ matrix.abi }}
+
+    steps:
+    - name: Checkout recursive
+      uses: actions/checkout@v7
+      with:
+        submodules: true
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.6.3'
+        host: 'linux'
+        target: 'android'
+        arch: ${{ matrix.arch }}
+
+    - name: Build vcpkg
+      uses: johnwason/vcpkg-action@v8
+      id: vcpkg
+      with:
+        pkgs: libarchive
+        triplet: ${{ matrix.triplet }}
+        token: ${{ github.token }}
+        revision: master
+
+    - name: Configure CMake
+      id: configuration
+      run: >
+        cmake ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
+        -B ${{github.workspace}}/build
+        -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH
+        -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=BOTH
+        -DCMAKE_BUILD_TYPE=Debug
+        -DANDROID_ABI=${{ matrix.abi }}
+        -DANDROID_PLATFORM=android-28
+        -DANDROID_STL=c++_shared
+        -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=ON
+        -DCMAKE_TOOLCHAIN_FILE=${{ env.ANDROID_NDK }}/build/cmake/android.toolchain.cmake
+        -DQT_USE_TARGET_ANDROID_BUILD_DIR=ON
+
+    - name: Build
+      env:
+        JAVA_HOME=${{ env.JAVA_HOME_21_X64 }}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v7
+      with:
+        archive: false
+        path: build/barnatrees/android-build-barnatrees/build/outputs/apk/debug/*.apk
+        retention-days: 90
+        overwrite: true
