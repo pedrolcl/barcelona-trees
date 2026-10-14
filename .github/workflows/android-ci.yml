@@ -61,17 +61,19 @@ jobs:
         cmake --debug-find-pkg=LibArchive -B ${{github.workspace}}/build
         -DCMAKE_BUILD_TYPE=Debug
         -DCMAKE_PREFIX_PATH=${QT_ROOT_DIR};${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}
+        -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake
+        -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake
+        -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
         -DANDROID_ABI=${{ matrix.abi }}
         -DANDROID_PLATFORM=android-28
         -DANDROID_STL=c++_shared
         -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=ON
-        -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake
         -DQT_USE_TARGET_ANDROID_BUILD_DIR=ON
 
     - name: 'Build'
       env:
         JAVA_HOME: ${{ env.JAVA_HOME_21_X64 }}
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config Debug
 
     - name: 'Upload artifact'
       uses: actions/upload-artifact@v7
