@@ -41,6 +41,12 @@ jobs:
         token: ${{ github.token }}
         revision: master
 
+    - name: 'Check Android Environment'
+      run: |
+        echo "ANDROID_NDK: ${ANDROID_NDK}"
+        echo "ANDROID_NDK_HOME: ${ANDROID_NDK_HOME}"
+        echo "ANDROID_NDK_ROOT: ${ANDROID_NDK_ROOT}"
+
     - name: 'Configure CMake'
       id: configuration
       run: >
@@ -48,12 +54,12 @@ jobs:
         -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH
         -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=BOTH
         -DCMAKE_BUILD_TYPE=Debug
-        -DCMAKE_PREFIX_PATH={{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}
+        -DCMAKE_PREFIX_PATH=${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}
         -DANDROID_ABI=${{ matrix.abi }}
         -DANDROID_PLATFORM=android-28
         -DANDROID_STL=c++_shared
         -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=ON
-        -DCMAKE_TOOLCHAIN_FILE=${{ env.ANDROID_NDK_ROOT }}/build/cmake/android.toolchain.cmake
+        -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake
         -DQT_USE_TARGET_ANDROID_BUILD_DIR=ON
 
     - name: 'Build'
