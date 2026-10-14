@@ -47,21 +47,20 @@ jobs:
         echo "ANDROID_NDK: ${ANDROID_NDK}"
         echo "ANDROID_NDK_HOME: ${ANDROID_NDK_HOME}"
         echo "ANDROID_NDK_ROOT: ${ANDROID_NDK_ROOT}"
-        echo "QT_ROOT_DIR: ${QT_ROOT_DIR}"
+        echo "ls ${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}/include"
         ls -la ${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}/include
+        echo "ls ${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}/lib"
         ls -la ${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}/lib
+        echo "QT_ROOT_DIR: ${QT_ROOT_DIR}"
+        echo "ls ${QT_ROOT_DIR}/lib/cmake/"
         ls -la ${QT_ROOT_DIR}/lib/cmake/
 
     - name: 'Configure CMake'
       id: configuration
-      env:
-        CMAKE_PREFIX_PATH: "${QT_ROOT_DIR}:${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}"
       run: >
         cmake --debug-find-pkg=LibArchive -B ${{github.workspace}}/build
-        -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH
-        -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=BOTH
         -DCMAKE_BUILD_TYPE=Debug
-        -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}:${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}"
+        -DCMAKE_PREFIX_PATH=${QT_ROOT_DIR};${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}
         -DANDROID_ABI=${{ matrix.abi }}
         -DANDROID_PLATFORM=android-28
         -DANDROID_STL=c++_shared
