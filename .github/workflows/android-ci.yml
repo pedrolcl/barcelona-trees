@@ -57,7 +57,7 @@ jobs:
         -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH
         -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=BOTH
         -DCMAKE_BUILD_TYPE=Debug
-        -DCMAKE_PREFIX_PATH=${QT_ROOT_DIR};${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}
+        -DCMAKE_PREFIX_PATH:STRING="${QT_ROOT_DIR};${{github.workspace}}/vcpkg/installed/${{matrix.triplet}}"
         -DANDROID_ABI=${{ matrix.abi }}
         -DANDROID_PLATFORM=android-28
         -DANDROID_STL=c++_shared
