@@ -14,7 +14,7 @@ jobs:
       matrix:
         include:
           - { arch: "android_x86_64", abi: "x86_64", triplet: "x64-android" }
-          - { arch: "android_arm64_v8a", abi: "arm64_v8a", triplet: "arm64-android" }
+          - { arch: "android_arm64_v8a", abi: "arm64-v8a", triplet: "arm64-android" }
     runs-on: ubuntu-26.04
     name: 'Android ${{ matrix.abi }}'
 
@@ -67,6 +67,7 @@ jobs:
         -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH
         -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=BOTH
         -DQt6_ROOT=${QT_ROOT_DIR}
+        -DQt6_DIR=${QT_ROOT_DIR}/lib/cmake
         -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake
         -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
         -DVCPKG_MANIFEST_MODE=OFF
