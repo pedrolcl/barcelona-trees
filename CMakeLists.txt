@@ -20,7 +20,6 @@ include( GNUInstallDirs )
 
 option(BUILD_TREEDBCREATOR "Build the treedbcreator program" ON)
 
-find_package( QT NAMES Qt6 REQUIRED)
 find_package( Qt6 6.5 COMPONENTS Core Sql Network Gui Quick QuickControls2 Qml Positioning Location LinguistTools REQUIRED )
 
 message(STATUS "Using the QArchive git submodule")
