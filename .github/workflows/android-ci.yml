@@ -64,6 +64,8 @@ jobs:
         cmake --debug-find-pkg=Qt6,LibArchive ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
         -B ${{github.workspace}}/build
         -DCMAKE_BUILD_TYPE=Debug
+        -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH
+        -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=BOTH
         -DQt6_ROOT=${QT_ROOT_DIR}/lib/cmake
         -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake
         -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
@@ -71,7 +73,7 @@ jobs:
         -DANDROID_ABI=${{ matrix.abi }}
         -DANDROID_PLATFORM=android-28
         -DANDROID_STL=c++_shared
-        -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=ON
+        -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=OFF
         -DQT_USE_TARGET_ANDROID_BUILD_DIR=ON
 
     - name: 'Build'
