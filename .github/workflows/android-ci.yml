@@ -58,6 +58,8 @@ jobs:
 
     - name: 'Configure CMake'
       id: configuration
+      env:
+        Qt6_DIR: ${{env.QT_ROOT_DIR}}
       run: >
         cmake --debug-find-pkg=Qt6,LibArchive ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
         -B ${{github.workspace}}/build
