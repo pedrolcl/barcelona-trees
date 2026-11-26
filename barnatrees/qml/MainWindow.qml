@@ -177,6 +177,11 @@ ApplicationWindow {
         property alias window_height: window.height
     }
 
+    LocationPermission {
+        id: locationPermission
+        accuracy: LocationPermission.Precise
+    }
+
     Shortcut {
         sequences: ["Esc", "Back"]
         enabled: resultsPage.visible
@@ -273,7 +278,13 @@ ApplicationWindow {
 
         function togglePositioning(checked) {
             if (checked) {
-                positionSource.update()
+                if (locationPermission.status !== Qt.PermissionStatus.Granted) {
+                    locationPermission.request()
+                }
+                if (locationPermission.status === Qt.PermissionStatus.Granted) {
+                    //console.log("update position source")
+                    positionSource.update()
+                }
             }
         }
 
