@@ -180,6 +180,13 @@ ApplicationWindow {
     LocationPermission {
         id: locationPermission
         accuracy: LocationPermission.Precise
+        onStatusChanged: {
+            //console.log("locationPermission status changed:", locationPermission.status)
+            if (locationPermission.status === Qt.PermissionStatus.Granted && positionEnabled.checked) {
+                //console.log("start updating position")
+                positionSource.start()
+            }
+        }
     }
 
     Shortcut {
@@ -277,14 +284,17 @@ ApplicationWindow {
         }
 
         function togglePositioning(checked) {
+            //console.log("togglePositioning(",checked,")")
             if (checked) {
                 if (locationPermission.status !== Qt.PermissionStatus.Granted) {
                     locationPermission.request()
+                } else {
+                    //console.log("start updating position")
+                    positionSource.start()
                 }
-                if (locationPermission.status === Qt.PermissionStatus.Granted) {
-                    //console.log("update position source")
-                    positionSource.update()
-                }
+            } else {
+                //console.log("stop updating position")
+                positionSource.stop()
             }
         }
 
@@ -298,9 +308,11 @@ ApplicationWindow {
         }
 
         function changeGlobalCenter(coordinate) {
+            //console.log("changeGlobalCenter(",coordinate,")")
             if (barnaRegion.contains(coordinate)) {
                 clearItems()
                 window.defaultPosition = coordinate
+                positionSource.lastSearchPosition = coordinate
                 map.zoomLevel = defaultZoom
                 map.center = coordinate
                 locationCircle.coordinate = coordinate
@@ -416,15 +428,14 @@ ApplicationWindow {
 
         PositionSource {
             id: positionSource
-            active: true
             updateInterval: 60000 // 1 min
             property variant lastSearchPosition: window.defaultPosition
             onPositionChanged:  {
                 var currentPosition = positionSource.position.coordinate
                 var distance1 = currentPosition.distanceTo(lastSearchPosition)
                 var distance2 = currentPosition.distanceTo(window.defaultPosition)
-                //console.log("Position: " + currentPosition + " distance: " + distance1 + " enabled: " + positionEnabled.checked, " name: ", positionSource.name)
-                if (positionEnabled && positionEnabled.checked && distance1 > 250 && distance2 < 8000) { // 250 m from last location and 8 km from Glories
+                //console.log("Changed Position: " + currentPosition + " distance1: " + distance1 + " distance2: " + distance2 + " enabled: " + positionEnabled.checked, " name: ", positionSource.name)
+                if (positionEnabled.checked && distance1 > 250 && distance2 < 8000) { // 250 m from last location and 8 km from Glories
                     lastSearchPosition = currentPosition
                     homePage.changeGlobalCenter(currentPosition)
                 }
@@ -731,9 +742,7 @@ ApplicationWindow {
     Component.onCompleted: {
         if (Qt.platform.os === "android") {
             optionsMenu.removeItem(closeItem)
-        } /* else {
-            optionsMenu.removeItem(positionEnabled)
-        }*/
+        }
         let parts = settings.savedPosition.split(",")
         if (parts.length >= 2) {
             let currentPosition = QtPositioning.coordinate(parseFloat(parts[0]), parseFloat(parts[1]), parseFloat(parts[2] || 0))
