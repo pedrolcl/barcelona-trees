@@ -24,7 +24,7 @@ find_package( Qt6 6.5 COMPONENTS Core Sql Network Gui Quick QuickControls2 Qml P
 
 message(STATUS "Using the QArchive git submodule")
 set(QARCHIVE_QT_VERSION_MAJOR 6)
-add_subdirectory( QArchive )
+add_subdirectory( QArchive EXCLUDE_FROM_ALL )
 
 if (NOT LIBARCHIVE_LINK_LIBRARIES)
     find_package(PkgConfig REQUIRED)
