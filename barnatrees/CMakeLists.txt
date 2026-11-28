@@ -149,6 +149,8 @@ if (APPLE)
         MACOSX_BUNDLE_COPYRIGHT "Copyright © 2019-2026 Pedro López-Cabanillas"
         MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_VERSION}"
         MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
+        MACOSX_BUNDLE_INFO_STRING "Licensed under the terms of the GNU GENERAL PUBLIC LICENSE Version 3 or later"
+        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_SOURCE_DIR}/cmake/BundleInfo.plist.in"
     )
 endif()
 
